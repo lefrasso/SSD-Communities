@@ -15,7 +15,7 @@ The functional and delivery specifications are indexed in [docs/README.md](docs/
 
 The canonical static entry point is [index.html](index.html). Open it directly in a browser when local package installation is blocked by device policy. It uses only local HTML, CSS, JavaScript, FY27 tokens, and representative data; no npm, server, admin rights, or network access is required.
 
-The same root entry point is deployed by [.github/workflows/pages.yml](.github/workflows/pages.yml) to [GitHub Pages](https://lefrasso.github.io/SSD-Communities/) whenever static portal files change on `main`.
+GitHub Pages publishes directly from the `main` branch at the repository root, so [index.html](index.html) is live at [https://lefrasso.github.io/SSD-Communities/](https://lefrasso.github.io/SSD-Communities/) without a package build or deployment workflow.
 
 The preview includes the complete **SSD Technical Communities Playbook** plus all six operational portal views. [preview/playbook.js](preview/playbook.js) is the structured content source for:
 
