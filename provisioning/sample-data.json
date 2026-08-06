@@ -1,79 +1,126 @@
 {
   "communities": [
     {
-      "key": "azure-platform",
-      "title": "Azure Platform",
+      "key": "azure",
+      "title": "Azure",
       "serviceFamily": "Azure",
-      "scopeInScope": "Azure infrastructure, landing zones, resilience, and platform engineering.",
-      "scopeOutOfScope": "Application architecture and data platform implementation.",
-      "targetRoles": ["Community Lead", "Family Owner (SME)", "Invited Expert"],
+      "scopeInScope": "Cloud infrastructure, migration, landing zones, resilience, platform engineering and the AI platform.",
+      "scopeOutOfScope": "Application innovation, Modern Work, Business Applications and security topics owned by neighbouring communities.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member"],
       "status": "Active",
       "isCrossCommunity": false
     },
     {
-      "key": "data-ai",
-      "title": "Data & AI",
-      "serviceFamily": "Data & AI",
-      "scopeInScope": "Analytics, data platforms, machine learning, and responsible AI delivery.",
-      "scopeOutOfScope": "Core infrastructure operations and end-user productivity.",
-      "targetRoles": ["Community Lead", "Family Owner (SME)", "Invited Expert"],
+      "key": "security",
+      "title": "Security",
+      "serviceFamily": "Security",
+      "scopeInScope": "Threat protection, identity, data security, security posture and domain-specific resiliency practices.",
+      "scopeOutOfScope": "General infrastructure, application engineering and adoption topics without a security-specific outcome.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "modern-apps",
+      "title": "Modern-Apps",
+      "serviceFamily": "Modern-Apps",
+      "scopeInScope": "Application innovation, cloud-native architecture, modernisation, developer productivity, GitHub and DevOps practices.",
+      "scopeOutOfScope": "Platform operations, end-user productivity and Business Applications topics outside application engineering.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "m365",
+      "title": "M365",
+      "serviceFamily": "M365",
+      "scopeInScope": "Modern Work, Microsoft 365 Copilot, agents, adoption and secure productivity experiences.",
+      "scopeOutOfScope": "Core Azure platform, custom application engineering and Business Applications implementation.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "d365",
+      "title": "D365",
+      "serviceFamily": "D365",
+      "scopeInScope": "Dynamics 365, Business Applications, Power Platform and their delivery and readiness practices.",
+      "scopeOutOfScope": "Custom cloud-native development and Modern Work topics without a Business Applications outcome.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "csam-back-office",
+      "title": "CSAM Back Office",
+      "serviceFamily": "CSAM Back Office",
+      "scopeInScope": "Delivery operations, CSAM enablement, operating practices and the supporting back-office capability.",
+      "scopeOutOfScope": "Domain-specific technical depth owned by Azure, Security, Modern-Apps, M365 and D365.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
     },
     {
       "key": "cross-training",
-      "title": "Cross-community Exchange",
+      "title": "Cross-Training",
       "serviceFamily": "Cross-community",
-      "scopeInScope": "Cross-pollination, reusable IP, and shared readiness across technical communities.",
-      "scopeOutOfScope": "Domain-specific governance owned by an individual community.",
-      "targetRoles": ["Invited Expert"],
+      "scopeInScope": "Processes, Delivery Best Practices, Soft Skills and horizontal capability shared across all six delivery domains.",
+      "scopeOutOfScope": "Domain-specific technical strategy or duplicated variants owned by a vertical community.",
+      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member", "Manager"],
       "status": "Active",
       "isCrossCommunity": true
     }
   ],
   "ipCatalog": [
-    {
-      "title": "Landing zone review checklist",
-      "communityKey": "azure-platform",
-      "description": "Reusable review prompts for platform governance and operational readiness."
-    },
-    {
-      "title": "Responsible AI delivery canvas",
-      "communityKey": "data-ai",
-      "description": "A shared canvas for risk, evaluation, and operational readiness."
-    }
+    { "title": "Health", "communityKey": "azure", "description": "Azure domain variant; common core aligned through Cross-Training." },
+    { "title": "Crisis Readiness Sim for Azure", "communityKey": "azure", "description": "Azure-specific crisis readiness simulation." },
+    { "title": "AIR", "communityKey": "azure", "description": "Delivery IP aligned to the Azure community." },
+    { "title": "MACC alignment", "communityKey": "azure", "description": "Delivery IP aligned to the Azure community." },
+    { "title": "Capability Briefing Resiliency and Security", "communityKey": "azure", "description": "Azure domain variant of a shared capability briefing." },
+    { "title": "ESA", "communityKey": "security", "description": "Delivery IP aligned to the Security community." },
+    { "title": "Crisis Readiness Sim for Security", "communityKey": "security", "description": "Security-specific crisis readiness simulation." },
+    { "title": "Capability Briefing Resiliency and Security", "communityKey": "security", "description": "Security domain variant of a shared capability briefing." },
+    { "title": "GitHub Copilot", "communityKey": "modern-apps", "description": "Delivery IP aligned to the Modern-Apps community." },
+    { "title": "Cloud Modernization", "communityKey": "modern-apps", "description": "Delivery IP aligned to the Modern-Apps community." },
+    { "title": "Health", "communityKey": "m365", "description": "M365 domain variant; common core aligned through Cross-Training." },
+    { "title": "Crisis Readiness Sim for M365", "communityKey": "m365", "description": "M365-specific crisis readiness simulation." },
+    { "title": "Copilot Adoption", "communityKey": "m365", "description": "Delivery IP aligned to the M365 community." },
+    { "title": "Agents", "communityKey": "m365", "description": "Delivery IP aligned to the M365 community." },
+    { "title": "Secure Copilot", "communityKey": "m365", "description": "Delivery IP aligned to the M365 community." },
+    { "title": "Health", "communityKey": "d365", "description": "D365 domain variant; common core aligned through Cross-Training." },
+    { "title": "Crisis Readiness Sim for D365", "communityKey": "d365", "description": "D365-specific crisis readiness simulation." },
+    { "title": "SPOU", "communityKey": "csam-back-office", "description": "Delivery IP aligned to CSAM Back Office." },
+    { "title": "SfP", "communityKey": "csam-back-office", "description": "Delivery IP aligned to CSAM Back Office." },
+    { "title": "Processes", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." },
+    { "title": "Delivery Best Practices", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." },
+    { "title": "Soft Skills", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." }
   ],
   "healthMetrics": [
     {
-      "communityKey": "azure-platform",
+      "communityKey": "azure",
       "measure": "Participation",
       "period": "Baseline",
       "value": 45,
       "unit": "Percent",
       "isBaseline": true,
-      "commentary": "Launch baseline."
+      "commentary": "Illustrative launch baseline."
     },
     {
-      "communityKey": "azure-platform",
+      "communityKey": "azure",
       "measure": "Participation",
       "period": "Q2 FY27",
       "value": 58,
       "unit": "Percent",
       "isBaseline": false,
-      "commentary": "Attendance increased after office hours launched."
+      "commentary": "Illustrative checkpoint movement."
     }
   ],
   "forumRetirement": [
-    {
-      "title": "Legacy Azure delivery DL",
-      "disposition": "Migrate",
-      "targetCommunityKey": "azure-platform"
-    },
-    {
-      "title": "AI practitioner chat",
-      "disposition": "Merge",
-      "targetCommunityKey": "data-ai",
-      "completionDate": "2026-08-01"
-    }
+    { "title": "Legacy Azure delivery DL", "disposition": "Migrate", "targetCommunityKey": "azure" },
+    { "title": "Security practitioner chat", "disposition": "Merge", "targetCommunityKey": "security", "completionDate": "2026-08-01" },
+    { "title": "Application modernisation forum", "disposition": "Migrate", "targetCommunityKey": "modern-apps" },
+    { "title": "Copilot adoption broadcast list", "disposition": "Merge", "targetCommunityKey": "m365", "completionDate": "2026-08-01" },
+    { "title": "Power Platform office hours", "disposition": "Migrate", "targetCommunityKey": "d365" },
+    { "title": "Cross-solution readiness forum", "disposition": "Merge", "targetCommunityKey": "cross-training", "completionDate": "2026-08-01" }
   ]
 }

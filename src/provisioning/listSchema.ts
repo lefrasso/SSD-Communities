@@ -37,6 +37,14 @@ export interface IListDef {
 const COMMUNITIES = 'Communities';
 
 const ROLE_CHOICES = ['Community Lead', 'Family Owner (SME)', 'Invited Expert'];
+const TARGET_ROLE_CHOICES = [
+  'CSA',
+  'POD Lead',
+  'Delivery Partner',
+  'Partner Lead',
+  'Nebula member',
+  'Manager'
+];
 const SOURCE_ORG_CHOICES = ['IP Dev Team', 'CSAM Strategy Org', 'Adoption', 'Delivery'];
 const COMMUNITY_STATUS_CHOICES = ['Proposed', 'Chartered', 'Active', 'Merged', 'Retired'];
 const CHARTER_STATUS_CHOICES = ['Draft', 'In review', 'Signed off'];
@@ -67,7 +75,7 @@ export const COMMUNITY_LISTS: IListDef[] = [
       { internalName: 'VivaEngageGroupId', type: 'Text', description: 'Backing M365 group id' },
       { internalName: 'VivaEngageUrl', type: 'URL' },
       { internalName: 'ChatGroupUrl', type: 'URL' },
-      { internalName: 'TargetRoles', type: 'MultiChoice', choices: ROLE_CHOICES },
+      { internalName: 'TargetRoles', type: 'MultiChoice', choices: TARGET_ROLE_CHOICES },
       { internalName: 'IsCrossCommunity', type: 'Boolean' },
       { internalName: 'Status', type: 'Choice', required: true, indexed: true, choices: COMMUNITY_STATUS_CHOICES },
       { internalName: 'LaunchDate', type: 'DateTime', description: 'Anchors the health baseline period' }

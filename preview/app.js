@@ -1,85 +1,41 @@
 'use strict';
 
-const readinessItems = [
-  'Scope approved',
-  'Community roles assigned',
-  'Viva Engage and chat channels ready',
-  'Interaction model and cadence agreed',
-  'Readiness plan agreed',
-  'Health baseline captured'
-];
+const playbook = window.SSD_PLAYBOOK;
+const readinessItems = playbook.readinessItems;
+
+function sampleMetrics(index) {
+  return {
+    Participation: [38 + index * 2, 50 + index * 2],
+    Contribution: [27 + index * 2, 36 + index * 2],
+    Responsiveness: [24 - index, 17 - Math.floor(index / 2)],
+    'Knowledge reuse': [30 + index * 2, 41 + index * 2],
+    Belonging: [64 + index, 70 + index],
+    'Cross-pollination': [16 + index * 2, 24 + index * 3]
+  };
+}
 
 const data = {
-  communities: [
-    {
-      key: 'azure-platform',
-      title: 'Azure Platform',
-      serviceFamily: 'Azure',
-      scopeInScope: 'Azure infrastructure, landing zones, resilience, and platform engineering.',
-      scopeOutOfScope: 'Application architecture and data platform implementation.',
-      targetRoles: ['Community Lead', 'Family Owner (SME)', 'Invited Expert'],
-      status: 'Active',
-      crossCommunity: false
-    },
-    {
-      key: 'data-ai',
-      title: 'Data & AI',
-      serviceFamily: 'Data & AI',
-      scopeInScope: 'Analytics, data platforms, machine learning, and responsible AI delivery.',
-      scopeOutOfScope: 'Core infrastructure operations and end-user productivity.',
-      targetRoles: ['Community Lead', 'Family Owner (SME)', 'Invited Expert'],
-      status: 'Active',
-      crossCommunity: false
-    },
-    {
-      key: 'cross-training',
-      title: 'Cross-community Exchange',
-      serviceFamily: 'Cross-community',
-      scopeInScope: 'Cross-pollination, reusable IP, and shared readiness across technical communities.',
-      scopeOutOfScope: 'Domain-specific governance owned by an individual community.',
-      targetRoles: ['Invited Expert'],
-      status: 'Active',
-      crossCommunity: true
-    }
-  ],
-  roles: [
-    { communityKey: 'azure-platform', name: 'Alex Morgan', role: 'Community Lead', zone: 'AMER' },
-    { communityKey: 'azure-platform', name: 'Priya Shah', role: 'Family Owner (SME)', zone: 'EMEA' },
-    { communityKey: 'azure-platform', name: 'Kenji Sato', role: 'Family Owner (SME)', zone: 'APAC' },
-    { communityKey: 'data-ai', name: 'Nora Mensah', role: 'Community Lead', zone: 'EMEA' },
-    { communityKey: 'data-ai', name: 'Taylor Reed', role: 'Family Owner (SME)', zone: 'AMER' },
-    { communityKey: 'cross-training', name: 'Marisol Vega', role: 'Community Lead', zone: 'AMER' }
-  ],
-  ipCatalog: [
-    {
-      title: 'Landing zone review checklist',
-      communityKey: 'azure-platform',
-      description: 'Reusable review prompts for platform governance and operational readiness.'
-    },
-    {
-      title: 'Responsible AI delivery canvas',
-      communityKey: 'data-ai',
-      description: 'A shared canvas for risk, evaluation, and operational readiness.'
-    }
-  ],
-  metrics: {
-    'azure-platform': {
-      Participation: [45, 58], Contribution: [32, 41], Responsiveness: [18, 12],
-      'Knowledge reuse': [28, 39], Belonging: [68, 74], 'Cross-pollination': [16, 24]
-    },
-    'data-ai': {
-      Participation: [51, 64], Contribution: [39, 52], Responsiveness: [20, 14],
-      'Knowledge reuse': [34, 47], Belonging: [72, 77], 'Cross-pollination': [21, 31]
-    },
-    'cross-training': {
-      Participation: [30, 43], Contribution: [24, 33], Responsiveness: [26, 19],
-      'Knowledge reuse': [46, 59], Belonging: [63, 70], 'Cross-pollination': [38, 55]
-    }
-  },
+  communities: playbook.communities,
+  roles: playbook.communities.flatMap((community) => [
+    { communityKey: community.key, name: 'Community Lead', role: 'Accountable lead', zone: 'Nomination required' },
+    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'AMER alignment' },
+    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'EMEA alignment' },
+    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'APAC alignment' }
+  ]),
+  ipCatalog: playbook.communities.flatMap((community) => community.alignedIps.map((title) => ({
+    title,
+    communityKey: community.key,
+    description: community.crossCommunity
+      ? 'Common capability or reusable core curated across all domain communities.'
+      : 'Delivery IP aligned to this community and reviewed at each quarterly checkpoint.'
+  }))),
+  metrics: Object.fromEntries(playbook.communities.map((community, index) => [community.key, sampleMetrics(index)])),
   retirements: [
-    { title: 'Legacy Azure delivery DL', disposition: 'Migrate', target: 'azure-platform', completed: false },
-    { title: 'AI practitioner chat', disposition: 'Merge', target: 'data-ai', completed: true },
-    { title: 'Platform office hours channel', disposition: 'Close', target: 'azure-platform', completed: false },
+    { title: 'Legacy Azure delivery DL', disposition: 'Migrate', target: 'azure', completed: false },
+    { title: 'Security practitioner chat', disposition: 'Merge', target: 'security', completed: true },
+    { title: 'Application modernisation forum', disposition: 'Migrate', target: 'modern-apps', completed: false },
+    { title: 'Copilot adoption broadcast list', disposition: 'Merge', target: 'm365', completed: true },
+    { title: 'Power Platform office hours channel', disposition: 'Migrate', target: 'd365', completed: false },
     { title: 'Cross-solution readiness forum', disposition: 'Merge', target: 'cross-training', completed: true }
   ]
 };
@@ -90,14 +46,17 @@ const charter = {
   cadence: 'Monthly session; weekly office hours',
   readinessPlan: 'Maintain role-based readiness paths and publish reusable delivery IP each quarter.',
   version: '1.0',
-  readiness: new Set(['Scope approved', 'Community roles assigned']),
+  readiness: new Set([
+    'Theme and scope are approved, with overlap reviewed',
+    'Community Lead and time-zone Family Owners are named'
+  ]),
   signatures: { Lead: false, 'Program Manager': false, 'Family Owner': false }
 };
 
 const state = {
-  view: 'directory',
-  selectedCommunity: 'azure-platform',
-  joined: new Set(['azure-platform']),
+  view: 'overview',
+  selectedCommunity: 'azure',
+  joined: new Set(['azure']),
   search: '',
   family: '',
   role: '',
@@ -140,6 +99,300 @@ function pageHeader(title, subtitle, aside = '') {
     </header>`;
 }
 
+function renderBulletList(items, className = 'content-list') {
+  return `<ul class="${className}">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+}
+
+function renderOverview() {
+  const meta = playbook.meta;
+  app.innerHTML = `
+    <section class="programme-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">${escapeHtml(meta.organisation)} · ${escapeHtml(meta.fiscalYear)}</div>
+        <h1>${escapeHtml(meta.title)}</h1>
+        <p>${escapeHtml(playbook.vision)}</p>
+        <div class="hero-meta">
+          <span><strong>Executive Sponsor</strong>${escapeHtml(meta.executiveSponsor)}</span>
+          <span><strong>Version</strong>${escapeHtml(meta.version)}</span>
+          <span><strong>Status</strong>${escapeHtml(meta.status)}</span>
+        </div>
+      </div>
+      <div class="portfolio-mark" aria-label="Seven communities: six domain communities connected by one cross-training community">
+        <strong>7</strong>
+        <span>governed communities</span>
+        <small>6 domain + 1 cross-training</small>
+      </div>
+    </section>
+
+    <section class="section intro-grid">
+      <div>
+        <div class="section-kicker">Purpose</div>
+        <h2>Why this initiative exists</h2>
+        <p class="lead-copy">${escapeHtml(playbook.purpose.summary)}</p>
+        <p class="muted">${escapeHtml(playbook.purpose.context)}</p>
+        <div class="button-row">
+          <button class="button" type="button" data-view="portfolio">Explore the portfolio</button>
+          <button class="button-secondary" type="button" data-view="activation">Review the launch model</button>
+        </div>
+      </div>
+      <aside class="principle-panel">
+        <div class="section-kicker">Definition</div>
+        <h3>A community is voluntary and peer-led</h3>
+        <p>${escapeHtml(playbook.communityDefinition)}</p>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Three objectives</div><h2>What success must achieve</h2></div>
+        <p>Every activity and measure should trace back to one of these outcomes.</p>
+      </div>
+      <div class="objective-grid">
+        ${playbook.objectives.map((objective, index) => `
+          <article class="objective">
+            <span class="number-mark">0${index + 1}</span>
+            <h3>${escapeHtml(objective.title)}</h3>
+            <p>${escapeHtml(objective.description)}</p>
+            <div class="proof-line"><strong>Evidence</strong>${escapeHtml(objective.signal)}</div>
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="section two-column scope-grid">
+      <div class="surface">
+        <div class="section-kicker">Included</div>
+        <h3>What the playbook governs</h3>
+        ${renderBulletList(playbook.purpose.inScope)}
+      </div>
+      <div class="surface boundary-panel">
+        <div class="section-kicker">Boundaries</div>
+        <h3>What remains outside the initiative</h3>
+        ${renderBulletList(playbook.purpose.outOfScope)}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Delivery approach</div><h2>Four mechanics make the model operational</h2></div>
+      </div>
+      <div class="mechanics-grid">
+        ${playbook.deliveryMechanics.map((mechanic, index) => `
+          <article class="mechanic">
+            <span>${index + 1}</span>
+            <div><h3>${escapeHtml(mechanic.title)}</h3><p>${escapeHtml(mechanic.description)}</p></div>
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="leadership-band">
+      <div>
+        <div class="section-kicker">Standing Leadership Team asks</div>
+        <h2>Three decisions unlock the programme</h2>
+      </div>
+      <ol>${playbook.leadershipAsks.map((ask) => `<li>${escapeHtml(ask)}</li>`).join('')}</ol>
+    </section>`;
+}
+
+function renderPortfolio() {
+  app.innerHTML = pageHeader(
+    'Community portfolio',
+    'Six delivery-aligned domain communities connected by one cross-training community.'
+  ) + `
+    <section class="portfolio-architecture" aria-label="Community portfolio structure">
+      <div class="domain-row">
+        ${playbook.communities.filter((community) => !community.crossCommunity).map((community) => `
+          <button type="button" data-open-community="${community.key}">
+            <strong>${escapeHtml(community.title)}</strong>
+            <span>${escapeHtml(community.summary)}</span>
+          </button>`).join('')}
+      </div>
+      <div class="connector" aria-hidden="true"></div>
+      <button class="cross-community" type="button" data-open-community="cross-training">
+        <span class="badge green">Connective tissue</span>
+        <strong>Cross-Training</strong>
+        <span>Processes · Delivery Best Practices · Soft Skills</span>
+      </button>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Seven-community model</div><h2>Clear domains, explicit boundaries</h2></div>
+        <p>Each vertical deepens expertise; Cross-Training spreads capability no single vertical owns.</p>
+      </div>
+      <div class="portfolio-grid">
+        ${playbook.communities.map((community) => `
+          <article class="portfolio-card ${community.crossCommunity ? 'cross' : ''}">
+            <div class="portfolio-card-head">
+              <div><span>${escapeHtml(community.category)}</span><h3>${escapeHtml(community.title)}</h3></div>
+              <span class="badge">${community.alignedIps.length} aligned IPs</span>
+            </div>
+            <p>${escapeHtml(community.summary)}</p>
+            ${community.areas ? `<div class="tag-row">${community.areas.map((area) => `<span>${escapeHtml(area)}</span>`).join('')}</div>` : ''}
+            <button class="text-action" type="button" data-open-community="${community.key}">View scope and ownership →</button>
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">IP alignment</div><h2>Focused ownership with reusable common cores</h2></div>
+      </div>
+      <div class="callout"><strong>Build once, share everywhere.</strong><span>${escapeHtml(playbook.sharedIpPrinciple)}</span></div>
+      <div class="table-wrap ip-table"><table>
+        <thead><tr><th>Community</th><th>Aligned delivery IP</th><th>Ownership model</th></tr></thead>
+        <tbody>${playbook.communities.map((community) => `<tr>
+          <td><strong>${escapeHtml(community.title)}</strong><div class="muted">${escapeHtml(community.category)}</div></td>
+          <td><div class="tag-row">${community.alignedIps.map((ip) => `<span>${escapeHtml(ip)}</span>`).join('')}</div></td>
+          <td>${community.crossCommunity ? 'Common core and horizontal practice' : 'Domain-specific ownership and variant'}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </section>`;
+}
+
+function renderOperating() {
+  app.innerHTML = pageHeader(
+    'Roles and governance',
+    'Lightweight accountability that keeps seven communities connected without turning them into another reporting structure.'
+  ) + `
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Accountability model</div><h2>Ownership before tooling</h2></div>
+        <p>Communities fail more often from absent ownership than from absent technology.</p>
+      </div>
+      <div class="role-grid">
+        ${playbook.roles.map((role) => `
+          <article class="role-card">
+            <div class="role-card-head"><span>${escapeHtml(role.scope)}</span><h3>${escapeHtml(role.title)}</h3></div>
+            <p class="role-holder">${escapeHtml(role.holder)}</p>
+            ${renderBulletList(role.accountabilities)}
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="focus-band">
+      <div class="focus-number">1</div>
+      <div><div class="section-kicker">Single-community principle</div><h2>Depth of contribution over breadth of enrolment</h2><p>${escapeHtml(playbook.singleCommunityPrinciple)}</p></div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Channel governance</div><h2>Three surfaces, three distinct jobs</h2></div>
+      </div>
+      <div class="channel-grid">
+        ${playbook.channels.map((channel) => `
+          <article class="channel">
+            <h3>${escapeHtml(channel.title)}</h3>
+            <strong>${escapeHtml(channel.rule)}</strong>
+            <p>${escapeHtml(channel.content)}</p>
+          </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="section two-column">
+      <div class="surface">
+        <div class="section-kicker">Autonomy inside guardrails</div>
+        <h3>Decisions each community owns</h3>
+        ${renderBulletList(playbook.communityOwnedDecisions)}
+      </div>
+      <div class="decision-test">
+        <div class="section-kicker">Governance test</div>
+        <blockquote>${escapeHtml(playbook.governanceTest)}</blockquote>
+      </div>
+    </section>`;
+}
+
+function renderActivation() {
+  app.innerHTML = pageHeader(
+    'Launch and rhythm of business',
+    'Seed communities at birth, prove value in the first interaction, and build trust through a reliable cadence.'
+  ) + `
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Activation model</div><h2>Four stages from intent to sustained practice</h2></div>
+        <p>Activation runs in parallel with the portal build so community success never depends on platform timing.</p>
+      </div>
+      <ol class="stage-flow">
+        ${playbook.launchStages.map((stage) => `<li>
+          <span>${stage.number}</span>
+          <div><h3>${escapeHtml(stage.title)}</h3><p>${escapeHtml(stage.description)}</p></div>
+        </li>`).join('')}
+      </ol>
+    </section>
+
+    <section class="section activation-grid">
+      <div class="surface readiness-panel">
+        <div class="section-kicker">Launch gate</div>
+        <h2>Minimum readiness before a community opens</h2>
+        <ul class="readiness-list">${readinessItems.map((item, index) => `<li><span>${index + 1}</span>${escapeHtml(item)}</li>`).join('')}</ul>
+        <button class="button" type="button" data-view="charter">Open Charter Editor</button>
+      </div>
+      <aside class="critical-mass">
+        <div class="section-kicker">Critical mass check</div>
+        <h3>Do not launch an empty room</h3>
+        <p>${escapeHtml(playbook.criticalMass)}</p>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Rhythm of business</div><h2>A common portfolio rhythm with local flexibility</h2></div>
+      </div>
+      <div class="rhythm-list">
+        ${playbook.rhythm.map((ritual) => `<article>
+          <div><h3>${escapeHtml(ritual.title)}</h3><span>${escapeHtml(ritual.cadence)}</span></div>
+          <p>${escapeHtml(ritual.purpose)}</p>
+        </article>`).join('')}
+      </div>
+    </section>`;
+}
+
+function renderRoadmap() {
+  app.innerHTML = pageHeader(
+    'Roadmap, risks and reference',
+    'The FY27 delivery sequence, evidence checkpoints, principal risks and shared vocabulary for the programme.'
+  ) + `
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">FY27 roadmap</div><h2>Foundation first, then scale</h2></div>
+      </div>
+      <div class="roadmap-grid">
+        ${playbook.roadmap.map((phase) => `<article>
+          <span>${escapeHtml(phase.period)}</span>
+          <h3>${escapeHtml(phase.title)}</h3>
+          ${renderBulletList(phase.deliverables)}
+        </article>`).join('')}
+      </div>
+      <div class="checkpoint-line">
+        ${playbook.checkpoints.map((checkpoint) => `<article>
+          <span>${escapeHtml(checkpoint.date)}</span>
+          <h3>${escapeHtml(checkpoint.label)}</h3>
+          <p>${escapeHtml(checkpoint.purpose)}</p>
+        </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Risk management</div><h2>Four failure modes with built-in mitigations</h2></div>
+      </div>
+      <div class="risk-grid">
+        ${playbook.risks.map((item, index) => `<article>
+          <span>R${index + 1}</span>
+          <div><h3>${escapeHtml(item.risk)}</h3><p>${escapeHtml(item.consequence)}</p><strong>Mitigation</strong><p>${escapeHtml(item.mitigation)}</p></div>
+        </article>`).join('')}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Shared vocabulary</div><h2>Playbook definitions</h2></div>
+      </div>
+      <div class="glossary">
+        ${playbook.glossary.map((item) => `<details><summary>${escapeHtml(item.term)}</summary><p>${escapeHtml(item.definition)}</p></details>`).join('')}
+      </div>
+    </section>`;
+}
+
 function renderDirectory() {
   const families = [...new Set(data.communities.map((item) => item.serviceFamily))];
   const roles = [...new Set(data.communities.flatMap((item) => item.targetRoles))];
@@ -151,7 +404,11 @@ function renderDirectory() {
       (!state.role || community.targetRoles.includes(state.role));
   });
 
-  app.innerHTML = pageHeader('Technical communities', 'Find the community aligned to your work, scope, and role.') + `
+  app.innerHTML = pageHeader('Technical community directory', 'Find the one community where your interests and delivery work can create the greatest value.', '<span class="badge">7 governed communities</span>') + `
+    <div class="context-strip">
+      <div><strong>Choose for genuine interest</strong><span>${escapeHtml(playbook.singleCommunityPrinciple)}</span></div>
+      <button class="text-action" type="button" data-view="portfolio">Understand the seven-community model →</button>
+    </div>
     <div class="controls" role="search">
       <div class="field">
         <label for="search">Search</label>
@@ -175,9 +432,10 @@ function renderDirectory() {
     ${visible.length ? `<div class="cards">${visible.map((community) => `
       <article class="card">
         <div class="card-body">
-          <span class="muted">${escapeHtml(community.serviceFamily)}</span>
+          <span class="muted">${escapeHtml(community.category)} · ${escapeHtml(community.serviceFamily)}</span>
           <h2 class="card-title">${escapeHtml(community.title)}</h2>
-          <p class="card-copy">${escapeHtml(community.scopeInScope)}</p>
+          <p class="card-copy"><strong>${escapeHtml(community.summary)}</strong><br>${escapeHtml(community.scopeInScope)}</p>
+          <div class="card-facts"><span>${community.targetRoles.length} target roles</span><span>${community.alignedIps.length} aligned IPs</span></div>
           <div class="card-footer">
             <span class="badge">${escapeHtml(community.status)}</span>
             <button class="button-secondary" type="button" data-open-community="${community.key}">View community</button>
@@ -207,9 +465,14 @@ function renderDetail() {
   const joined = state.joined.has(community.key);
   app.innerHTML = pageHeader(
     community.title,
-    'Scope, named roles, reusable IP, and community channels.',
+    community.summary,
     `<span class="badge">${community.status}</span>`
   ) + `
+    <div class="detail-intro">
+      <div><span class="section-kicker">Community type</span><strong>${escapeHtml(community.category)}</strong></div>
+      <div><span class="section-kicker">Target audience</span><div class="tag-row">${community.targetRoles.map((role) => `<span>${escapeHtml(role)}</span>`).join('')}</div></div>
+      <div><span class="section-kicker">Membership principle</span><p>${escapeHtml(playbook.singleCommunityPrinciple)}</p></div>
+    </div>
     <section class="section">
       <h2>Scope</h2>
       <div class="two-column">
@@ -226,12 +489,14 @@ function renderDetail() {
     </section>
     <section class="section">
       <h2>Owned IP</h2>
+      <p class="section-intro">The community curates its focused delivery IP and reviews alignment at each quarterly checkpoint.</p>
       <div class="surface">
         ${ips.length ? `<ul class="plain-list">${ips.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><div class="muted">${escapeHtml(item.description)}</div></li>`).join('')}</ul>` : '<p class="muted">No owned IP is recorded.</p>'}
       </div>
     </section>
     <section class="section">
       <h2>Community channels</h2>
+      <p class="section-intro">Viva Engage preserves knowledge; chat handles fast support; this portal remains the operating record.</p>
       <div class="surface button-row">
         <button class="button-secondary" type="button" data-action="engage">Open Viva Engage</button>
         ${joined
@@ -248,6 +513,7 @@ function renderMine() {
       <span class="avatar">AM</span>
       <div><strong>Alex Morgan</strong><div class="muted">Cloud Solution Architect</div></div>
     </div>
+    <div class="callout"><strong>Focused membership</strong><span>${escapeHtml(playbook.singleCommunityPrinciple)}</span></div>
     ${communities.length ? `<div class="cards">${communities.map((community) => `
       <article class="card">
         <div class="card-body">
@@ -272,6 +538,10 @@ function renderCharter() {
     `${community.title} working model, launch readiness, and three-way sign-off.`,
     `<span class="badge ${readOnly ? 'green' : ''}">${charter.status}</span>`
   ) + `
+    <div class="context-strip">
+      <div><strong>Stage 1 · Charter</strong><span>${escapeHtml(playbook.launchStages[0].description)}</span></div>
+      <button class="text-action" type="button" data-view="activation">Review all launch stages →</button>
+    </div>
     <div class="charter-layout">
       <form id="charter-form" class="form-stack">
         <section class="surface"><h3>I. Community</h3><strong>${escapeHtml(community.title)}</strong><div class="muted">${escapeHtml(community.serviceFamily)}</div></section>
@@ -311,9 +581,23 @@ function renderCharter() {
 }
 
 function renderHealth() {
-  const measures = Object.keys(data.metrics['azure-platform']);
+  const measures = Object.keys(data.metrics[data.communities[0].key]);
   const periodIndex = state.period === 'Baseline' ? 0 : 1;
-  app.innerHTML = pageHeader('Community health', 'Six governance measures compared with each community launch baseline.') + `
+  app.innerHTML = pageHeader('Community health', 'Baseline at launch, report at every quarterly checkpoint, and govern with evidence.', '<span class="badge warning">Illustrative preview data</span>') + `
+    <section class="section">
+      <div class="section-heading">
+        <div><div class="section-kicker">Measurement model</div><h2>Six dimensions define minimum community health</h2></div>
+        <p>Headcount alone is not a health signal. The portfolio measures participation, contribution, support, reuse, belonging and connection.</p>
+      </div>
+      <div class="measure-definition-grid">
+        ${playbook.healthMeasures.map((measure) => `<article>
+          <h3>${escapeHtml(measure.dimension)}</h3>
+          <strong>${escapeHtml(measure.metric)}</strong>
+          <p>${escapeHtml(measure.why)}</p>
+          <span>${escapeHtml(measure.direction)}</span>
+        </article>`).join('')}
+      </div>
+    </section>
     <div class="controls" style="grid-template-columns:minmax(180px,280px)">
       <div class="field"><label for="period">Reporting period</label><select id="period"><option ${state.period === 'Baseline' ? 'selected' : ''}>Baseline</option><option ${state.period === 'Q2 FY27' ? 'selected' : ''}>Q2 FY27</option></select></div>
     </div>
@@ -346,7 +630,14 @@ function renderRetirement() {
   const visible = data.retirements.filter((item) => !state.disposition || item.disposition === state.disposition);
   const completed = data.retirements.filter((item) => item.completed).length;
   const ratio = completed / data.retirements.length;
-  app.innerHTML = pageHeader('Forum retirement register', 'Track migration, merge, and closure of legacy forums and channels.') + `
+  app.innerHTML = pageHeader('Forum retirement register', 'Reduce overload by deliberately consolidating the forums the seven governed communities replace.') + `
+    <div class="overload-statement">
+      <div><div class="section-kicker">Why this register exists</div><h2>Consolidation is a deliverable</h2><p>${escapeHtml(playbook.overload.statement)}</p></div>
+      <strong>${escapeHtml(playbook.overload.target)}</strong>
+    </div>
+    <div class="disposition-grid">
+      ${playbook.overload.dispositions.map((item) => `<article><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></article>`).join('')}
+    </div>
     <div class="progress-band">
       <div><div class="progress-value">${completed} / ${data.retirements.length}</div><span class="muted">Forums completed</span></div>
       <div><div class="progress-track"><span style="width:${ratio * 100}%"></span></div><div class="muted" style="margin-top:6px">${Math.round(ratio * 100)}%</div></div>
@@ -372,6 +663,11 @@ function renderRetirement() {
 }
 
 const renderers = {
+  overview: renderOverview,
+  portfolio: renderPortfolio,
+  operating: renderOperating,
+  activation: renderActivation,
+  roadmap: renderRoadmap,
   directory: renderDirectory,
   detail: renderDetail,
   mine: renderMine,
@@ -389,12 +685,17 @@ function render() {
   renderers[state.view]();
 }
 
+function focusViewStart() {
+  window.scrollTo(0, 0);
+  app.focus({ preventScroll: true });
+}
+
 document.addEventListener('click', (event) => {
   const viewButton = event.target.closest('[data-view]');
   if (viewButton) {
     state.view = viewButton.dataset.view;
     render();
-    app.focus();
+    focusViewStart();
     return;
   }
 
@@ -403,7 +704,7 @@ document.addEventListener('click', (event) => {
     state.selectedCommunity = communityButton.dataset.openCommunity;
     state.view = 'detail';
     render();
-    app.focus();
+    focusViewStart();
     return;
   }
 

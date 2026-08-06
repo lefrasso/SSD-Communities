@@ -12,12 +12,12 @@ export interface IPortalProvisioningChoices {
 }
 
 export const DEFAULT_LAUNCH_READINESS: string[] = [
-  'Scope approved',
-  'Community roles assigned',
-  'Viva Engage and chat channels ready',
-  'Interaction model and cadence agreed',
-  'Readiness plan agreed',
-  'Health baseline captured'
+  'Theme and scope are approved, with overlap reviewed',
+  'Community Lead and time-zone Family Owners are named',
+  'Viva Engage and chat channels are ready',
+  'Founding members and starter content are seeded',
+  'Cadence, interaction model and readiness plan are agreed',
+  'Six health measures have a launch baseline'
 ];
 
 interface IListIdentity {

@@ -2,10 +2,11 @@
   "choices": {
     "serviceFamilies": [
       "Azure",
-      "Data & AI",
-      "Modern Work",
       "Security",
-      "Business Applications",
+      "Modern-Apps",
+      "M365",
+      "D365",
+      "CSAM Back Office",
       "Cross-community"
     ],
     "timeZones": [
@@ -14,12 +15,12 @@
       "APAC"
     ],
     "launchReadiness": [
-      "Scope approved",
-      "Community roles assigned",
+      "Theme and scope are approved, with overlap reviewed",
+      "Community Lead and time-zone Family Owners are named",
       "Viva Engage and chat channels ready",
-      "Interaction model and cadence agreed",
-      "Readiness plan agreed",
-      "Health baseline captured"
+      "Founding members and starter content are seeded",
+      "Cadence, interaction model and readiness plan are agreed",
+      "Six health measures have a launch baseline"
     ]
   },
   "lists": [
@@ -68,9 +69,12 @@
           "internalName": "TargetRoles",
           "type": "MultiChoice",
           "choices": [
-            "Community Lead",
-            "Family Owner (SME)",
-            "Invited Expert"
+            "CSA",
+            "POD Lead",
+            "Delivery Partner",
+            "Partner Lead",
+            "Nebula member",
+            "Manager"
           ]
         },
         {

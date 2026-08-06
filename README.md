@@ -15,7 +15,15 @@ The functional and delivery specifications are indexed in [docs/README.md](docs/
 
 When local package installation is blocked by device policy, open [preview/index.html](preview/index.html) directly in a browser. It uses only local HTML, CSS, JavaScript, FY27 tokens, and representative data; no npm, server, admin rights, or network access is required.
 
-The preview includes all six portal views and interactive join, charter, health, and retirement workflows. SharePoint persistence, Microsoft Graph, permissions, and deployment are simulated; use the SPFx build in a policy-approved CI runner or Dev Box for tenant integration.
+The preview includes the complete **SSD Technical Communities Playbook** plus all six operational portal views. [preview/playbook.js](preview/playbook.js) is the structured content source for:
+
+- Purpose, vision, objectives and delivery mechanics
+- The six domain communities, Cross-Training, and complete IP alignment
+- Roles, accountabilities, channel governance and the single-community principle
+- Four-stage activation, launch readiness, critical mass and rhythm of business
+- Six health measures, overload reduction, risks, roadmap and definitions
+
+Interactive join, charter, health, and retirement workflows remain available. SharePoint persistence, Microsoft Graph, permissions, and deployment are simulated; use the SPFx build in a policy-approved CI runner or Dev Box for tenant integration. The deployable provisioning schema and Dev seed use the same seven-community model, target audiences and launch gate.
 
 ## Toolchain
 
