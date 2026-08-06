@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>SSD Communities Portal</title>
+  <link rel="stylesheet" href="../design-system/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">SSD</div>
+    <div class="brand-copy">
+      <strong>Technical Communities</strong>
+      <span>FY27 playbook and governance portal</span>
+    </div>
+    <span class="environment">Leadership review · v1.0</span>
+    <button class="profile" type="button" aria-label="Current user: Alex Morgan">AM</button>
+  </header>
+
+  <div class="shell">
+    <nav class="sidebar" aria-label="Portal views">
+      <span class="nav-label">Understand</span>
+      <button type="button" data-view="overview">Playbook overview</button>
+      <button type="button" data-view="portfolio">Community portfolio</button>
+      <button type="button" data-view="operating">Roles &amp; governance</button>
+      <button type="button" data-view="activation">Launch &amp; rhythm</button>
+      <button type="button" data-view="roadmap">Roadmap &amp; reference</button>
+      <span class="nav-label">Operate</span>
+      <button type="button" data-view="directory">Directory</button>
+      <button type="button" data-view="detail">Community detail</button>
+      <button type="button" data-view="mine">My communities</button>
+      <button type="button" data-view="charter">Charter editor</button>
+      <button type="button" data-view="health">Health dashboard</button>
+      <button type="button" data-view="retirement">Retirement register</button>
+    </nav>
+    <main id="app" class="main" tabindex="-1"></main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="playbook.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
