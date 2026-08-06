@@ -142,11 +142,11 @@ describe('role coverage', () => {
 
   it('reports uncovered time zones', () => {
     const roles = [
-      role({ Role: 'Family Owner (SME)', TimeZone: 'AMER', Active: true }),
+      role({ Role: 'Family Owner (SME)', TimeZone: 'ATZ', Active: true }),
       role({ Role: 'Family Owner (SME)', TimeZone: 'EMEA', Active: false }), // inactive: not covered
-      role({ Role: 'Invited Expert', TimeZone: 'APAC', Active: true }) // wrong role: not covered
+      role({ Role: 'Invited Expert', TimeZone: 'ASIA', Active: true }) // wrong role: not covered
     ];
-    expect(timeZoneCoverageGaps(roles, ['AMER', 'EMEA', 'APAC'])).toEqual(['EMEA', 'APAC']);
+    expect(timeZoneCoverageGaps(roles, ['ATZ', 'EMEA', 'ASIA'])).toEqual(['EMEA', 'ASIA']);
   });
 });
 

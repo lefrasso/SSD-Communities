@@ -23,7 +23,7 @@
             <Field Type="Lookup" Name="Community" StaticName="Community" DisplayName="Community" Required="TRUE" Indexed="TRUE" List="{listid:Communities}" ShowField="Title"></Field>
             <Field Type="User" Name="Person" StaticName="Person" DisplayName="Person" Required="TRUE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"><Description>Resolves against Entra; never free text</Description></Field>
             <Field Type="Choice" Name="Role" StaticName="Role" DisplayName="Role" Required="TRUE" Indexed="TRUE"><CHOICES><CHOICE>Community Lead</CHOICE><CHOICE>Family Owner (SME)</CHOICE><CHOICE>Invited Expert</CHOICE></CHOICES></Field>
-            <Field Type="Choice" Name="TimeZone" StaticName="TimeZone" DisplayName="Time Zone" Required="FALSE" Indexed="TRUE"><Description>Required for Family Owners</Description><CHOICES><CHOICE>AMER</CHOICE><CHOICE>EMEA</CHOICE><CHOICE>APAC</CHOICE></CHOICES></Field>
+            <Field Type="Choice" Name="TimeZone" StaticName="TimeZone" DisplayName="Time Zone" Required="FALSE" Indexed="TRUE"><Description>Required for Family Owners</Description><CHOICES><CHOICE>ATZ</CHOICE><CHOICE>EMEA</CHOICE><CHOICE>ASIA</CHOICE></CHOICES></Field>
             <Field Type="Choice" Name="SourceOrg" StaticName="SourceOrg" DisplayName="Source Org" Required="TRUE" Indexed="FALSE"><CHOICES><CHOICE>IP Dev Team</CHOICE><CHOICE>CSAM Strategy Org</CHOICE><CHOICE>Adoption</CHOICE><CHOICE>Delivery</CHOICE></CHOICES></Field>
             <Field Type="Boolean" Name="Active" StaticName="Active" DisplayName="Active" Required="FALSE" Indexed="FALSE"></Field>
           </pnp:Fields>

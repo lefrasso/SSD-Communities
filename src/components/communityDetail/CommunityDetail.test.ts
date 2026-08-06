@@ -20,7 +20,7 @@ describe('sortCommunityRoles', () => {
       role(3, 'Invited Expert'),
       role(2, 'Family Owner (SME)', 'EMEA'),
       role(1, 'Community Lead'),
-      role(4, 'Family Owner (SME)', 'AMER')
+      role(4, 'Family Owner (SME)', 'ATZ')
     ]);
     expect(sorted.map((entry) => entry.Id)).toEqual([1, 4, 2, 3]);
   });

@@ -18,9 +18,9 @@ const data = {
   communities: playbook.communities,
   roles: playbook.communities.flatMap((community) => [
     { communityKey: community.key, name: 'Community Lead', role: 'Accountable lead', zone: 'Nomination required' },
-    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'AMER alignment' },
+    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'ATZ alignment' },
     { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'EMEA alignment' },
-    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'APAC alignment' }
+    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'ASIA alignment' }
   ]),
   ipCatalog: playbook.communities.flatMap((community) => community.alignedIps.map((title) => ({
     title,
