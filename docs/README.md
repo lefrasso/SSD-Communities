@@ -19,7 +19,7 @@ The plan is the execution roadmap; the specs are the reference design. Build tas
 |---|---|---|---|
 | 01 | [Architecture & Information Architecture](specs/01-architecture.md) | Purpose, scope, principles, tech stack, IA | §1–4 |
 | 02 | [Data Model](specs/02-data-model.md) | The six SharePoint lists, relationships, validation, indexing | §5 |
-| 03 | [Components & User Journeys](specs/03-components.md) | Seven web parts + Portal Services; key journeys | §6, §9 |
+| 03 | [Components & User Journeys](specs/03-components.md) | Six web parts + Portal Services; key journeys | §6, §9 |
 | 04 | [Microsoft Graph Integration](specs/04-graph-integration.md) | Permissions, join flow, degradation path | §7 |
 | 05 | [Security & Permissions](specs/05-security-permissions.md) | Roles, SharePoint groups, list-level enforcement | §8 |
 | 06 | [Design System Integration](specs/06-design-system.md) | FY27 tokens over Fluent; branded surfaces | — |

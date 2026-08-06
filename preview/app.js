@@ -36,7 +36,8 @@ const data = {
     { title: 'Application modernisation forum', disposition: 'Migrate', target: 'modern-apps', completed: false },
     { title: 'Copilot adoption broadcast list', disposition: 'Merge', target: 'm365', completed: true },
     { title: 'Power Platform office hours channel', disposition: 'Migrate', target: 'd365', completed: false },
-    { title: 'Cross-solution readiness forum', disposition: 'Merge', target: 'cross-training', completed: true }
+    { title: 'Cross-solution readiness forum', disposition: 'Merge', target: 'cross-training', completed: true },
+    { title: 'Internal AI learning group', disposition: 'Migrate', target: 'ai', completed: false }
   ]
 };
 
@@ -117,10 +118,10 @@ function renderOverview() {
           <span><strong>Status</strong>${escapeHtml(meta.status)}</span>
         </div>
       </div>
-      <div class="portfolio-mark" aria-label="Seven communities: six domain communities connected by one cross-training community">
-        <strong>7</strong>
+      <div class="portfolio-mark" aria-label="Eight communities: six domain communities plus Cross-Training and internal AI readiness">
+        <strong>${playbook.communities.length}</strong>
         <span>governed communities</span>
-        <small>6 domain + 1 cross-training</small>
+        <small>6 domain + 2 cross-community</small>
       </div>
     </section>
 
@@ -194,37 +195,42 @@ function renderOverview() {
 }
 
 function renderPortfolio() {
+  const domainCommunities = playbook.communities.filter((community) => !community.crossCommunity);
+  const crossCommunities = playbook.communities.filter((community) => community.crossCommunity);
   app.innerHTML = pageHeader(
     'Community portfolio',
-    'Six delivery-aligned domain communities connected by one cross-training community.'
+    'Six delivery-aligned domain communities supported by Cross-Training and an internal AI readiness community.'
   ) + `
     <section class="portfolio-architecture" aria-label="Community portfolio structure">
       <div class="domain-row">
-        ${playbook.communities.filter((community) => !community.crossCommunity).map((community) => `
+        ${domainCommunities.map((community) => `
           <button type="button" data-open-community="${community.key}">
             <strong>${escapeHtml(community.title)}</strong>
             <span>${escapeHtml(community.summary)}</span>
           </button>`).join('')}
       </div>
       <div class="connector" aria-hidden="true"></div>
-      <button class="cross-community" type="button" data-open-community="cross-training">
-        <span class="badge green">Connective tissue</span>
-        <strong>Cross-Training</strong>
-        <span>Processes · Delivery Best Practices · Soft Skills</span>
-      </button>
+      <div class="cross-row">
+        ${crossCommunities.map((community) => `
+          <button class="cross-community" type="button" data-open-community="${community.key}">
+            <span class="badge green">${community.internalOnly ? 'Internal readiness' : 'Connective tissue'}</span>
+            <strong>${escapeHtml(community.title)}</strong>
+            <span>${escapeHtml(community.areas.join(' · '))}</span>
+          </button>`).join('')}
+      </div>
     </section>
 
     <section class="section">
       <div class="section-heading">
-        <div><div class="section-kicker">Seven-community model</div><h2>Clear domains, explicit boundaries</h2></div>
-        <p>Each vertical deepens expertise; Cross-Training spreads capability no single vertical owns.</p>
+        <div><div class="section-kicker">Eight-community model</div><h2>Clear domains, explicit boundaries</h2></div>
+        <p>Each vertical deepens expertise; Cross-Training spreads delivery practice; AI drives internal readiness without offering ownership.</p>
       </div>
       <div class="portfolio-grid">
         ${playbook.communities.map((community) => `
           <article class="portfolio-card ${community.crossCommunity ? 'cross' : ''}">
             <div class="portfolio-card-head">
               <div><span>${escapeHtml(community.category)}</span><h3>${escapeHtml(community.title)}</h3></div>
-              <span class="badge">${community.alignedIps.length} aligned IPs</span>
+              <span class="badge">${community.alignedIps.length ? `${community.alignedIps.length} aligned IPs` : 'No offerings aligned'}</span>
             </div>
             <p>${escapeHtml(community.summary)}</p>
             ${community.areas ? `<div class="tag-row">${community.areas.map((area) => `<span>${escapeHtml(area)}</span>`).join('')}</div>` : ''}
@@ -242,8 +248,8 @@ function renderPortfolio() {
         <thead><tr><th>Community</th><th>Aligned delivery IP</th><th>Ownership model</th></tr></thead>
         <tbody>${playbook.communities.map((community) => `<tr>
           <td><strong>${escapeHtml(community.title)}</strong><div class="muted">${escapeHtml(community.category)}</div></td>
-          <td><div class="tag-row">${community.alignedIps.map((ip) => `<span>${escapeHtml(ip)}</span>`).join('')}</div></td>
-          <td>${community.crossCommunity ? 'Common core and horizontal practice' : 'Domain-specific ownership and variant'}</td>
+          <td>${community.alignedIps.length ? `<div class="tag-row">${community.alignedIps.map((ip) => `<span>${escapeHtml(ip)}</span>`).join('')}</div>` : '<span class="no-offerings">No offerings aligned</span>'}</td>
+          <td>${community.internalOnly ? 'Internal AI readiness; no offering ownership' : community.crossCommunity ? 'Common core and horizontal practice' : 'Domain-specific ownership and variant'}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </section>`;
@@ -252,7 +258,7 @@ function renderPortfolio() {
 function renderOperating() {
   app.innerHTML = pageHeader(
     'Roles and governance',
-    'Lightweight accountability that keeps seven communities connected without turning them into another reporting structure.'
+    'Lightweight accountability that keeps eight communities connected without turning them into another reporting structure.'
   ) + `
     <section class="section">
       <div class="section-heading">
@@ -404,10 +410,10 @@ function renderDirectory() {
       (!state.role || community.targetRoles.includes(state.role));
   });
 
-  app.innerHTML = pageHeader('Technical community directory', 'Find the one community where your interests and delivery work can create the greatest value.', '<span class="badge">7 governed communities</span>') + `
+  app.innerHTML = pageHeader('Technical community directory', 'Find the one community where your interests and delivery work can create the greatest value.', `<span class="badge">${playbook.communities.length} governed communities</span>`) + `
     <div class="context-strip">
       <div><strong>Choose for genuine interest</strong><span>${escapeHtml(playbook.singleCommunityPrinciple)}</span></div>
-      <button class="text-action" type="button" data-view="portfolio">Understand the seven-community model →</button>
+      <button class="text-action" type="button" data-view="portfolio">Understand the eight-community model →</button>
     </div>
     <div class="controls" role="search">
       <div class="field">
@@ -435,7 +441,7 @@ function renderDirectory() {
           <span class="muted">${escapeHtml(community.category)} · ${escapeHtml(community.serviceFamily)}</span>
           <h2 class="card-title">${escapeHtml(community.title)}</h2>
           <p class="card-copy"><strong>${escapeHtml(community.summary)}</strong><br>${escapeHtml(community.scopeInScope)}</p>
-          <div class="card-facts"><span>${community.targetRoles.length} target roles</span><span>${community.alignedIps.length} aligned IPs</span></div>
+          <div class="card-facts"><span>${community.targetRoles.length} target roles</span><span>${community.alignedIps.length ? `${community.alignedIps.length} aligned IPs` : 'No offerings aligned'}</span></div>
           <div class="card-footer">
             <span class="badge">${escapeHtml(community.status)}</span>
             <button class="button-secondary" type="button" data-open-community="${community.key}">View community</button>
@@ -489,9 +495,9 @@ function renderDetail() {
     </section>
     <section class="section">
       <h2>Owned IP</h2>
-      <p class="section-intro">The community curates its focused delivery IP and reviews alignment at each quarterly checkpoint.</p>
+      <p class="section-intro">${community.internalOnly ? 'AI is an internal readiness community. It does not own or align to delivery offerings or IP.' : 'The community curates its focused delivery IP and reviews alignment at each quarterly checkpoint.'}</p>
       <div class="surface">
-        ${ips.length ? `<ul class="plain-list">${ips.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><div class="muted">${escapeHtml(item.description)}</div></li>`).join('')}</ul>` : '<p class="muted">No owned IP is recorded.</p>'}
+        ${ips.length ? `<ul class="plain-list">${ips.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><div class="muted">${escapeHtml(item.description)}</div></li>`).join('')}</ul>` : `<p class="muted">${community.internalOnly ? 'No offerings aligned. The community exists to build internal AI readiness and responsible adoption.' : 'No owned IP is recorded.'}</p>`}
       </div>
     </section>
     <section class="section">
@@ -630,7 +636,7 @@ function renderRetirement() {
   const visible = data.retirements.filter((item) => !state.disposition || item.disposition === state.disposition);
   const completed = data.retirements.filter((item) => item.completed).length;
   const ratio = completed / data.retirements.length;
-  app.innerHTML = pageHeader('Forum retirement register', 'Reduce overload by deliberately consolidating the forums the seven governed communities replace.') + `
+  app.innerHTML = pageHeader('Forum retirement register', 'Reduce overload by deliberately consolidating the forums the eight governed communities replace.') + `
     <div class="overload-statement">
       <div><div class="section-kicker">Why this register exists</div><h2>Consolidation is a deliverable</h2><p>${escapeHtml(playbook.overload.statement)}</p></div>
       <strong>${escapeHtml(playbook.overload.target)}</strong>

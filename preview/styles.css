@@ -498,10 +498,18 @@ textarea:focus-visible {
 .cross-community {
   border-color: var(--color-teal);
   display: block;
-  margin: 0 auto;
+  margin: 0;
   min-height: 100px;
   text-align: center;
-  width: min(520px, 100%);
+  width: 100%;
+}
+
+.cross-row {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 860px;
 }
 
 .cross-community strong {
@@ -524,7 +532,6 @@ textarea:focus-visible {
 
 .portfolio-card.cross {
   border-top-color: var(--color-teal);
-  grid-column: 1 / -1;
 }
 
 .portfolio-card-head {
@@ -592,6 +599,12 @@ textarea:focus-visible {
 
 .ip-table td:first-child {
   min-width: 170px;
+}
+
+.no-offerings {
+  color: var(--color-maroon);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .role-grid {
@@ -1648,6 +1661,10 @@ tr:last-child td {
   .portfolio-card.cross,
   .detail-intro > div:last-child {
     grid-column: auto;
+  }
+
+  .cross-row {
+    grid-template-columns: 1fr;
   }
 
   .domain-row {

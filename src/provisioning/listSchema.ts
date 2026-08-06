@@ -40,7 +40,7 @@ const ROLE_CHOICES = ['Community Lead', 'Family Owner (SME)', 'Invited Expert'];
 const TARGET_ROLE_CHOICES = [
   'CSA',
   'POD Lead',
-  'Delivery Partner',
+  'Partner CSA (pCSA)',
   'Partner Lead',
   'Nebula member',
   'Manager'

@@ -32,7 +32,7 @@ erDiagram
 
 ## Communities (spine)
 
-One item per community — **including the cross-training community**, which is *flagged* rather than modelled separately so it appears in the directory and carries the same governance fields.
+One item per community — including the **Cross-Training** and internal **AI** cross-communities. Cross-cutting communities are *flagged* rather than modelled separately so they appear in the directory and carry the same governance fields. AI has no aligned delivery offerings and excludes Partner CSAs (pCSAs) from its target audience.
 
 | Column | Type | Notes |
 |---|---|---|
@@ -44,7 +44,7 @@ One item per community — **including the cross-training community**, which is 
 | VivaEngageUrl | Hyperlink | Deep link to the private community |
 | ChatGroupUrl | Hyperlink | Deep link to the support chat group |
 | TargetRoles | Choice (multi) | Roles the community is right-sized for |
-| IsCrossCommunity | Yes/No | Flags the cross-training community |
+| IsCrossCommunity | Yes/No | Flags Cross-Training and AI as cross-community circles |
 | Status | Choice | `Proposed` · `Chartered` · `Active` · `Merged` · `Retired` |
 | LaunchDate | Date | Anchors the health baseline period |
 

@@ -11,12 +11,12 @@ window.SSD_PLAYBOOK = {
     status: 'Draft for Leadership Team review'
   },
   purpose: {
-    summary: 'The operating manual for launching and sustaining seven governed technical communities across Success Services Delivery.',
+    summary: 'The operating manual for launching and sustaining eight governed technical communities across Success Services Delivery.',
     context: 'The initiative sits within the Delivery Transformation Initiative as the Technical Communities sub-initiative. It responds to community and knowledge overload by combining a single source of truth with focused, governed communities.',
     audiences: [
       'Leadership Team members sponsoring the work',
       'Community Leads accountable for each circle',
-      'CSAs, POD Leads, Delivery Partners, Partner Leads, Nebula members and managers who participate'
+      'CSAs, POD Leads, Partner CSAs (pCSAs), Partner Leads, Nebula members and managers who participate'
     ],
     inScope: [
       'People, practices, rituals and evidence needed to activate communities',
@@ -80,7 +80,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Cloud infrastructure, migration and the AI platform.',
       scopeInScope: 'Azure infrastructure, migration, landing zones, resilience, platform engineering and the AI platform.',
       scopeOutOfScope: 'Application innovation, Modern Work, Business Applications and security topics owned by neighbouring communities.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Nebula members'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Nebula members'],
       alignedIps: ['Health', 'Crisis Readiness Sim for Azure', 'AIR', 'MACC alignment', 'Capability Briefing Resiliency and Security'],
       status: 'Charter required',
       crossCommunity: false
@@ -93,7 +93,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Threat protection, identity and data security.',
       scopeInScope: 'Threat protection, identity, data security, security posture and domain-specific resiliency practices.',
       scopeOutOfScope: 'General infrastructure, application engineering and adoption topics without a security-specific outcome.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Managers'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Managers'],
       alignedIps: ['ESA', 'Crisis Readiness Sim for Security', 'Capability Briefing Resiliency and Security'],
       status: 'Charter required',
       crossCommunity: false
@@ -106,7 +106,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Application innovation, cloud-native development and DevOps.',
       scopeInScope: 'Application innovation, cloud-native architecture, modernisation, developer productivity, GitHub and DevOps practices.',
       scopeOutOfScope: 'Platform operations, end-user productivity and Business Applications topics outside application engineering.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Nebula members'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Nebula members'],
       alignedIps: ['GitHub Copilot', 'Cloud Modernization'],
       status: 'Charter required',
       crossCommunity: false
@@ -119,7 +119,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Modern Work and Microsoft 365 Copilot.',
       scopeInScope: 'Modern Work, Microsoft 365 Copilot, agents, adoption and secure productivity experiences.',
       scopeOutOfScope: 'Core Azure platform, custom application engineering and Business Applications implementation.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Managers'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Managers'],
       alignedIps: ['Health', 'Crisis Readiness Sim for M365', 'Copilot Adoption', 'Agents', 'Secure Copilot'],
       status: 'Charter required',
       crossCommunity: false
@@ -132,7 +132,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Business Applications and Power Platform.',
       scopeInScope: 'Dynamics 365, Business Applications, Power Platform and their delivery and readiness practices.',
       scopeOutOfScope: 'Custom cloud-native development and Modern Work topics without a Business Applications outcome.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Managers'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Managers'],
       alignedIps: ['Health', 'Crisis Readiness Sim for D365'],
       status: 'Charter required',
       crossCommunity: false
@@ -145,7 +145,7 @@ window.SSD_PLAYBOOK = {
       summary: 'Delivery operations and CSAM enablement.',
       scopeInScope: 'Delivery operations, CSAM enablement, operating practices and the supporting back-office capability.',
       scopeOutOfScope: 'Domain-specific technical depth owned by Azure, Security, Modern-Apps, M365 and D365.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Managers'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Managers'],
       alignedIps: ['SPOU', 'SfP'],
       status: 'Charter required',
       crossCommunity: false
@@ -158,11 +158,26 @@ window.SSD_PLAYBOOK = {
       summary: 'Processes, Delivery Best Practices and Soft Skills shared across all six domains.',
       scopeInScope: 'Horizontal capability that every delivery domain needs and no single vertical owns, including reusable common IP cores and lessons learned.',
       scopeOutOfScope: 'Domain-specific technical strategy or duplicated variants that belong with a vertical community.',
-      targetRoles: ['CSAs', 'POD Leads', 'Delivery Partners', 'Partner Leads', 'Nebula members', 'Managers'],
+      targetRoles: ['CSAs', 'POD Leads', 'Partner CSAs (pCSAs)', 'Partner Leads', 'Nebula members', 'Managers'],
       alignedIps: ['Processes', 'Delivery Best Practices', 'Soft Skills', 'Common Health core', 'Common Crisis Readiness core'],
       areas: ['Processes', 'Delivery Best Practices', 'Soft Skills'],
       status: 'Charter required',
       crossCommunity: true
+    },
+    {
+      key: 'ai',
+      title: 'AI',
+      category: 'Cross-community',
+      serviceFamily: 'Cross-community',
+      summary: 'Internal AI readiness, fluency and responsible adoption across Success Services Delivery.',
+      scopeInScope: 'Internal AI readiness, practical AI fluency, responsible use, role-based enablement, peer learning and adoption of AI-assisted ways of working across the delivery organisation.',
+      scopeOutOfScope: 'Partner CSA readiness, partner enablement, customer-facing AI delivery, domain-specific AI platform strategy, and ownership of delivery offerings or IP.',
+      targetRoles: ['CSAs', 'POD Leads', 'Partner Leads', 'Nebula members', 'Managers'],
+      alignedIps: [],
+      areas: ['AI fluency', 'Responsible AI practice', 'Everyday AI adoption'],
+      status: 'Charter required',
+      crossCommunity: true,
+      internalOnly: true
     }
   ],
   sharedIpPrinciple: 'Health, Crisis Readiness Simulations, and Capability Briefing Resiliency and Security recur across domains. Build the common core once in Cross-Training; domain communities own only the domain-specific variant.',
@@ -180,11 +195,11 @@ window.SSD_PLAYBOOK = {
     {
       title: 'Community Program Manager',
       scope: 'Portfolio',
-      holder: 'One accountable role across all seven communities',
+      holder: 'One accountable role across all eight communities',
       accountabilities: [
         'Own community health reporting and the forum retirement programme',
         'Onboard Community Leads and run cross-community rituals',
-        'Maintain one programme rather than seven disconnected efforts'
+        'Maintain one programme rather than eight disconnected efforts'
       ]
     },
     {
@@ -219,7 +234,7 @@ window.SSD_PLAYBOOK = {
     {
       title: 'Members',
       scope: 'Voluntary participation',
-      holder: 'CSAs, POD Leads, Delivery Partners, Partner Leads, Nebula members and managers',
+      holder: 'CSAs, POD Leads, Partner CSAs (pCSAs), Partner Leads, Nebula members and managers',
       accountabilities: [
         'Join the community for which they have a genuine interest',
         'Participate where value is clear; membership carries no mandatory meeting obligation',
@@ -227,7 +242,7 @@ window.SSD_PLAYBOOK = {
       ]
     }
   ],
-  singleCommunityPrinciple: 'A member who belongs to one community they genuinely care about contributes more than one enrolled in six they skim. Focus is a deliberate protection against recreating overload.',
+  singleCommunityPrinciple: 'A member who belongs to one community they genuinely care about contributes more than one enrolled in several they skim. Focus is a deliberate protection against recreating overload.',
   launchStages: [
     {
       number: 1,
@@ -258,7 +273,7 @@ window.SSD_PLAYBOOK = {
     'Cadence, interaction model and readiness plan are agreed',
     'Six health measures have a launch baseline'
   ],
-  criticalMass: 'Where a domain is too thin to sustain a standalone circle, start it as a sub-community or channel under a broader umbrella and let it graduate when it reaches critical mass. Five healthy rooms are better than seven half-empty ones.',
+  criticalMass: 'Where a domain is too thin to sustain a standalone circle, start it as a sub-community or channel under a broader umbrella and let it graduate when it reaches critical mass. Fewer healthy rooms are better than eight half-empty ones.',
   rhythm: [
     {
       title: 'Community working session',
@@ -348,13 +363,13 @@ window.SSD_PLAYBOOK = {
     }
   ],
   overload: {
-    statement: 'Adding seven communities without retiring overlapping forums would increase the surface area. Consolidation is therefore a programme deliverable, not an accidental by-product.',
+    statement: 'Adding eight communities without retiring overlapping forums would increase the surface area. Consolidation is therefore a programme deliverable, not an accidental by-product.',
     dispositions: [
       { title: 'Migrate', description: 'Move useful members, content and activity into the appropriate governed community.' },
       { title: 'Merge', description: 'Combine overlapping forums into one right-sized community or channel.' },
       { title: 'Close', description: 'Retire forums that no longer earn their audience or duplicate a governed destination.' }
     ],
-    target: 'Publish a reduction target expressed as the number of forums consolidated into the seven governed communities.'
+    target: 'Publish a reduction target expressed as the number of forums consolidated into the eight governed communities.'
   },
   risks: [
     {
@@ -369,7 +384,7 @@ window.SSD_PLAYBOOK = {
     },
     {
       risk: 'Added overload',
-      consequence: 'Seven new destinations make the original problem worse.',
+      consequence: 'Eight new destinations make the original problem worse.',
       mitigation: 'Maintain the retirement inventory, right-size audiences and publish a reduction target.'
     },
     {
@@ -384,7 +399,7 @@ window.SSD_PLAYBOOK = {
       title: 'Foundation',
       deliverables: [
         'Community Governance Portal',
-        'Seven signed charters and named Community Leads',
+        'Eight signed charters and named Community Leads',
         'Seeded launches and retirement inventory',
         'Baseline health metrics'
       ]
@@ -407,7 +422,8 @@ window.SSD_PLAYBOOK = {
   glossary: [
     { term: 'Community', definition: 'A voluntary, peer-led circle around a shared technical or operational domain, with a named lead, defined theme and regular cadence.' },
     { term: 'Sub-community', definition: 'A focused group under a parent community, used where a domain lacks critical mass for a standalone circle.' },
-    { term: 'Cross-community', definition: 'The single cross-cutting community spanning all six domains and covering Processes, Delivery Best Practices and Soft Skills.' },
+    { term: 'Cross-community', definition: 'A cross-cutting community spanning multiple delivery domains. Cross-Training shares horizontal delivery capability; AI drives internal AI readiness.' },
+    { term: 'AI community', definition: 'An internal-only cross-community for AI readiness, fluency, responsible practice and adoption. It has no aligned delivery offerings and excludes Partner CSAs (pCSAs).' },
     { term: 'Family Owner', definition: 'The service-family representative for a time zone, acting as a community SME and alignment point to IP Dev Teams and CSAM Strategy Adoption Leads.' },
     { term: 'IP', definition: 'A delivery intellectual property asset owned and maintained by a community.' },
     { term: 'Governance Portal', definition: 'The single source of truth defining each community’s scope, roles, assignments, charter, health and channel links.' },

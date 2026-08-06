@@ -6,7 +6,7 @@
       "serviceFamily": "Azure",
       "scopeInScope": "Cloud infrastructure, migration, landing zones, resilience, platform engineering and the AI platform.",
       "scopeOutOfScope": "Application innovation, Modern Work, Business Applications and security topics owned by neighbouring communities.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -16,7 +16,7 @@
       "serviceFamily": "Security",
       "scopeInScope": "Threat protection, identity, data security, security posture and domain-specific resiliency practices.",
       "scopeOutOfScope": "General infrastructure, application engineering and adoption topics without a security-specific outcome.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -26,7 +26,7 @@
       "serviceFamily": "Modern-Apps",
       "scopeInScope": "Application innovation, cloud-native architecture, modernisation, developer productivity, GitHub and DevOps practices.",
       "scopeOutOfScope": "Platform operations, end-user productivity and Business Applications topics outside application engineering.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -36,7 +36,7 @@
       "serviceFamily": "M365",
       "scopeInScope": "Modern Work, Microsoft 365 Copilot, agents, adoption and secure productivity experiences.",
       "scopeOutOfScope": "Core Azure platform, custom application engineering and Business Applications implementation.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -46,7 +46,7 @@
       "serviceFamily": "D365",
       "scopeInScope": "Dynamics 365, Business Applications, Power Platform and their delivery and readiness practices.",
       "scopeOutOfScope": "Custom cloud-native development and Modern Work topics without a Business Applications outcome.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Manager"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -56,7 +56,7 @@
       "serviceFamily": "CSAM Back Office",
       "scopeInScope": "Delivery operations, CSAM enablement, operating practices and the supporting back-office capability.",
       "scopeOutOfScope": "Domain-specific technical depth owned by Azure, Security, Modern-Apps, M365 and D365.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Manager"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
     },
@@ -66,7 +66,17 @@
       "serviceFamily": "Cross-community",
       "scopeInScope": "Processes, Delivery Best Practices, Soft Skills and horizontal capability shared across all six delivery domains.",
       "scopeOutOfScope": "Domain-specific technical strategy or duplicated variants owned by a vertical community.",
-      "targetRoles": ["CSA", "POD Lead", "Delivery Partner", "Partner Lead", "Nebula member", "Manager"],
+      "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member", "Manager"],
+      "status": "Active",
+      "isCrossCommunity": true
+    },
+    {
+      "key": "ai",
+      "title": "AI",
+      "serviceFamily": "Cross-community",
+      "scopeInScope": "Internal AI readiness, practical AI fluency, responsible use, role-based enablement, peer learning and adoption of AI-assisted ways of working.",
+      "scopeOutOfScope": "Partner CSA readiness, partner enablement, customer-facing AI delivery, domain-specific AI platform strategy, and ownership of delivery offerings or IP.",
+      "targetRoles": ["CSA", "POD Lead", "Partner Lead", "Nebula member", "Manager"],
       "status": "Active",
       "isCrossCommunity": true
     }
@@ -121,6 +131,7 @@
     { "title": "Application modernisation forum", "disposition": "Migrate", "targetCommunityKey": "modern-apps" },
     { "title": "Copilot adoption broadcast list", "disposition": "Merge", "targetCommunityKey": "m365", "completionDate": "2026-08-01" },
     { "title": "Power Platform office hours", "disposition": "Migrate", "targetCommunityKey": "d365" },
-    { "title": "Cross-solution readiness forum", "disposition": "Merge", "targetCommunityKey": "cross-training", "completionDate": "2026-08-01" }
+    { "title": "Cross-solution readiness forum", "disposition": "Merge", "targetCommunityKey": "cross-training", "completionDate": "2026-08-01" },
+    { "title": "Internal AI learning group", "disposition": "Migrate", "targetCommunityKey": "ai" }
   ]
 }
