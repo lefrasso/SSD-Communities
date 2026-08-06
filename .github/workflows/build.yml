@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install dependencies
+        run: npm install
+      - name: Verify generated provisioning assets
+        run: |
+          npm run provision:generate
+          test -f provisioning/generated/portal-template.xml
+          test -f provisioning/generated/list-schema.json
+          git diff --exit-code -- provisioning/generated
+      - name: Lint
+        run: npm run lint
+      - name: Unit and accessibility tests
+        run: npm run test:coverage
+      - name: Production bundle
+        run: npm run bundle:ship
+      - name: Package solution
+        run: npm run package:ship
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ssd-communities-portal
+          path: |
+            sharepoint/solution/ssd-communities-portal.sppkg
+            provisioning/generated/portal-template.xml
+          if-no-files-found: error

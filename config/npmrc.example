@@ -1,0 +1,5 @@
+registry=https://pkgs.dev.azure.com/YOUR_ORG/_packaging/YOUR_FEED/npm/registry/
+always-auth=true
+
+# Configure authentication with the approved Azure Artifacts credential provider.
+# Do not commit tokens, passwords, or generated authentication blocks.

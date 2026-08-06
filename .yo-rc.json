@@ -1,0 +1,11 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.21.1",
+    "libraryName": "ssd-communities-portal",
+    "libraryId": "2f2aa78e-79aa-4f1c-8f37-6a0cb98111e6",
+    "environment": "spo",
+    "packageManager": "npm",
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

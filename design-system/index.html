@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SSD Communities — Portal Design System (FY27)</title>
+  <meta name="description" content="Modern, elegant design language for the SSD Communities portal, derived from the FY27 SSD Branding system." />
+  <style>
+    /* ============================================================
+       SSD COMMUNITIES — PORTAL DESIGN SYSTEM (FY27)
+       A living style guide. All values below are the canonical
+       design tokens, mirrored in tokens.css / tokens.scss / theme.ts.
+       ============================================================ */
+
+    :root {
+      /* --- Brand core --- */
+      --color-navy: #091F2E;      /* Ink — primary dark, headers, hero surfaces */
+      --color-blue: #0078D4;      /* Primary — actions, links, active states   */
+      --color-slate: #2A446F;     /* Secondary brand                           */
+
+      /* --- Brand accents (categorical / data-viz / decorative) --- */
+      --color-teal: #225B62;
+      --color-green: #07641D;
+      --color-purple: #463668;
+      --color-maroon: #73262F;
+
+      /* --- Interactive blue ramp --- */
+      --color-blue-hover: #106EBE;
+      --color-blue-pressed: #005A9E;
+      --color-blue-tint: #EAF3FB;
+
+      /* --- Surfaces (light gray / white only — no cream, no beige) --- */
+      --surface-canvas: #F4F4F4;
+      --surface-subtle: #EDEDED;
+      --surface-card: #FFFFFF;
+      --surface-inverse: #091F2E;
+
+      /* --- Neutral ramp (navy-tinted cool grays) --- */
+      --neutral-900: #091F2E;
+      --neutral-800: #1B2C39;
+      --neutral-700: #33434F;
+      --neutral-600: #4C5A67;
+      --neutral-500: #6B7883;
+      --neutral-400: #97A1AA;
+      --neutral-300: #C3CACF;
+      --neutral-200: #DCE0E4;
+      --neutral-100: #EDEDED;
+      --neutral-050: #F4F4F4;
+
+      /* --- Text --- */
+      --text-primary: #091F2E;
+      --text-secondary: #4C5A67;
+      --text-tertiary: #6B7883;
+      --text-disabled: #97A1AA;
+      --text-on-dark: #FFFFFF;
+      --text-on-accent: #FFFFFF;
+
+      /* --- Borders / lines --- */
+      --border-subtle: #E7EAED;
+      --border-default: #DCE0E4;
+      --border-strong: #C3CACF;
+
+      /* --- Semantic --- */
+      --color-info: #0078D4;      --surface-info: #EAF3FB;
+      --color-success: #07641D;   --surface-success: #E6F2E9;
+      --color-danger: #73262F;    --surface-danger: #F6EAEB;
+      --color-warning: #8A5A00;   /* deep amber — accent only, never a surface fill (see notes) */
+
+      /* --- Data-viz categorical sequence --- */
+      --dv-1: #0078D4; --dv-2: #225B62; --dv-3: #07641D;
+      --dv-4: #463668; --dv-5: #2A446F; --dv-6: #73262F;
+
+      /* --- Typography --- */
+      --font-heading: "Segoe Sans Display", "Segoe Sans", system-ui, sans-serif;
+      --font-body: "Segoe Sans Display", "Segoe Sans", system-ui, sans-serif;
+      --font-weight-regular: 400;
+      --font-weight-semibold: 600;
+
+      --font-size-display: 2.5rem;   /* 40 */
+      --font-size-h1: 2rem;          /* 32 */
+      --font-size-h2: 1.5rem;        /* 24 */
+      --font-size-h3: 1.25rem;       /* 20 */
+      --font-size-h4: 1rem;          /* 16 */
+      --font-size-body-lg: 1.125rem; /* 18 */
+      --font-size-body: 1rem;        /* 16 */
+      --font-size-body-sm: 0.875rem; /* 14 */
+      --font-size-caption: 0.75rem;  /* 12 */
+
+      --line-height-tight: 1.15;
+      --line-height-snug: 1.3;
+      --line-height-normal: 1.5;
+      --letter-spacing-tight: -0.01em;
+      --letter-spacing-overline: 0.08em;
+
+      /* --- Spacing (8pt grid, 4px steps) --- */
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+      --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+
+      /* --- Radii --- */
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-pill: 999px;
+
+      /* --- Elevation (navy-tinted, soft) --- */
+      --shadow-1: 0 1px 2px rgba(9,31,46,.06), 0 1px 3px rgba(9,31,46,.08);
+      --shadow-2: 0 2px 6px rgba(9,31,46,.08), 0 4px 12px rgba(9,31,46,.10);
+      --shadow-3: 0 8px 24px rgba(9,31,46,.12), 0 2px 6px rgba(9,31,46,.08);
+      --focus-ring: 0 0 0 2px #FFFFFF, 0 0 0 4px #0078D4;
+
+      /* --- Motion --- */
+      --duration-fast: 100ms; --duration-normal: 200ms; --duration-slow: 300ms;
+      --ease-standard: cubic-bezier(.33, 0, .2, 1);
+      --ease-entrance: cubic-bezier(.16, 1, .3, 1);
+
+      /* --- Layout --- */
+      --layout-max-width: 1280px;
+      --header-height: 60px;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-normal);
+      color: var(--text-primary);
+      background: var(--surface-canvas);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tight); margin: 0; color: var(--text-primary); line-height: var(--line-height-snug); }
+    p { margin: 0 0 var(--space-3); color: var(--text-secondary); }
+    a { color: var(--color-blue); text-decoration: none; }
+    a:hover { color: var(--color-blue-hover); text-decoration: underline; }
+    code { font-family: "Cascadia Code", "Consolas", ui-monospace, monospace; font-size: .85em; background: var(--surface-subtle); color: var(--color-slate); padding: 2px 6px; border-radius: var(--radius-sm); }
+
+    /* ---------- App bar (portal chrome mock) ---------- */
+    .app-bar {
+      position: sticky; top: 0; z-index: 100;
+      height: var(--header-height);
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: 0 var(--space-6);
+      background: var(--color-navy);
+      color: var(--text-on-dark);
+      box-shadow: var(--shadow-2);
+    }
+    .app-bar .brand { display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-heading); font-weight: 600; font-size: 1.0625rem; letter-spacing: .01em; }
+    .app-bar .brand .mark { width: 30px; height: 30px; border-radius: var(--radius-md); display: grid; place-items: center; background: linear-gradient(135deg, var(--color-blue), var(--color-teal)); font-size: 14px; font-weight: 700; }
+    .app-bar nav { display: flex; gap: var(--space-2); margin-left: var(--space-5); }
+    .app-bar nav a { color: #C6D2DC; padding: 8px 12px; border-radius: var(--radius-md); font-size: var(--font-size-body-sm); }
+    .app-bar nav a:hover { background: rgba(255,255,255,.08); color: #fff; text-decoration: none; }
+    .app-bar nav a.active { color: #fff; background: rgba(0,120,212,.28); box-shadow: inset 0 -2px 0 var(--color-blue); }
+    .app-bar .spacer { flex: 1; }
+    .app-bar .avatar { width: 34px; height: 34px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--color-purple), var(--color-slate)); display: grid; place-items: center; font-size: 13px; font-weight: 600; }
+
+    /* ---------- Shell ---------- */
+    .shell { max-width: var(--layout-max-width); margin: 0 auto; display: grid; grid-template-columns: 232px 1fr; gap: var(--space-7); padding: var(--space-7) var(--space-6) var(--space-9); }
+    .side-nav { position: sticky; top: calc(var(--header-height) + var(--space-5)); align-self: start; height: max-content; }
+    .side-nav .label { font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: var(--letter-spacing-overline); font-weight: 600; color: var(--text-tertiary); padding: 0 var(--space-3) var(--space-2); }
+    .side-nav a { display: block; padding: 7px var(--space-3); border-radius: var(--radius-md); color: var(--text-secondary); font-size: var(--font-size-body-sm); border-left: 2px solid transparent; }
+    .side-nav a:hover { background: #fff; color: var(--text-primary); text-decoration: none; }
+    .side-nav a.active { color: var(--color-blue); background: var(--color-blue-tint); border-left-color: var(--color-blue); font-weight: 600; }
+    .main { min-width: 0; }
+
+    /* ---------- Sections ---------- */
+    section { margin-bottom: var(--space-9); scroll-margin-top: calc(var(--header-height) + var(--space-5)); }
+    .overline { display: inline-block; font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: var(--letter-spacing-overline); font-weight: 600; color: var(--color-blue); margin-bottom: var(--space-2); }
+    .section-head { margin-bottom: var(--space-6); }
+    .section-head h2 { font-size: var(--font-size-h2); position: relative; padding-bottom: var(--space-3); }
+    .section-head h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 44px; height: 3px; border-radius: 3px; background: var(--color-blue); }
+    .section-head p { max-width: 68ch; margin-top: var(--space-3); }
+
+    .grid { display: grid; gap: var(--space-5); }
+    .cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 900px) { .shell { grid-template-columns: 1fr; } .side-nav { display: none; } .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; } }
+
+    /* ---------- Card ---------- */
+    .card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); box-shadow: var(--shadow-1); padding: var(--space-5); transition: box-shadow var(--duration-normal) var(--ease-standard), transform var(--duration-normal) var(--ease-standard); }
+    .card.interactive:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; overflow: hidden; border-radius: var(--radius-xl); padding: var(--space-8) var(--space-7); color: var(--text-on-dark); background: radial-gradient(120% 140% at 100% 0%, #12385A 0%, var(--color-navy) 55%); box-shadow: var(--shadow-3); }
+    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 60%, rgba(0,120,212,.18)); pointer-events: none; }
+    .hero h1 { color: #fff; font-size: var(--font-size-display); line-height: var(--line-height-tight); max-width: 20ch; }
+    .hero p { color: #C6D2DC; font-size: var(--font-size-body-lg); max-width: 60ch; margin-top: var(--space-4); }
+    .hero .ribbon { position: absolute; right: -40px; top: -40px; width: 220px; height: 220px; border-radius: 50%; background: conic-gradient(from 210deg, var(--color-blue), var(--color-teal), var(--color-purple), var(--color-blue)); filter: blur(2px); opacity: .35; }
+    .hero .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-6); position: relative; }
+    .hero .chip { font-size: var(--font-size-caption); padding: 6px 12px; border-radius: var(--radius-pill); background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); color: #E4ECF2; }
+
+    /* ---------- Principles ---------- */
+    .principle .ic { width: 42px; height: 42px; border-radius: var(--radius-md); display: grid; place-items: center; font-size: 20px; color: #fff; margin-bottom: var(--space-4); }
+    .principle h3 { font-size: var(--font-size-h3); margin-bottom: var(--space-2); }
+    .principle p { font-size: var(--font-size-body-sm); margin: 0; }
+
+    /* ---------- Color swatches ---------- */
+    .swatch { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); background: #fff; box-shadow: var(--shadow-1); }
+    .swatch .chip { height: 76px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 8px; }
+    .swatch .meta { padding: 10px 12px; }
+    .swatch .name { font-weight: 600; font-size: var(--font-size-body-sm); }
+    .swatch .hex { font-family: "Cascadia Code","Consolas",monospace; font-size: var(--font-size-caption); color: var(--text-tertiary); text-transform: uppercase; }
+    .swatch .tag { font-size: 11px; color: #fff; padding: 2px 7px; border-radius: var(--radius-pill); background: rgba(0,0,0,.28); }
+
+    /* ---------- Type specimen ---------- */
+    .type-row { display: grid; grid-template-columns: 150px 1fr; gap: var(--space-4); align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--border-subtle); }
+    .type-row .spec { font-size: var(--font-size-caption); color: var(--text-tertiary); font-family: "Cascadia Code","Consolas",monospace; }
+    .t-display { font-family: var(--font-heading); font-weight: 600; font-size: var(--font-size-display); letter-spacing: var(--letter-spacing-tight); line-height: var(--line-height-tight); }
+    .t-h1 { font-family: var(--font-heading); font-weight: 600; font-size: var(--font-size-h1); }
+    .t-h2 { font-family: var(--font-heading); font-weight: 600; font-size: var(--font-size-h2); }
+    .t-h3 { font-family: var(--font-heading); font-weight: 600; font-size: var(--font-size-h3); }
+    .t-body-lg { font-size: var(--font-size-body-lg); }
+    .t-body { font-size: var(--font-size-body); }
+    .t-sm { font-size: var(--font-size-body-sm); }
+    .t-overline { font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: var(--letter-spacing-overline); font-weight: 600; color: var(--color-blue); }
+
+    /* ---------- Spacing ---------- */
+    .space-row { display: flex; align-items: center; gap: var(--space-4); padding: 6px 0; }
+    .space-row .bar { height: 16px; background: var(--color-blue); border-radius: var(--radius-sm); }
+    .space-row .cap { font-family: "Cascadia Code","Consolas",monospace; font-size: var(--font-size-caption); color: var(--text-secondary); width: 130px; }
+
+    /* ---------- Radius / Elevation demo ---------- */
+    .demo-box { height: 88px; background: #fff; border: 1px solid var(--border-subtle); display: grid; place-items: center; color: var(--text-tertiary); font-size: var(--font-size-caption); font-family: "Cascadia Code","Consolas",monospace; }
+
+    /* ---------- Buttons ---------- */
+    .btn { font-family: var(--font-body); font-size: var(--font-size-body-sm); font-weight: 600; line-height: 1; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; transition: background var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast), color var(--duration-fast); }
+    .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .btn-primary { background: var(--color-blue); color: #fff; }
+    .btn-primary:hover { background: var(--color-blue-hover); }
+    .btn-primary:active { background: var(--color-blue-pressed); }
+    .btn-secondary { background: #fff; color: var(--color-blue); border-color: var(--border-strong); }
+    .btn-secondary:hover { border-color: var(--color-blue); background: var(--color-blue-tint); }
+    .btn-subtle { background: transparent; color: var(--text-secondary); }
+    .btn-subtle:hover { background: var(--surface-subtle); color: var(--text-primary); }
+    .btn-danger { background: var(--color-danger); color: #fff; }
+    .btn-danger:hover { filter: brightness(1.08); }
+    .btn[disabled] { opacity: .45; cursor: not-allowed; }
+    .btn-sm { padding: 7px 12px; font-size: var(--font-size-caption); }
+    .btn-lg { padding: 13px 22px; font-size: var(--font-size-body); }
+
+    /* ---------- Badges / status ---------- */
+    .badge { display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-caption); font-weight: 600; padding: 4px 10px; border-radius: var(--radius-pill); border: 1px solid transparent; }
+    .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .badge-info { color: var(--color-info); background: var(--surface-info); }
+    .badge-success { color: var(--color-success); background: var(--surface-success); }
+    .badge-danger { color: var(--color-danger); background: var(--surface-danger); }
+    .badge-warning { color: var(--color-warning); background: #fff; border-color: var(--color-warning); }
+    .badge-neutral { color: var(--neutral-600); background: var(--surface-subtle); }
+
+    /* ---------- KPI tile ---------- */
+    .kpi { position: relative; overflow: hidden; }
+    .kpi .accent { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .kpi .k-label { font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: .06em; color: var(--text-tertiary); font-weight: 600; }
+    .kpi .k-value { font-family: var(--font-heading); font-weight: 600; font-size: 2rem; line-height: 1.1; margin: 6px 0 4px; letter-spacing: var(--letter-spacing-tight); }
+    .kpi .k-trend { font-size: var(--font-size-body-sm); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+    .trend-up { color: var(--color-success); }
+    .trend-down { color: var(--color-danger); }
+
+    /* ---------- Section dividers (from brand layouts) ---------- */
+    .divider { border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-1); }
+    .divider .overline { margin-bottom: 6px; }
+    .divider h3 { font-size: var(--font-size-h2); }
+    .divider.light { background: var(--surface-subtle); }
+    .divider.light .overline { color: var(--color-slate); }
+    .divider.green { background: linear-gradient(120% 100% at 0 0, #0A7A24, var(--color-green)); color: #fff; }
+    .divider.green .overline, .divider.green h3, .divider.green p { color: #fff; }
+    .divider.green p { opacity: .9; }
+    .divider.dark { background: radial-gradient(120% 160% at 0 0, #12385A, var(--color-navy)); color: #fff; }
+    .divider.dark .overline { color: #6FB4F0; }
+    .divider.dark h3, .divider.dark p { color: #fff; }
+    .divider.dark p { color: #C6D2DC; }
+
+    /* ---------- Timeline ---------- */
+    .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+    .timeline::before { content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--border-default); }
+    .timeline li { position: relative; padding: 0 0 var(--space-5) var(--space-6); }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline .dot { position: absolute; left: 2px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--color-blue); }
+    .timeline li.done .dot { background: var(--color-blue); }
+    .timeline .when { font-size: var(--font-size-caption); color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    .timeline .what { font-weight: 600; margin-top: 2px; }
+    .timeline .desc { font-size: var(--font-size-body-sm); color: var(--text-secondary); }
+
+    /* ---------- Process / steps ---------- */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
+    .step { background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-4); position: relative; box-shadow: var(--shadow-1); }
+    .step .n { width: 28px; height: 28px; border-radius: 50%; background: var(--color-blue-tint); color: var(--color-blue); font-weight: 700; display: grid; place-items: center; font-size: var(--font-size-body-sm); margin-bottom: var(--space-3); }
+    .step h4 { font-size: var(--font-size-h4); margin-bottom: 4px; }
+    .step p { font-size: var(--font-size-body-sm); margin: 0; }
+
+    /* ---------- Table ---------- */
+    table.data { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-1); border: 1px solid var(--border-subtle); }
+    table.data thead th { text-align: left; font-size: var(--font-size-caption); text-transform: uppercase; letter-spacing: .05em; color: var(--text-tertiary); background: var(--surface-subtle); padding: 12px 16px; font-weight: 600; }
+    table.data td { padding: 13px 16px; border-top: 1px solid var(--border-subtle); font-size: var(--font-size-body-sm); }
+    table.data tbody tr:hover { background: var(--color-blue-tint); }
+
+    /* ---------- Forms ---------- */
+    .field { margin-bottom: var(--space-4); }
+    .field label { display: block; font-size: var(--font-size-body-sm); font-weight: 600; margin-bottom: 6px; color: var(--text-primary); }
+    .input, .select { width: 100%; font-family: var(--font-body); font-size: var(--font-size-body); padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: #fff; color: var(--text-primary); transition: border-color var(--duration-fast), box-shadow var(--duration-fast); }
+    .input:focus, .select:focus { outline: none; border-color: var(--color-blue); box-shadow: 0 0 0 3px rgba(0,120,212,.16); }
+    .hint { font-size: var(--font-size-caption); color: var(--text-tertiary); margin-top: 5px; }
+
+    /* ---------- Data-viz ---------- */
+    .bars { display: flex; align-items: flex-end; gap: 14px; height: 180px; padding-top: var(--space-3); }
+    .bars .bar { flex: 1; border-radius: 6px 6px 0 0; position: relative; min-width: 22px; }
+    .bars .bar span { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-size: var(--font-size-caption); font-weight: 600; color: var(--text-secondary); }
+    .bars .bar small { position: absolute; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--text-tertiary); }
+    .donut { width: 160px; height: 160px; border-radius: 50%; display: grid; place-items: center; background:
+      conic-gradient(var(--dv-1) 0 34%, var(--dv-2) 34% 57%, var(--dv-3) 57% 74%, var(--dv-4) 74% 87%, var(--dv-5) 87% 100%); }
+    .donut .hole { width: 96px; height: 96px; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; box-shadow: var(--shadow-1); }
+    .legend { display: grid; gap: 8px; }
+    .legend div { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-body-sm); color: var(--text-secondary); }
+    .legend .sw { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* ---------- Utility ---------- */
+    .stack > * + * { margin-top: var(--space-4); }
+    .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+    .muted { color: var(--text-secondary); }
+    .note { border-left: 3px solid var(--color-blue); background: var(--color-blue-tint); padding: var(--space-4); border-radius: 0 var(--radius-md) var(--radius-md) 0; font-size: var(--font-size-body-sm); color: var(--text-secondary); }
+    .note.warn { border-left-color: var(--color-warning); background: #FFF; box-shadow: var(--shadow-1); }
+    footer.foot { border-top: 1px solid var(--border-default); padding-top: var(--space-5); color: var(--text-tertiary); font-size: var(--font-size-body-sm); }
+  </style>
+</head>
+<body>
+  <!-- Portal chrome mock: shows the intended app-bar identity -->
+  <header class="app-bar">
+    <div class="brand"><span class="mark">SSD</span> Communities</div>
+    <nav>
+      <a class="active" href="#overview">Home</a>
+      <a href="#dashboard">Dashboards</a>
+      <a href="#cards">Communities</a>
+      <a href="#timeline">Events</a>
+      <a href="#table">Resources</a>
+    </nav>
+    <span class="spacer"></span>
+    <div class="avatar">AL</div>
+  </header>
+
+  <div class="shell">
+    <!-- In-page navigation -->
+    <aside class="side-nav" aria-label="Design system sections">
+      <div class="label">Foundations</div>
+      <a class="active" href="#overview">Overview</a>
+      <a href="#principles">Principles</a>
+      <a href="#color">Color</a>
+      <a href="#type">Typography</a>
+      <a href="#space">Spacing</a>
+      <a href="#radius">Radius &amp; Elevation</a>
+      <a href="#motion">Motion</a>
+      <div class="label" style="margin-top:var(--space-4)">Components</div>
+      <a href="#buttons">Buttons</a>
+      <a href="#badges">Badges &amp; Status</a>
+      <a href="#kpi">KPI Tiles</a>
+      <a href="#sections">Section Dividers</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#process">Process Steps</a>
+      <a href="#table">Data Table</a>
+      <a href="#forms">Forms</a>
+      <a href="#dataviz">Data Viz</a>
+      <div class="label" style="margin-top:var(--space-4)">Applied</div>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#usage">Using Tokens</a>
+    </aside>
+
+    <main class="main">
+      <!-- OVERVIEW -->
+      <section id="overview">
+        <div class="hero">
+          <div class="ribbon" aria-hidden="true"></div>
+          <span class="overline" style="color:#6FB4F0">SSD Communities · FY27 Design Language</span>
+          <h1>Modern, elegant, unmistakably SSD.</h1>
+          <p>A calm, confident portal experience built on the FY27 SSD Branding system — disciplined layouts, a deep navy-and-blue palette, and visuals over tables. One consistent family, from PowerPoint to product.</p>
+          <div class="chips">
+            <span class="chip">Navy #091F2E</span>
+            <span class="chip">Blue #0078D4</span>
+            <span class="chip">Segoe Sans Display</span>
+            <span class="chip">Visuals over tables</span>
+            <span class="chip">WCAG AA</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRINCIPLES -->
+      <section id="principles">
+        <div class="section-head">
+          <span class="overline">Design principles</span>
+          <h2>Four ideas that guide every screen</h2>
+          <p>Translated from the FY27 brand's "locked design system" mindset into product UX. These principles resolve trade-offs when the guidelines don't spell out an answer.</p>
+        </div>
+        <div class="grid cols-4">
+          <div class="card principle">
+            <div class="ic" style="background:var(--color-navy)">◆</div>
+            <h3>Clarity first</h3>
+            <p>Generous whitespace, strong hierarchy, one primary action per view. The content is the hero — never the chrome.</p>
+          </div>
+          <div class="card principle">
+            <div class="ic" style="background:var(--color-blue)">◑</div>
+            <h3>Calm &amp; confident</h3>
+            <p>Deep, saturated brand tones on light surfaces. Restraint over decoration; motion that reassures, never distracts.</p>
+          </div>
+          <div class="card principle">
+            <div class="ic" style="background:var(--color-teal)">▤</div>
+            <h3>Visuals over tables</h3>
+            <p>KPI tiles, cards, timelines and charts carry meaning. Tables are reserved for genuine data grids.</p>
+          </div>
+          <div class="card principle">
+            <div class="ic" style="background:var(--color-green)">◈</div>
+            <h3>Consistent system</h3>
+            <p>Every screen is assembled from the same tokens and components, so the portal feels like one SSD FY27 family.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLOR -->
+      <section id="color">
+        <div class="section-head">
+          <span class="overline">Color</span>
+          <h2>A deep, disciplined palette</h2>
+          <p>Brand tones are deep and high-contrast, so they read beautifully as text, icons and accents on light surfaces. Surfaces stay light gray or white — never cream, beige, or Office defaults.</p>
+        </div>
+
+        <h3 style="font-size:var(--font-size-h3);margin-bottom:var(--space-4)">Brand core</h3>
+        <div class="grid cols-4" style="margin-bottom:var(--space-6)">
+          <div class="swatch"><div class="chip" style="background:#091F2E"><span class="tag">AAA on white</span></div><div class="meta"><div class="name">Navy · Ink</div><div class="hex">#091F2E</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#0078D4"><span class="tag">AA on white</span></div><div class="meta"><div class="name">Primary Blue</div><div class="hex">#0078D4</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#2A446F"><span class="tag">AAA on white</span></div><div class="meta"><div class="name">Slate</div><div class="hex">#2A446F</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#EAF3FB"></div><div class="meta"><div class="name">Blue Tint</div><div class="hex">#EAF3FB</div></div></div>
+        </div>
+
+        <h3 style="font-size:var(--font-size-h3);margin-bottom:var(--space-4)">Accents — categorical &amp; data-viz</h3>
+        <div class="grid cols-4" style="margin-bottom:var(--space-6)">
+          <div class="swatch"><div class="chip" style="background:#225B62"></div><div class="meta"><div class="name">Teal</div><div class="hex">#225B62</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#07641D"></div><div class="meta"><div class="name">Green</div><div class="hex">#07641D</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#463668"></div><div class="meta"><div class="name">Purple</div><div class="hex">#463668</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#73262F"></div><div class="meta"><div class="name">Maroon</div><div class="hex">#73262F</div></div></div>
+        </div>
+
+        <h3 style="font-size:var(--font-size-h3);margin-bottom:var(--space-4)">Surfaces &amp; neutrals</h3>
+        <div class="grid cols-4" style="margin-bottom:var(--space-6)">
+          <div class="swatch"><div class="chip" style="background:#F4F4F4;border-bottom:1px solid var(--border-subtle)"></div><div class="meta"><div class="name">Canvas</div><div class="hex">#F4F4F4</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#EDEDED"></div><div class="meta"><div class="name">Subtle</div><div class="hex">#EDEDED</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--border-subtle)"></div><div class="meta"><div class="name">Card</div><div class="hex">#FFFFFF</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#4C5A67"></div><div class="meta"><div class="name">Text Secondary</div><div class="hex">#4C5A67</div></div></div>
+        </div>
+
+        <h3 style="font-size:var(--font-size-h3);margin-bottom:var(--space-4)">Semantic</h3>
+        <div class="grid cols-4">
+          <div class="swatch"><div class="chip" style="background:#0078D4"></div><div class="meta"><div class="name">Info</div><div class="hex">#0078D4</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#07641D"></div><div class="meta"><div class="name">Success</div><div class="hex">#07641D</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#8A5A00"></div><div class="meta"><div class="name">Warning*</div><div class="hex">#8A5A00</div></div></div>
+          <div class="swatch"><div class="chip" style="background:#73262F"></div><div class="meta"><div class="name">Danger</div><div class="hex">#73262F</div></div></div>
+        </div>
+        <div class="note warn" style="margin-top:var(--space-4)">*Warning (deep amber) is a pragmatic extension — the FY27 palette has no caution hue. Use it for icons, borders and badge text only, never as a surface fill, to respect the "no cream / beige" rule.</div>
+      </section>
+
+      <!-- TYPOGRAPHY -->
+      <section id="type">
+        <div class="section-head">
+          <span class="overline">Typography</span>
+          <h2>Segoe Sans Display, with intent</h2>
+          <p>Headings use Segoe Sans Display Semibold; body uses Segoe Sans Display Regular. Never Aptos, Segoe UI, Calibri, or Arial. Set the family explicitly wherever text is rendered.</p>
+        </div>
+        <div class="card">
+          <div class="type-row"><div class="spec">Display · 40 / 600</div><div class="t-display">Communities that deliver</div></div>
+          <div class="type-row"><div class="spec">H1 · 32 / 600</div><div class="t-h1">Section headline</div></div>
+          <div class="type-row"><div class="spec">H2 · 24 / 600</div><div class="t-h2">Card &amp; block titles</div></div>
+          <div class="type-row"><div class="spec">H3 · 20 / 600</div><div class="t-h3">Supporting heading</div></div>
+          <div class="type-row"><div class="spec">Body L · 18 / 400</div><div class="t-body-lg">Lead paragraph for intros and summaries that need a little more presence.</div></div>
+          <div class="type-row"><div class="spec">Body · 16 / 400</div><div class="t-body">Default reading size for portal content, comfortable at longer lengths.</div></div>
+          <div class="type-row"><div class="spec">Small · 14 / 400</div><div class="t-sm">Dense UI, metadata, table cells, secondary details.</div></div>
+          <div class="type-row" style="border-bottom:none"><div class="spec">Overline · 12 / 600</div><div class="t-overline">Eyebrow label</div></div>
+        </div>
+        <div class="note" style="margin-top:var(--space-4)">Web hosting: Segoe Sans Display is a Microsoft brand typeface, not a default web font. Host it via <code>@font-face</code> (WOFF2) on the portal. Fallbacks (<code>system-ui</code>) are a last resort only — ship the licensed webfont so the portal never renders in a forbidden face.</div>
+      </section>
+
+      <!-- SPACING -->
+      <section id="space">
+        <div class="section-head">
+          <span class="overline">Spacing</span>
+          <h2>An 8-point rhythm</h2>
+          <p>A single spacing scale keeps density consistent across tiles, cards, and layouts — the product analogue of the brand's fixed content area.</p>
+        </div>
+        <div class="card">
+          <div class="space-row"><span class="cap">space-1 · 4px</span><span class="bar" style="width:4px"></span></div>
+          <div class="space-row"><span class="cap">space-2 · 8px</span><span class="bar" style="width:8px"></span></div>
+          <div class="space-row"><span class="cap">space-3 · 12px</span><span class="bar" style="width:12px"></span></div>
+          <div class="space-row"><span class="cap">space-4 · 16px</span><span class="bar" style="width:16px"></span></div>
+          <div class="space-row"><span class="cap">space-5 · 24px</span><span class="bar" style="width:24px"></span></div>
+          <div class="space-row"><span class="cap">space-6 · 32px</span><span class="bar" style="width:32px"></span></div>
+          <div class="space-row"><span class="cap">space-7 · 48px</span><span class="bar" style="width:48px"></span></div>
+          <div class="space-row"><span class="cap">space-8 · 64px</span><span class="bar" style="width:64px"></span></div>
+        </div>
+      </section>
+
+      <!-- RADIUS + ELEVATION -->
+      <section id="radius">
+        <div class="section-head">
+          <span class="overline">Radius &amp; elevation</span>
+          <h2>Soft edges, quiet depth</h2>
+          <p>Gentle corner radii and navy-tinted shadows give an elegant, contemporary feel without hard drop-shadows. Depth signals interactivity, not decoration.</p>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3 style="font-size:var(--font-size-h4);margin-bottom:var(--space-4)">Corner radius</h3>
+            <div class="grid cols-3" style="gap:var(--space-3)">
+              <div class="demo-box" style="border-radius:4px">sm · 4</div>
+              <div class="demo-box" style="border-radius:8px">md · 8</div>
+              <div class="demo-box" style="border-radius:12px">lg · 12</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="font-size:var(--font-size-h4);margin-bottom:var(--space-4)">Elevation</h3>
+            <div class="grid cols-3" style="gap:var(--space-3)">
+              <div class="demo-box" style="border:none;box-shadow:var(--shadow-1);border-radius:12px">1</div>
+              <div class="demo-box" style="border:none;box-shadow:var(--shadow-2);border-radius:12px">2</div>
+              <div class="demo-box" style="border:none;box-shadow:var(--shadow-3);border-radius:12px">3</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOTION -->
+      <section id="motion">
+        <div class="section-head">
+          <span class="overline">Motion</span>
+          <h2>Purposeful, brief</h2>
+          <p>Durations of 100–300ms with an ease-out feel. Hover the card to see elevation and lift respond. Respect <code>prefers-reduced-motion</code>.</p>
+        </div>
+        <div class="grid cols-3">
+          <div class="card interactive"><h3 style="font-size:var(--font-size-h4)">Hover me</h3><p class="t-sm" style="margin:0">translateY(-2px) + shadow-2 over 200ms</p></div>
+          <div class="card"><div class="t-overline">Fast · 100ms</div><p class="t-sm muted" style="margin-top:6px">Hovers, presses, toggles</p></div>
+          <div class="card"><div class="t-overline">Normal · 200ms</div><p class="t-sm muted" style="margin-top:6px">Cards, menus, tab changes</p></div>
+        </div>
+      </section>
+
+      <!-- BUTTONS -->
+      <section id="buttons">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Buttons</h2>
+          <p>One primary action per view. Primary is Blue; secondary is an outline; subtle is for low-emphasis actions. Focus is always visible for accessibility.</p>
+        </div>
+        <div class="card">
+          <div class="row" style="margin-bottom:var(--space-4)">
+            <button class="btn btn-primary">Primary action</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-subtle">Subtle</button>
+            <button class="btn btn-danger">Danger</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary">Medium</button>
+            <button class="btn btn-primary btn-lg">Large</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BADGES -->
+      <section id="badges">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Badges &amp; status</h2>
+          <p>Status uses semantic color with a soft tinted surface; categorical badges borrow the accent palette. Text stays high-contrast.</p>
+        </div>
+        <div class="card row">
+          <span class="badge badge-info">Info</span>
+          <span class="badge badge-success">On track</span>
+          <span class="badge badge-warning">At risk</span>
+          <span class="badge badge-danger">Blocked</span>
+          <span class="badge badge-neutral">Draft</span>
+        </div>
+      </section>
+
+      <!-- KPI TILES -->
+      <section id="kpi">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>KPI tiles</h2>
+          <p>The workhorse of the portal — dense metrics turned into calm, scannable tiles with a colored accent rail and a clear trend.</p>
+        </div>
+        <div class="grid cols-4">
+          <div class="card kpi"><span class="accent" style="background:var(--color-blue)"></span><div class="k-label">Active communities</div><div class="k-value">128</div><span class="k-trend trend-up">▲ 12% QoQ</span></div>
+          <div class="card kpi"><span class="accent" style="background:var(--color-teal)"></span><div class="k-label">Members</div><div class="k-value">6,420</div><span class="k-trend trend-up">▲ 8%</span></div>
+          <div class="card kpi"><span class="accent" style="background:var(--color-green)"></span><div class="k-label">Engagement</div><div class="k-value">73%</div><span class="k-trend trend-up">▲ 4 pts</span></div>
+          <div class="card kpi"><span class="accent" style="background:var(--color-maroon)"></span><div class="k-label">Overdue actions</div><div class="k-value">9</div><span class="k-trend trend-down">▼ 3</span></div>
+        </div>
+      </section>
+
+      <!-- SECTION DIVIDERS -->
+      <section id="sections">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Section dividers</h2>
+          <p>Direct descendants of the brand's Light / Green / Dark Blue break layouts — used to chapter the portal and set rhythm between content zones.</p>
+        </div>
+        <div class="stack">
+          <div class="divider light"><span class="overline">Light section</span><h3>Getting started</h3><p class="muted" style="margin:6px 0 0">Neutral break for a change of topic.</p></div>
+          <div class="divider green"><span class="overline">Green section</span><h3>What's new this quarter</h3><p style="margin:6px 0 0">A confident, on-brand highlight break.</p></div>
+          <div class="divider dark"><span class="overline">Dark blue</span><h3>Leadership spotlight</h3><p style="margin:6px 0 0">High-emphasis opener or closer.</p></div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section id="timeline">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Timeline</h2>
+          <p>For events and milestones — a visual alternative to a dense schedule table.</p>
+        </div>
+        <div class="card">
+          <ul class="timeline">
+            <li class="done"><span class="dot"></span><div class="when">Q1 · Complete</div><div class="what">Community charter published</div><div class="desc">Governance and roles agreed across the practice.</div></li>
+            <li class="done"><span class="dot"></span><div class="when">Q2 · Complete</div><div class="what">Onboarding wave 1</div><div class="desc">First 40 communities migrated to the portal.</div></li>
+            <li><span class="dot"></span><div class="when">Q3 · In progress</div><div class="what">Insights dashboards</div><div class="desc">KPI tiles and engagement analytics roll out.</div></li>
+            <li><span class="dot"></span><div class="when">Q4 · Planned</div><div class="what">Recognition program</div><div class="desc">Highlight top contributors and communities.</div></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section id="process">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Process steps</h2>
+          <p>Turn a procedure into a scannable flow instead of a numbered paragraph.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="n">1</div><h4>Request</h4><p>Submit a new community with a short charter.</p></div>
+          <div class="step"><div class="n">2</div><h4>Review</h4><p>Governance validates scope and sponsor.</p></div>
+          <div class="step"><div class="n">3</div><h4>Launch</h4><p>Space, roles and channels are provisioned.</p></div>
+          <div class="step"><div class="n">4</div><h4>Grow</h4><p>Track engagement and iterate quarterly.</p></div>
+        </div>
+      </section>
+
+      <!-- TABLE -->
+      <section id="table">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Data table</h2>
+          <p>Reserved for genuine data grids with owners, dates and status — clean rules, quiet header, hover affordance.</p>
+        </div>
+        <table class="data">
+          <thead><tr><th>Community</th><th>Owner</th><th>Members</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Azure Migration Guild</td><td>A. Lefranc</td><td>412</td><td><span class="badge badge-success">On track</span></td></tr>
+            <tr><td>Data &amp; AI Circle</td><td>P. Rao</td><td>318</td><td><span class="badge badge-warning">At risk</span></td></tr>
+            <tr><td>Security Champions</td><td>M. Ito</td><td>256</td><td><span class="badge badge-info">Info</span></td></tr>
+            <tr><td>Modern Work Forum</td><td>S. Diallo</td><td>190</td><td><span class="badge badge-danger">Blocked</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- FORMS -->
+      <section id="forms">
+        <div class="section-head">
+          <span class="overline">Components</span>
+          <h2>Forms</h2>
+          <p>Clear labels, comfortable targets, a calm blue focus ring. Inputs align to the same radius and spacing tokens.</p>
+        </div>
+        <div class="card grid cols-2">
+          <div>
+            <div class="field"><label for="cn">Community name</label><input id="cn" class="input" placeholder="e.g. Azure Migration Guild" /><div class="hint">Shown across the portal and in search.</div></div>
+            <div class="field"><label for="cat">Category</label><select id="cat" class="select"><option>Practice</option><option>Technology</option><option>Region</option></select></div>
+          </div>
+          <div>
+            <div class="field"><label for="desc">Charter</label><input id="desc" class="input" placeholder="One-line purpose" /></div>
+            <div class="row" style="margin-top:var(--space-6)"><button class="btn btn-primary">Create community</button><button class="btn btn-subtle">Cancel</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATA VIZ -->
+      <section id="dataviz">
+        <div class="section-head">
+          <span class="overline">Data visualization</span>
+          <h2>Charts, on palette</h2>
+          <p>Use the categorical sequence in order — Blue, Teal, Green, Purple, Slate, Maroon — so charts stay legible and on-brand.</p>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3 style="font-size:var(--font-size-h4);margin-bottom:var(--space-5)">Engagement by quarter</h3>
+            <div class="bars">
+              <div class="bar" style="height:46%;background:var(--dv-1)"><span>58</span><small>Q1</small></div>
+              <div class="bar" style="height:60%;background:var(--dv-2)"><span>64</span><small>Q2</small></div>
+              <div class="bar" style="height:74%;background:var(--dv-3)"><span>73</span><small>Q3</small></div>
+              <div class="bar" style="height:88%;background:var(--dv-4)"><span>81</span><small>Q4</small></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="font-size:var(--font-size-h4);margin-bottom:var(--space-5)">Communities by type</h3>
+            <div class="row" style="gap:var(--space-6)">
+              <div class="donut"><div class="hole"><div><strong style="font-size:1.25rem">128</strong><div class="t-sm muted">total</div></div></div></div>
+              <div class="legend">
+                <div><span class="sw" style="background:var(--dv-1)"></span> Practice · 34%</div>
+                <div><span class="sw" style="background:var(--dv-2)"></span> Technology · 23%</div>
+                <div><span class="sw" style="background:var(--dv-3)"></span> Region · 17%</div>
+                <div><span class="sw" style="background:var(--dv-4)"></span> Role · 13%</div>
+                <div><span class="sw" style="background:var(--dv-5)"></span> Other · 13%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD (applied) -->
+      <section id="dashboard">
+        <div class="section-head">
+          <span class="overline">Applied example</span>
+          <h2>Putting it together</h2>
+          <p>A representative portal dashboard assembled entirely from the tokens and components above — calm, scannable, and unmistakably SSD FY27.</p>
+        </div>
+        <div class="stack">
+          <div class="grid cols-4">
+            <div class="card kpi"><span class="accent" style="background:var(--color-blue)"></span><div class="k-label">Communities</div><div class="k-value">128</div><span class="k-trend trend-up">▲ 12%</span></div>
+            <div class="card kpi"><span class="accent" style="background:var(--color-teal)"></span><div class="k-label">Members</div><div class="k-value">6,420</div><span class="k-trend trend-up">▲ 8%</span></div>
+            <div class="card kpi"><span class="accent" style="background:var(--color-green)"></span><div class="k-label">Engagement</div><div class="k-value">73%</div><span class="k-trend trend-up">▲ 4 pts</span></div>
+            <div class="card kpi"><span class="accent" style="background:var(--color-slate)"></span><div class="k-label">Events (30d)</div><div class="k-value">34</div><span class="k-trend trend-up">▲ 6</span></div>
+          </div>
+          <div class="grid" style="grid-template-columns: 1.6fr 1fr">
+            <div class="card">
+              <div class="row" style="justify-content:space-between;margin-bottom:var(--space-5)"><h3 style="font-size:var(--font-size-h3)">Engagement trend</h3><span class="badge badge-success">On track</span></div>
+              <div class="bars">
+                <div class="bar" style="height:46%;background:var(--dv-1)"><span>58</span><small>Apr</small></div>
+                <div class="bar" style="height:54%;background:var(--dv-1)"><span>61</span><small>May</small></div>
+                <div class="bar" style="height:66%;background:var(--dv-1)"><span>68</span><small>Jun</small></div>
+                <div class="bar" style="height:74%;background:var(--dv-1)"><span>73</span><small>Jul</small></div>
+                <div class="bar" style="height:82%;background:var(--dv-1)"><span>78</span><small>Aug</small></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3 style="font-size:var(--font-size-h3);margin-bottom:var(--space-4)">Upcoming</h3>
+              <ul class="timeline">
+                <li class="done"><span class="dot"></span><div class="when">Aug 12</div><div class="what">AI Circle AMA</div></li>
+                <li><span class="dot"></span><div class="when">Aug 19</div><div class="what">Security workshop</div></li>
+                <li><span class="dot"></span><div class="when">Aug 27</div><div class="what">Leadership spotlight</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- USAGE -->
+      <section id="usage">
+        <div class="section-head">
+          <span class="overline">Using the tokens</span>
+          <h2>Wire it into the portal</h2>
+          <p>The same values in this guide ship as ready-to-import token files, so the portal never hard-codes a hex or a font.</p>
+        </div>
+        <div class="grid cols-3">
+          <div class="card"><h3 style="font-size:var(--font-size-h4);margin-bottom:8px">tokens.css</h3><p class="t-sm">CSS custom properties on <code>:root</code>. Framework-agnostic — import once, use <code>var(--color-blue)</code> anywhere.</p></div>
+          <div class="card"><h3 style="font-size:var(--font-size-h4);margin-bottom:8px">tokens.scss</h3><p class="t-sm">SCSS variables &amp; maps for SPFx <code>.module.scss</code> files, e.g. <code>$color-blue</code>.</p></div>
+          <div class="card"><h3 style="font-size:var(--font-size-h4);margin-bottom:8px">theme.ts</h3><p class="t-sm">Typed tokens + a Fluent UI theme for React web parts. <code>import { ssdTheme }</code>.</p></div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        SSD Communities · Portal Design System · FY27 · Derived from the official FY27 SSD Branding system.
+        Surfaces light gray/white · Segoe Sans Display · approved colors only · visuals over tables · WCAG AA.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Highlight the in-page nav item for the section currently in view.
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.side-nav a'));
+      var map = {};
+      links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && map[e.target.id]) {
+            links.forEach(function (l) { l.classList.remove('active'); });
+            map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      document.querySelectorAll('main section[id]').forEach(function (s) { obs.observe(s); });
+    })();
+  </script>
+</body>
+</html>

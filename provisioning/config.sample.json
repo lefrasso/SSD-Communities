@@ -1,0 +1,23 @@
+{
+  "serviceFamilies": [
+    "Azure",
+    "Data & AI",
+    "Modern Work",
+    "Security",
+    "Business Applications",
+    "Cross-community"
+  ],
+  "timeZones": [
+    "AMER",
+    "EMEA",
+    "APAC"
+  ],
+  "launchReadiness": [
+    "Scope approved",
+    "Community roles assigned",
+    "Viva Engage and chat channels ready",
+    "Interaction model and cadence agreed",
+    "Readiness plan agreed",
+    "Health baseline captured"
+  ]
+}

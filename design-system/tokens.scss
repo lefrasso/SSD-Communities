@@ -1,0 +1,128 @@
+// ============================================================
+// SSD COMMUNITIES — PORTAL DESIGN TOKENS (FY27)
+// SCSS variables for SPFx *.module.scss files.
+// Usage:  @import '../../design-system/tokens';  then use $color-blue, etc.
+// The :export block also exposes tokens to TypeScript when this file
+// is imported as a CSS module (import tokens from './tokens.module.scss').
+// Canonical values mirrored in tokens.css and theme.ts.
+// ============================================================
+
+// --- Brand core ---
+$color-navy: #091F2E;
+$color-blue: #0078D4;
+$color-slate: #2A446F;
+
+// --- Brand accents ---
+$color-teal: #225B62;
+$color-green: #07641D;
+$color-purple: #463668;
+$color-maroon: #73262F;
+
+// --- Interactive blue ramp ---
+$color-blue-hover: #106EBE;
+$color-blue-pressed: #005A9E;
+$color-blue-tint: #EAF3FB;
+
+// --- Surfaces (light gray / white only — no cream, no beige) ---
+$surface-canvas: #F4F4F4;
+$surface-subtle: #EDEDED;
+$surface-card: #FFFFFF;
+$surface-inverse: #091F2E;
+
+// --- Neutral ramp (navy-tinted cool grays) ---
+$neutral-900: #091F2E;
+$neutral-800: #1B2C39;
+$neutral-700: #33434F;
+$neutral-600: #4C5A67;
+$neutral-500: #6B7883;
+$neutral-400: #97A1AA;
+$neutral-300: #C3CACF;
+$neutral-200: #DCE0E4;
+$neutral-100: #EDEDED;
+$neutral-050: #F4F4F4;
+
+// --- Text ---
+$text-primary: #091F2E;
+$text-secondary: #4C5A67;
+$text-tertiary: #6B7883;
+$text-disabled: #97A1AA;
+$text-on-dark: #FFFFFF;
+$text-on-accent: #FFFFFF;
+
+// --- Borders ---
+$border-subtle: #E7EAED;
+$border-default: #DCE0E4;
+$border-strong: #C3CACF;
+
+// --- Semantic ---
+$color-info: #0078D4;      $surface-info: #EAF3FB;
+$color-success: #07641D;   $surface-success: #E6F2E9;
+$color-danger: #73262F;    $surface-danger: #F6EAEB;
+$color-warning: #8A5A00;   // accent only, never a surface fill
+
+// --- Data-viz categorical sequence (use in order) ---
+$dv-1: #0078D4; $dv-2: #225B62; $dv-3: #07641D;
+$dv-4: #463668; $dv-5: #2A446F; $dv-6: #73262F;
+$data-viz: ($dv-1, $dv-2, $dv-3, $dv-4, $dv-5, $dv-6);
+
+// --- Typography ---
+// Host Segoe Sans Display via @font-face (WOFF2). Never Segoe UI/Calibri/Arial.
+$font-heading: "Segoe Sans Display", "Segoe Sans", system-ui, sans-serif;
+$font-body: "Segoe Sans Display", "Segoe Sans", system-ui, sans-serif;
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+
+$font-size-display: 2.5rem;   // 40
+$font-size-h1: 2rem;          // 32
+$font-size-h2: 1.5rem;        // 24
+$font-size-h3: 1.25rem;       // 20
+$font-size-h4: 1rem;          // 16
+$font-size-body-lg: 1.125rem; // 18
+$font-size-body: 1rem;        // 16
+$font-size-body-sm: 0.875rem; // 14
+$font-size-caption: 0.75rem;  // 12
+
+$line-height-tight: 1.15;
+$line-height-snug: 1.3;
+$line-height-normal: 1.5;
+$letter-spacing-tight: -0.01em;
+$letter-spacing-overline: 0.08em;
+
+// --- Spacing (8pt grid, 4px steps) ---
+$space-1: 4px;  $space-2: 8px;  $space-3: 12px; $space-4: 16px;
+$space-5: 24px; $space-6: 32px; $space-7: 48px; $space-8: 64px; $space-9: 96px;
+
+// --- Radii ---
+$radius-sm: 4px; $radius-md: 8px; $radius-lg: 12px; $radius-xl: 16px; $radius-pill: 999px;
+
+// --- Elevation (navy-tinted, soft) ---
+$shadow-1: 0 1px 2px rgba(9,31,46,.06), 0 1px 3px rgba(9,31,46,.08);
+$shadow-2: 0 2px 6px rgba(9,31,46,.08), 0 4px 12px rgba(9,31,46,.10);
+$shadow-3: 0 8px 24px rgba(9,31,46,.12), 0 2px 6px rgba(9,31,46,.08);
+$focus-ring: 0 0 0 2px #FFFFFF, 0 0 0 4px #0078D4;
+
+// --- Motion ---
+$duration-fast: 100ms; $duration-normal: 200ms; $duration-slow: 300ms;
+$ease-standard: cubic-bezier(.33, 0, .2, 1);
+$ease-entrance: cubic-bezier(.16, 1, .3, 1);
+
+// --- Layout ---
+$layout-max-width: 1280px;
+$header-height: 60px;
+
+// Expose key tokens to TypeScript (SPFx CSS-module :export)
+:export {
+  colorNavy: $color-navy;
+  colorBlue: $color-blue;
+  colorSlate: $color-slate;
+  colorTeal: $color-teal;
+  colorGreen: $color-green;
+  colorPurple: $color-purple;
+  colorMaroon: $color-maroon;
+  surfaceCanvas: $surface-canvas;
+  surfaceCard: $surface-card;
+  textPrimary: $text-primary;
+  textSecondary: $text-secondary;
+  fontHeading: $font-heading;
+  fontBody: $font-body;
+}

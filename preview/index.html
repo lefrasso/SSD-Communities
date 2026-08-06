@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>SSD Communities Portal</title>
+  <link rel="stylesheet" href="../design-system/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">SSD</div>
+    <div class="brand-copy">
+      <strong>Technical Communities</strong>
+      <span>Governance portal</span>
+    </div>
+    <span class="environment">Offline preview</span>
+    <button class="profile" type="button" aria-label="Current user: Alex Morgan">AM</button>
+  </header>
+
+  <div class="shell">
+    <nav class="sidebar" aria-label="Portal views">
+      <button type="button" data-view="directory">Directory</button>
+      <button type="button" data-view="detail">Community detail</button>
+      <button type="button" data-view="mine">My communities</button>
+      <button type="button" data-view="charter">Charter editor</button>
+      <button type="button" data-view="health">Health dashboard</button>
+      <button type="button" data-view="retirement">Retirement register</button>
+    </nav>
+    <main id="app" class="main" tabindex="-1"></main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

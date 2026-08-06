@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "community-directory-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/communityDirectory/CommunityDirectoryWebPart.js",
+          "manifest": "./src/webparts/communityDirectory/CommunityDirectoryWebPart.manifest.json"
+        }
+      ]
+    },
+    "community-detail-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/communityDetail/CommunityDetailWebPart.js",
+          "manifest": "./src/webparts/communityDetail/CommunityDetailWebPart.manifest.json"
+        }
+      ]
+    },
+    "my-community-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/myCommunity/MyCommunityWebPart.js",
+          "manifest": "./src/webparts/myCommunity/MyCommunityWebPart.manifest.json"
+        }
+      ]
+    },
+    "charter-editor-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/charterEditor/CharterEditorWebPart.js",
+          "manifest": "./src/webparts/charterEditor/CharterEditorWebPart.manifest.json"
+        }
+      ]
+    },
+    "health-dashboard-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/healthDashboard/HealthDashboardWebPart.js",
+          "manifest": "./src/webparts/healthDashboard/HealthDashboardWebPart.manifest.json"
+        }
+      ]
+    },
+    "retirement-register-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/retirementRegister/RetirementRegisterWebPart.js",
+          "manifest": "./src/webparts/retirementRegister/RetirementRegisterWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PortalStrings": "lib/loc/{locale}.js"
+  }
+}

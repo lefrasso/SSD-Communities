@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "53d02ea8-2d24-4644-9ec7-bf2578731c7b",
+  "alias": "CommunityDetailWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportedHosts": ["SharePointWebPart"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "cf066440-0614-43d6-98ae-0b31cf14c7c3",
+      "group": { "default": "SSD Communities" },
+      "title": { "default": "Community Detail" },
+      "description": { "default": "View scope, roles, IP, channels, and membership." },
+      "officeFabricIconFontName": "Group",
+      "properties": {
+        "communityId": 0,
+        "expectedTimeZones": "AMER, EMEA, APAC",
+        "membershipEnabled": false
+      }
+    }
+  ]
+}

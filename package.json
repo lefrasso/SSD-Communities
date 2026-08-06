@@ -1,0 +1,59 @@
+{
+  "name": "ssd-communities-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SharePoint Framework portal for SSD Technical Communities governance.",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=22.14.0 <23.0.0"
+  },
+  "scripts": {
+    "build": "gulp bundle",
+    "bundle:ship": "gulp bundle --ship",
+    "clean": "gulp clean",
+    "lint": "gulp lint",
+    "package:ship": "gulp package-solution --ship",
+    "provision:generate": "node scripts/generate-provisioning.js",
+    "serve": "gulp serve",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
+    "validate:core": "node scripts/validate-core.js",
+    "validate": "npm run provision:generate && npm run validate:core && npm run lint && npm test && npm run bundle:ship && npm run package:ship"
+  },
+  "dependencies": {
+    "@fluentui/react": "8.106.4",
+    "@microsoft/sp-core-library": "1.21.1",
+    "@microsoft/sp-http": "1.21.1",
+    "@microsoft/sp-lodash-subset": "1.21.1",
+    "@microsoft/sp-office-ui-fabric-core": "1.21.1",
+    "@microsoft/sp-property-pane": "1.21.1",
+    "@microsoft/sp-webpart-base": "1.21.1",
+    "@pnp/sp": "4.14.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "tslib": "2.3.1"
+  },
+  "devDependencies": {
+    "@microsoft/eslint-config-spfx": "1.21.1",
+    "@microsoft/eslint-plugin-spfx": "1.21.1",
+    "@microsoft/rush-stack-compiler-5.3": "0.1.0",
+    "@microsoft/sp-build-web": "1.21.1",
+    "@microsoft/sp-module-interfaces": "1.21.1",
+    "@rushstack/eslint-config": "4.0.1",
+    "@testing-library/react": "12.1.5",
+    "@types/jest": "29.5.14",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@types/webpack-env": "1.15.2",
+    "ajv": "6.12.5",
+    "eslint": "8.57.1",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "gulp": "4.0.2",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "29.7.0",
+    "jest-axe": "9.0.0",
+    "jest-environment-jsdom": "29.7.0",
+    "ts-jest": "29.2.5",
+    "typescript": "5.3.3"
+  }
+}

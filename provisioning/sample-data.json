@@ -1,0 +1,79 @@
+{
+  "communities": [
+    {
+      "key": "azure-platform",
+      "title": "Azure Platform",
+      "serviceFamily": "Azure",
+      "scopeInScope": "Azure infrastructure, landing zones, resilience, and platform engineering.",
+      "scopeOutOfScope": "Application architecture and data platform implementation.",
+      "targetRoles": ["Community Lead", "Family Owner (SME)", "Invited Expert"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "data-ai",
+      "title": "Data & AI",
+      "serviceFamily": "Data & AI",
+      "scopeInScope": "Analytics, data platforms, machine learning, and responsible AI delivery.",
+      "scopeOutOfScope": "Core infrastructure operations and end-user productivity.",
+      "targetRoles": ["Community Lead", "Family Owner (SME)", "Invited Expert"],
+      "status": "Active",
+      "isCrossCommunity": false
+    },
+    {
+      "key": "cross-training",
+      "title": "Cross-community Exchange",
+      "serviceFamily": "Cross-community",
+      "scopeInScope": "Cross-pollination, reusable IP, and shared readiness across technical communities.",
+      "scopeOutOfScope": "Domain-specific governance owned by an individual community.",
+      "targetRoles": ["Invited Expert"],
+      "status": "Active",
+      "isCrossCommunity": true
+    }
+  ],
+  "ipCatalog": [
+    {
+      "title": "Landing zone review checklist",
+      "communityKey": "azure-platform",
+      "description": "Reusable review prompts for platform governance and operational readiness."
+    },
+    {
+      "title": "Responsible AI delivery canvas",
+      "communityKey": "data-ai",
+      "description": "A shared canvas for risk, evaluation, and operational readiness."
+    }
+  ],
+  "healthMetrics": [
+    {
+      "communityKey": "azure-platform",
+      "measure": "Participation",
+      "period": "Baseline",
+      "value": 45,
+      "unit": "Percent",
+      "isBaseline": true,
+      "commentary": "Launch baseline."
+    },
+    {
+      "communityKey": "azure-platform",
+      "measure": "Participation",
+      "period": "Q2 FY27",
+      "value": 58,
+      "unit": "Percent",
+      "isBaseline": false,
+      "commentary": "Attendance increased after office hours launched."
+    }
+  ],
+  "forumRetirement": [
+    {
+      "title": "Legacy Azure delivery DL",
+      "disposition": "Migrate",
+      "targetCommunityKey": "azure-platform"
+    },
+    {
+      "title": "AI practitioner chat",
+      "disposition": "Merge",
+      "targetCommunityKey": "data-ai",
+      "completionDate": "2026-08-01"
+    }
+  ]
+}

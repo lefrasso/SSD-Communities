@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        type: choice
+        options: [development, test, production]
+      seedSampleData:
+        description: Seed representative data (development only)
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Validate deployment inputs
+        shell: pwsh
+        env:
+          PROVISIONING_CONFIG_JSON: ${{ secrets.PROVISIONING_CONFIG_JSON }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          APP_CATALOG_URL: ${{ vars.APP_CATALOG_URL }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:PROVISIONING_CONFIG_JSON)) { throw 'PROVISIONING_CONFIG_JSON is required.' }
+          if ([string]::IsNullOrWhiteSpace($env:SITE_URL)) { throw 'SITE_URL is required.' }
+          if ([string]::IsNullOrWhiteSpace($env:APP_CATALOG_URL)) { throw 'APP_CATALOG_URL is required.' }
+          if ('${{ inputs.seedSampleData }}' -eq 'true' -and '${{ inputs.environment }}' -ne 'development') {
+            throw 'Sample data may only be seeded in development.'
+          }
+      - name: Build release
+        shell: pwsh
+        env:
+          PROVISIONING_CONFIG_JSON: ${{ secrets.PROVISIONING_CONFIG_JSON }}
+        run: |
+          npm install
+          npm run provision:generate
+          npm run lint
+          npm test
+          npm run bundle:ship
+          npm run package:ship
+      - name: Install PnP PowerShell
+        shell: pwsh
+        run: Install-Module PnP.PowerShell -Scope CurrentUser -Force
+      - name: Publish package and provision site
+        shell: pwsh
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          APP_CATALOG_URL: ${{ vars.APP_CATALOG_URL }}
+          APP_CATALOG_SCOPE: ${{ vars.APP_CATALOG_SCOPE }}
+          M365_TENANT_ID: ${{ secrets.M365_TENANT_ID }}
+          M365_CLIENT_ID: ${{ secrets.M365_CLIENT_ID }}
+          M365_CERTIFICATE_BASE64: ${{ secrets.M365_CERTIFICATE_BASE64 }}
+          M365_CERTIFICATE_PASSWORD: ${{ secrets.M365_CERTIFICATE_PASSWORD }}
+          SEED_SAMPLE_DATA: ${{ inputs.seedSampleData }}
+        run: |
+          $password = ConvertTo-SecureString $env:M365_CERTIFICATE_PASSWORD -AsPlainText -Force
+          $parameters = @{
+            SiteUrl = $env:SITE_URL
+            AppCatalogUrl = $env:APP_CATALOG_URL
+            AppCatalogScope = $(if ($env:APP_CATALOG_SCOPE) { $env:APP_CATALOG_SCOPE } else { 'Tenant' })
+            TenantId = $env:M365_TENANT_ID
+            ClientId = $env:M365_CLIENT_ID
+            CertificateBase64 = $env:M365_CERTIFICATE_BASE64
+            CertificatePassword = $password
+          }
+          if ($env:SEED_SAMPLE_DATA -eq 'true') { $parameters.SeedSampleData = $true }
+          ./scripts/Deploy-Portal.ps1 @parameters

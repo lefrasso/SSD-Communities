@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "ssd-communities-portal",
+    "id": "2f2aa78e-79aa-4f1c-8f37-6a0cb98111e6",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": false,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      { "resource": "Microsoft Graph", "scope": "User.Read.All" },
+      { "resource": "Microsoft Graph", "scope": "GroupMember.ReadWrite.All" },
+      { "resource": "Microsoft Graph", "scope": "Group.Read.All" },
+      { "resource": "Microsoft Graph", "scope": "Sites.Read.All" },
+      { "resource": "Microsoft Graph", "scope": "People.Read" }
+    ],
+    "developer": {
+      "name": "SSD Technical Communities",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "websiteUrl": "",
+      "mpnId": "Undefined-1.0.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Governance portal for SSD Technical Communities"
+      },
+      "longDescription": {
+        "default": "Directory, charters, health metrics, and retirement governance for SSD Technical Communities."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": ["Collaboration"]
+    },
+    "features": [
+      {
+        "title": "SSD Communities Portal Web Parts",
+        "description": "Activates the six SSD Technical Communities governance web parts.",
+        "id": "a3c3aab1-56de-4f45-844c-b141da78b0bd",
+        "version": "1.0.0.0",
+        "componentIds": [
+          "26d649d0-c860-4f37-98cb-20f53102a1dd",
+          "53d02ea8-2d24-4644-9ec7-bf2578731c7b",
+          "ebf0dd17-752a-4841-aa46-22dffdb1c6e8",
+          "13a6063d-af51-4ee8-b35f-59d944a20930",
+          "9edbe9ca-1cf3-4857-8f6e-d018c402eb47",
+          "452a7873-825e-430f-b0e9-d1024d45dc2e"
+        ]
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/ssd-communities-portal.sppkg"
+  }
+}
