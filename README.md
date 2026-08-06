@@ -15,7 +15,7 @@ The functional and delivery specifications are indexed in [docs/README.md](docs/
 
 The canonical static entry point is [index.html](index.html). Open it directly in a browser when local package installation is blocked by device policy. It uses only local HTML, CSS, JavaScript, FY27 tokens, and representative data; no npm, server, admin rights, or network access is required.
 
-GitHub Pages publishes directly from the `main` branch at the repository root, so [index.html](index.html) is live at [https://lefrasso.github.io/SSD-Communities/](https://lefrasso.github.io/SSD-Communities/) without a package build or deployment workflow.
+[index.html](index.html) remains the canonical root entry point on `main`. GitHub Pages serves a minimal `gh-pages` branch containing that root file plus the local preview and token assets, so [https://lefrasso.github.io/SSD-Communities/](https://lefrasso.github.io/SSD-Communities/) runs without npm, Jekyll, or the SPFx build toolchain.
 
 The preview includes the complete **SSD Technical Communities Playbook** plus all six operational portal views. [preview/playbook.js](preview/playbook.js) is the structured content source for:
 
