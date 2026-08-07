@@ -42,12 +42,12 @@ export function isCharterSignedOff(charter: ICharter | undefined): boolean {
   return !!charter && charter.Status === 'Signed off';
 }
 
-/** All three sign-offs present (FR-11): Lead, PM and Family Owner. */
+/** All three sign-offs present (FR-11): Lead, PM and one nominated SME. */
 export function isCharterFullySignedOff(charter: ICharter): boolean {
   return !!(
     charter.SignOffLead && charter.SignOffLeadDate &&
     charter.SignOffPM && charter.SignOffPMDate &&
-    charter.SignOffFamilyOwner && charter.SignOffFamilyOwnerDate
+    charter.SignOffSME && charter.SignOffSMEDate
   );
 }
 
@@ -80,22 +80,6 @@ export function validateCharter(charter: ICharter): string[] {
     }
   }
   return errors;
-}
-
-/** Time zone is required for Family Owners (FR-17). */
-export function requiresTimeZone(role: ICommunityRole): boolean {
-  return role.Role === 'Family Owner (SME)';
-}
-
-/** Expected Family Owner time zones with no active owner — the coverage gaps (FR-17). */
-export function timeZoneCoverageGaps(roles: ICommunityRole[], expectedZones: string[]): string[] {
-  const covered: { [zone: string]: true } = {};
-  roles.forEach((r) => {
-    if (r.Role === 'Family Owner (SME)' && r.Active && r.TimeZone) {
-      covered[r.TimeZone] = true;
-    }
-  });
-  return expectedZones.filter((z) => !covered[z]);
 }
 
 /** The launch baseline value for a measure (FR-19). */

@@ -36,14 +36,13 @@ describe('permission logic', () => {
     expect(capabilities.canManageRetirement).toBe(true);
   });
 
-  it('lets Family Owners sign without editing the charter body', () => {
-    const owner: ICommunityRole = {
+  it('lets Subject Matter Experts sign without editing the charter body', () => {
+    const subjectMatterExpert: ICommunityRole = {
       ...lead,
-      Role: 'Family Owner (SME)',
-      TimeZone: 'EMEA'
+      Role: 'Subject Matter Expert'
     };
-    const capabilities = deriveCapabilities([], [owner], { email: 'ada@example.com' }, 7);
-    expect(capabilities.canSignAsFamilyOwner).toBe(true);
+    const capabilities = deriveCapabilities([], [subjectMatterExpert], { email: 'ada@example.com' }, 7);
+    expect(capabilities.canSignAsSME).toBe(true);
     expect(capabilities.canEditCharter).toBe(false);
   });
 });

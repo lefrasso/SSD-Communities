@@ -34,13 +34,15 @@ function xml(value) {
 }
 
 function displayName(internalName) {
-  return internalName.replace(/([a-z])([A-Z])/g, '$1 $2');
+  return internalName
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/SME(?=[A-Z]|$)/g, 'SME ')
+    .trim();
 }
 
 function resolveChoices(field, configuration) {
   if (field.choices && field.choices.length > 0) return field.choices;
   if (field.internalName === 'ServiceFamily') return configuration.serviceFamilies;
-  if (field.internalName === 'TimeZone') return configuration.timeZones;
   if (field.internalName === 'LaunchReadiness') return configuration.launchReadiness;
   return [];
 }
@@ -74,9 +76,6 @@ function fieldXml(field, configuration) {
 function validateConfiguration(configuration) {
   if (!configuration.serviceFamilies || configuration.serviceFamilies.length === 0) {
     throw new Error('Provisioning requires at least one service family.');
-  }
-  if (!configuration.timeZones || configuration.timeZones.length === 0) {
-    throw new Error('Provisioning requires at least one time zone.');
   }
   if (!configuration.launchReadiness || configuration.launchReadiness.length !== 6) {
     throw new Error('Provisioning requires exactly six launch-readiness choices.');

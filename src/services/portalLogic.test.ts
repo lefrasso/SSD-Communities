@@ -7,8 +7,6 @@ import {
   isCharterFullySignedOff,
   canTransitionCharter,
   validateCharter,
-  requiresTimeZone,
-  timeZoneCoverageGaps,
   baselineValue,
   deltaFromBaseline,
   reductionProgress
@@ -16,7 +14,6 @@ import {
 import {
   ICommunity,
   ICharter,
-  ICommunityRole,
   IHealthMetric,
   IForumRetirementItem,
   IPersonRef
@@ -42,16 +39,6 @@ const charter = (over: Partial<ICharter>): ICharter => ({
   ...over
 });
 
-const role = (over: Partial<ICommunityRole>): ICommunityRole => ({
-  Id: 1,
-  CommunityId: 1,
-  Person: person(1),
-  Role: 'Family Owner (SME)',
-  SourceOrg: 'Delivery',
-  Active: true,
-  ...over
-});
-
 const metric = (over: Partial<IHealthMetric>): IHealthMetric => ({
   Id: 1,
   CommunityId: 1,
@@ -65,7 +52,7 @@ const metric = (over: Partial<IHealthMetric>): IHealthMetric => ({
 
 describe('filterCommunities', () => {
   const items: ICommunity[] = [
-    community({ Id: 1, Title: 'Azure', ServiceFamily: 'Cloud & AI', Status: 'Active', TargetRoles: ['Invited Expert'] }),
+    community({ Id: 1, Title: 'Azure', ServiceFamily: 'Cloud & AI', Status: 'Active', TargetRoles: ['Manager'] }),
     community({ Id: 2, Title: 'Modern-Apps', ServiceFamily: 'Apps', Status: 'Proposed', TargetRoles: ['Community Lead'] })
   ];
 
@@ -102,8 +89,8 @@ describe('charter gates', () => {
       SignOffLeadDate: '2026-08-01',
       SignOffPM: person(2),
       SignOffPMDate: '2026-08-02',
-      SignOffFamilyOwner: person(3),
-      SignOffFamilyOwnerDate: '2026-08-03'
+      SignOffSME: person(3),
+      SignOffSMEDate: '2026-08-03'
     }))).toBe(true);
     expect(isCharterFullySignedOff(charter({ SignOffLead: person(1), SignOffPM: person(2) }))).toBe(false);
   });
@@ -124,29 +111,13 @@ describe('charter gates', () => {
       SignOffLeadDate: '2026-08-01',
       SignOffPM: person(2),
       SignOffPMDate: '2026-08-02',
-      SignOffFamilyOwner: person(3),
-      SignOffFamilyOwnerDate: '2026-08-03'
+      SignOffSME: person(3),
+      SignOffSMEDate: '2026-08-03'
     });
     expect(validateCharter(signed)).toEqual([]);
     expect(validateCharter({ ...signed, LaunchReadiness: [] })).toContain(
       'Complete all six launch-readiness checks before sign-off.'
     );
-  });
-});
-
-describe('role coverage', () => {
-  it('requires a time zone for Family Owners only', () => {
-    expect(requiresTimeZone(role({ Role: 'Family Owner (SME)' }))).toBe(true);
-    expect(requiresTimeZone(role({ Role: 'Community Lead' }))).toBe(false);
-  });
-
-  it('reports uncovered time zones', () => {
-    const roles = [
-      role({ Role: 'Family Owner (SME)', TimeZone: 'ATZ', Active: true }),
-      role({ Role: 'Family Owner (SME)', TimeZone: 'EMEA', Active: false }), // inactive: not covered
-      role({ Role: 'Invited Expert', TimeZone: 'ASIA', Active: true }) // wrong role: not covered
-    ];
-    expect(timeZoneCoverageGaps(roles, ['ATZ', 'EMEA', 'ASIA'])).toEqual(['EMEA', 'ASIA']);
   });
 });
 

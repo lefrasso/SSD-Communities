@@ -7,8 +7,7 @@ import {
   HealthPeriod,
   HealthUnit,
   RetirementDisposition,
-  ServiceFamily,
-  TimeZoneChoice
+  ServiceFamily
 } from './enums';
 
 /** Fields every SharePoint list item carries; the audit trail is built in. */
@@ -50,12 +49,11 @@ export interface ICommunity extends IListItem {
   LaunchDate?: string;
 }
 
-/** CommunityRoles — one row per person/role; keeps time-zone coverage queryable. */
+/** CommunityRoles — one row per nominated Community Lead or Subject Matter Expert. */
 export interface ICommunityRole extends IListItem {
   CommunityId: number;
   Person: IPersonRef;
   Role: CommunityRoleType;
-  TimeZone?: TimeZoneChoice; // required when Role === 'Family Owner (SME)'
   SourceOrg: SourceOrg;
   Active: boolean;
 }
@@ -72,8 +70,8 @@ export interface ICharter extends IListItem {
   SignOffLeadDate?: string;
   SignOffPM?: IPersonRef; // PM signature records the overlap review
   SignOffPMDate?: string;
-  SignOffFamilyOwner?: IPersonRef;
-  SignOffFamilyOwnerDate?: string;
+  SignOffSME?: IPersonRef;
+  SignOffSMEDate?: string;
   CharterVersion?: string;
 }
 

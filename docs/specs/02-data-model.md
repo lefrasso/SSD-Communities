@@ -50,14 +50,13 @@ One item per community — including the **Cross-Training** and internal **AI** 
 
 ## CommunityRoles
 
-Roles are held as **separate items** (rows), not person columns on the community, because a community has one Community Lead but **several Family Owners — one per time zone** — plus a variable set of invited experts. Rows keep the time-zone dimension queryable and let the portal show **coverage gaps**.
+Roles are held as **separate items** (rows), not person columns on the community, because every community has one accountable Community Lead and between **one and five nominated Subject Matter Experts**, depending on its breadth and needs. Rows keep assignments independently auditable and allow the SME group to evolve without changing the community record.
 
 | Column | Type | Notes |
 |---|---|---|
 | Community | Lookup → Communities | Parent community |
 | Person | Person or group | Resolves against Entra; **never a free-text name** |
-| Role | Choice | `Community Lead` · `Family Owner (SME)` · `Invited Expert` |
-| TimeZone | Choice | **Required for Family Owners**; drives the coverage view |
+| Role | Choice | `Community Lead` · `Subject Matter Expert` |
 | SourceOrg | Choice | `IP Dev Team` · `CSAM Strategy Org` · `Adoption` · `Delivery` |
 | Active | Yes/No | Retains history when a role holder changes |
 
@@ -73,7 +72,7 @@ The charter is the **launch gate**. Each community has **exactly one** charter i
 | ReadinessPlan | Multiple lines of text | Readiness & certification plan for the domain |
 | LaunchReadiness | Choice (multi) | The **six** readiness conditions, each ticked when met |
 | Status | Choice | `Draft` · `In review` · `Signed off` (gates publication) |
-| SignOffLead / SignOffPM / SignOffFamilyOwner | Person + Date pairs | Three sign-offs; **the PM signature records the overlap review** |
+| SignOffLead / SignOffPM / SignOffSME | Person + Date pairs | Three sign-offs; **the PM signature records the overlap review** |
 | CharterVersion | Single line of text | List versioning retains the full history |
 
 ```mermaid
@@ -81,7 +80,7 @@ stateDiagram-v2
     [*] --> Draft
     Draft --> InReview: submit for review
     InReview --> Draft: changes requested
-    InReview --> SignedOff: Lead + PM + Family Owner sign
+    InReview --> SignedOff: Lead + PM + SME sign
     SignedOff --> [*]: publishes community to directory
 ```
 
@@ -108,6 +107,6 @@ Stored as **periodic snapshots** rather than live values, so quarterly checkpoin
 ## Provisioning, validation & indexing
 
 - **Schema-as-code:** all lists provisioned from the package with versioning enabled; no manual field configuration.
-- **Validation rules:** exactly one `Charters` item per community; `Charters.Status = Signed off` **gates directory publication**; `CommunityRoles.TimeZone` required when `Role = Family Owner (SME)`.
-- **Indexing (list-threshold safety):** index every **lookup** and **filter** field — `Communities.ServiceFamily/Status/Title`, `CommunityRoles.Community/Role/TimeZone`, `Charters.Community/Status`, `IPCatalog.Community`, `HealthMetrics.Community/Period/Measure`, `ForumRetirement.Disposition`. No query may exceed the list view threshold (see [NFRs](07-nfr-and-quality.md)).
+- **Validation rules:** exactly one `Charters` item per community; `Charters.Status = Signed off` **gates directory publication**; each community nominates one Lead and one-to-five SMEs.
+- **Indexing (list-threshold safety):** index every **lookup** and **filter** field — `Communities.ServiceFamily/Status/Title`, `CommunityRoles.Community/Role`, `Charters.Community/Status`, `IPCatalog.Community`, `HealthMetrics.Community/Period/Measure`, `ForumRetirement.Disposition`. No query may exceed the list view threshold (see [NFRs](07-nfr-and-quality.md)).
 - **TypeScript models:** generate typed models mirroring each list as the single source of truth for [Portal Services](03-components.md).

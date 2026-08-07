@@ -37,7 +37,7 @@ interface ICharterEditorData {
   capabilities: IPortalCapabilities;
 }
 
-type SignatureRole = 'Lead' | 'ProgramManager' | 'FamilyOwner';
+type SignatureRole = 'Lead' | 'ProgramManager' | 'SME';
 
 function emptyCharter(communityId: number): ICharter {
   return {
@@ -149,8 +149,8 @@ export function CharterEditor(props: ICharterEditorProps): React.ReactElement {
       SignOffLeadDate: undefined,
       SignOffPM: undefined,
       SignOffPMDate: undefined,
-      SignOffFamilyOwner: undefined,
-      SignOffFamilyOwnerDate: undefined
+      SignOffSME: undefined,
+      SignOffSMEDate: undefined
     });
   };
 
@@ -164,8 +164,8 @@ export function CharterEditor(props: ICharterEditorProps): React.ReactElement {
     } else {
       candidate = {
         ...draft,
-        SignOffFamilyOwner: props.currentUser,
-        SignOffFamilyOwnerDate: timestamp
+        SignOffSME: props.currentUser,
+        SignOffSMEDate: timestamp
       };
     }
     if (isCharterFullySignedOff(candidate)) {
@@ -284,10 +284,10 @@ export function CharterEditor(props: ICharterEditorProps): React.ReactElement {
               )}
             </div>
             <div className={styles.signoffRow}>
-              <strong>{strings.FamilyOwnerSignOffLabel}</strong>
-              <span>{signoffText(draft.SignOffFamilyOwner, draft.SignOffFamilyOwnerDate)}</span>
-              {draft.Status === 'In review' && capabilities.canSignAsFamilyOwner && !draft.SignOffFamilyOwner && (
-                <DefaultButton disabled={busy} text={strings.SignLabel} onClick={() => { void sign('FamilyOwner'); }} />
+              <strong>{strings.SMESignOffLabel}</strong>
+              <span>{signoffText(draft.SignOffSME, draft.SignOffSMEDate)}</span>
+              {draft.Status === 'In review' && capabilities.canSignAsSME && !draft.SignOffSME && (
+                <DefaultButton disabled={busy} text={strings.SignLabel} onClick={() => { void sign('SME'); }} />
               )}
             </div>
           </section>

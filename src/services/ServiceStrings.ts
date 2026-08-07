@@ -28,7 +28,6 @@ export const SERVICE_STRINGS = {
   charterReload: 'The charter was saved but could not be reloaded.',
   charterMissing: 'No charter exists for this community.',
   roleSave: 'The community role could not be saved.',
-  ownerTimeZone: 'A time zone is required for Family Owners.',
   roleReload: 'The role was saved but could not be reloaded.',
   metricSave: 'The health metric could not be saved.',
   metricNumeric: 'Enter a numeric metric value.',
@@ -41,5 +40,5 @@ export const SERVICE_STRINGS = {
   provisioningFailed: 'Portal lists could not be provisioned.',
   selectCommunity: 'Select a community.',
   readinessRequired: 'Complete all six launch-readiness checks before sign-off.',
-  signOffsRequired: 'Lead, Program Manager, and Family Owner sign-offs and dates are required.'
+  signOffsRequired: 'Community Lead, Program Manager, and Subject Matter Expert sign-offs and dates are required.'
 } as const;

@@ -62,8 +62,8 @@ foreach ($community in $data.communities) {
             SignOffLeadDate = $today
             SignOffPM = $currentUser.LoginName
             SignOffPMDate = $today
-            SignOffFamilyOwner = $currentUser.LoginName
-            SignOffFamilyOwnerDate = $today
+            SignOffSME = $currentUser.LoginName
+            SignOffSMEDate = $today
             CharterVersion = '1.0'
         } -Connection $Connection | Out-Null
     }

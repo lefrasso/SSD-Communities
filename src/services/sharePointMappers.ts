@@ -62,7 +62,6 @@ export interface ISharePointRole extends ISharePointAuditItem {
   Community?: ISharePointLookup;
   Person?: ISharePointPerson;
   Role: CommunityRoleType;
-  TimeZone?: string;
   SourceOrg: SourceOrg;
   Active?: boolean;
 }
@@ -79,8 +78,8 @@ export interface ISharePointCharter extends ISharePointAuditItem {
   SignOffLeadDate?: string;
   SignOffPM?: ISharePointPerson;
   SignOffPMDate?: string;
-  SignOffFamilyOwner?: ISharePointPerson;
-  SignOffFamilyOwnerDate?: string;
+  SignOffSME?: ISharePointPerson;
+  SignOffSMEDate?: string;
   CharterVersion?: string;
 }
 
@@ -178,7 +177,6 @@ export function mapRole(item: ISharePointRole): ICommunityRole {
     CommunityId: mapLookupId(item.CommunityId, item.Community),
     Person: mapRequiredPerson(item.Person),
     Role: item.Role,
-    TimeZone: item.TimeZone,
     SourceOrg: item.SourceOrg,
     Active: item.Active !== false
   };
@@ -197,8 +195,8 @@ export function mapCharter(item: ISharePointCharter): ICharter {
     SignOffLeadDate: item.SignOffLeadDate,
     SignOffPM: mapPerson(item.SignOffPM),
     SignOffPMDate: item.SignOffPMDate,
-    SignOffFamilyOwner: mapPerson(item.SignOffFamilyOwner),
-    SignOffFamilyOwnerDate: item.SignOffFamilyOwnerDate,
+    SignOffSME: mapPerson(item.SignOffSME),
+    SignOffSMEDate: item.SignOffSMEDate,
     CharterVersion: item.CharterVersion
   };
 }

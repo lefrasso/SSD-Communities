@@ -9,14 +9,9 @@
       "CSAM Back Office",
       "Cross-community"
     ],
-    "timeZones": [
-      "ATZ",
-      "EMEA",
-      "ASIA"
-    ],
     "launchReadiness": [
       "Theme and scope are approved, with overlap reviewed",
-      "Community Lead and time-zone Family Owners are named",
+      "Community Lead and one to five Subject Matter Experts are nominated",
       "Viva Engage and chat channels ready",
       "Founding members and starter content are seeded",
       "Cadence, interaction model and readiness plan are agreed",
@@ -126,16 +121,8 @@
           "indexed": true,
           "choices": [
             "Community Lead",
-            "Family Owner (SME)",
-            "Invited Expert"
+            "Subject Matter Expert"
           ]
-        },
-        {
-          "internalName": "TimeZone",
-          "type": "Choice",
-          "indexed": true,
-          "choices": [],
-          "description": "Required for Family Owners"
         },
         {
           "internalName": "SourceOrg",
@@ -152,9 +139,7 @@
           "internalName": "Active",
           "type": "Boolean"
         }
-      ],
-      "validationFormula": "=IF([Role]=\"Family Owner (SME)\",NOT(ISBLANK([TimeZone])),TRUE)",
-      "validationMessage": "Time zone is required for Family Owners."
+      ]
     },
     {
       "internalName": "Charters",
@@ -216,11 +201,11 @@
           "type": "DateTime"
         },
         {
-          "internalName": "SignOffFamilyOwner",
+          "internalName": "SignOffSME",
           "type": "User"
         },
         {
-          "internalName": "SignOffFamilyOwnerDate",
+          "internalName": "SignOffSMEDate",
           "type": "DateTime"
         },
         {

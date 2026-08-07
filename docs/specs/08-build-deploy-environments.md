@@ -33,7 +33,7 @@ flowchart LR
 | Environment | Purpose | Deployment target |
 |---|---|---|
 | **Development** | Feature work and local debugging | Microsoft 365 developer tenant **or** an isolated site collection with its own app catalogue |
-| **Test** | Integration testing and Family Owner review | **Site collection** app catalogue in the production tenant, scoped to the test site |
+| **Test** | Integration testing and Subject Matter Expert review | **Site collection** app catalogue in the production tenant, scoped to the test site |
 | **Production** | The live portal | **Tenant** app catalogue, scoped to the portal site |
 
 ## Release dependencies

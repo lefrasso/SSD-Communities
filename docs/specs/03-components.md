@@ -25,7 +25,7 @@ The solution ships as **one SPFx package** containing the web parts and the shar
 | Community Directory | Communities | — | photos (optional) | Card grid; filter family/topic/role; warm-cache < 2s | Member (Read) |
 | Community Detail | Communities, CommunityRoles, IPCatalog | group membership | `User.Read.All`, `GroupMember.ReadWrite.All` | Roles by time zone; IPs; **join**; single-community confirm on 2nd join | Member (Read) |
 | My Community | CommunityRoles, Communities | — | membership state | User's membership + quick links | Member (Read) |
-| Charter Editor | Charters, Communities | Charters | `People.Read` | Nine sections; six-item readiness; **three-way sign-off**; publication gate | Community Lead / Family Owner / PM |
+| Charter Editor | Charters, Communities | Charters | `People.Read` | Nine sections; six-item readiness; **three-way sign-off**; publication gate | Community Lead / Subject Matter Expert / PM |
 | Health Dashboard | HealthMetrics, Communities | — | — | Six measures vs baseline, by community & period | PM, Exec Sponsor (Read) |
 | Retirement Register | ForumRetirement | ForumRetirement | — | Inventory; disposition; **progress vs reduction target** | Program Manager |
 
@@ -69,7 +69,7 @@ sequenceDiagram
 ```
 
 ### Author a charter
-A Community Lead opens the charter editor, completes the nine sections, and submits for review. The Program Manager receives the review task, **checks for scope overlap** against neighbouring communities, and signs off alongside the lead and the aligned Family Owner. Status moves `Draft → In review → Signed off`; **only the final state publishes the community** to the directory.
+A Community Lead opens the charter editor, completes the nine sections, and submits for review. The Program Manager receives the review task, **checks for scope overlap** against neighbouring communities, and signs off alongside the lead and one nominated Subject Matter Expert. Status moves `Draft → In review → Signed off`; **only the final state publishes the community** to the directory.
 
 ### Record health
 At launch and each quarterly checkpoint the Community Lead enters the six measures for their community. The dashboard renders the portfolio view for the Program Manager and Executive Sponsor, comparing each period against the **launch baseline**.

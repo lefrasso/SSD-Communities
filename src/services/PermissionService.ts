@@ -23,7 +23,7 @@ export interface IPortalCapabilities {
   canEditCharter: boolean;
   canSignAsLead: boolean;
   canSignAsProgramManager: boolean;
-  canSignAsFamilyOwner: boolean;
+  canSignAsSME: boolean;
   canEditMetrics: boolean;
   canViewDashboard: boolean;
   canManageRetirement: boolean;
@@ -68,7 +68,7 @@ export function deriveCapabilities(
     personMatchesUser(role.Person, user)
   );
   const isLead = relevantRoles.some((role) => role.Role === 'Community Lead');
-  const isFamilyOwner = relevantRoles.some((role) => role.Role === 'Family Owner (SME)');
+  const isSME = relevantRoles.some((role) => role.Role === 'Subject Matter Expert');
 
   return {
     canEditCommunity: isProgramManager || isLead,
@@ -76,7 +76,7 @@ export function deriveCapabilities(
     canEditCharter: isProgramManager || isLead,
     canSignAsLead: isLead,
     canSignAsProgramManager: isProgramManager,
-    canSignAsFamilyOwner: isFamilyOwner,
+    canSignAsSME: isSME,
     canEditMetrics: isProgramManager || isLead,
     canViewDashboard: isProgramManager || isExecutiveSponsor,
     canManageRetirement: isProgramManager

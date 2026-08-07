@@ -37,10 +37,9 @@ define([], function () {
     JoinedLabel: 'You are a member',
     JoinUnavailableLabel: 'Request access in Viva Engage',
     NoRolesLabel: 'No active role holders are recorded.',
-    NoIpLabel: 'No owned IP is recorded.',
-    CoverageTitle: 'Family Owner coverage',
-    CoverageCompleteLabel: 'All configured time zones are covered.',
-    CoverageGapLabel: 'Missing coverage',
+    NoIpLabel: 'No offerings are currently aligned.',
+    CrossTrainingNoIpLabel: 'No offerings aligned. The community exists to improve Delivery Excellence.',
+    AiNoIpLabel: 'No offerings aligned. The community exists to build internal AI readiness and responsible adoption.',
     SecondJoinTitle: 'Join another community?',
     SecondJoinMessage: 'You already belong to another technical community. Confirm that you want to join this one as well.',
     ConfirmJoinLabel: 'Join this community',
@@ -64,7 +63,7 @@ define([], function () {
     AuditLabel: 'Audit record',
     LeadSignOffLabel: 'Community Lead',
     ProgramManagerSignOffLabel: 'Program Manager overlap review',
-    FamilyOwnerSignOffLabel: 'Family Owner',
+    SMESignOffLabel: 'Subject Matter Expert',
     NotSignedLabel: 'Not signed',
     SaveDraftLabel: 'Save draft',
     SubmitReviewLabel: 'Submit for review',
@@ -100,7 +99,6 @@ define([], function () {
     DetailPageUrlFieldLabel: 'Community detail page URL',
     DirectoryPageUrlFieldLabel: 'Community directory page URL',
     MembershipEnabledFieldLabel: 'Enable Graph membership and join',
-    ExpectedTimeZonesFieldLabel: 'Expected Family Owner time zones (comma-separated)',
     ReadinessItemsFieldLabel: 'Six launch-readiness checks (one per line)'
   };
 });

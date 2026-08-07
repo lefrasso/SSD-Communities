@@ -2,26 +2,24 @@ import { describe, expect, it } from '@jest/globals';
 import { ICommunityRole } from '../../models';
 import { sortCommunityRoles } from './CommunityDetail';
 
-function role(id: number, type: ICommunityRole['Role'], timeZone?: string): ICommunityRole {
+function role(id: number, type: ICommunityRole['Role']): ICommunityRole {
   return {
     Id: id,
     CommunityId: 1,
     Person: { id, displayName: `Person ${id}` },
     Role: type,
-    TimeZone: timeZone,
     SourceOrg: 'Delivery',
     Active: true
   };
 }
 
 describe('sortCommunityRoles', () => {
-  it('orders leads, time-zoned owners, then experts', () => {
+  it('orders the Community Lead before Subject Matter Experts', () => {
     const sorted = sortCommunityRoles([
-      role(3, 'Invited Expert'),
-      role(2, 'Family Owner (SME)', 'EMEA'),
+      role(3, 'Subject Matter Expert'),
+      role(2, 'Subject Matter Expert'),
       role(1, 'Community Lead'),
-      role(4, 'Family Owner (SME)', 'ATZ')
     ]);
-    expect(sorted.map((entry) => entry.Id)).toEqual([1, 4, 2, 3]);
+    expect(sorted.map((entry) => entry.Id)).toEqual([1, 2, 3]);
   });
 });

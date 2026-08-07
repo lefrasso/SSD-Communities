@@ -16,7 +16,6 @@
       "officeFabricIconFontName": "Group",
       "properties": {
         "communityId": 0,
-        "expectedTimeZones": "ATZ, EMEA, ASIA",
         "membershipEnabled": false
       }
     }

@@ -66,7 +66,7 @@ npm run package:ship
 - `provisioning/generated/portal-template.xml`
 - `provisioning/generated/list-schema.json`
 
-Replace the sample service-family and time-zone values through `PROVISIONING_CONFIG_JSON` in each GitHub environment. Development can seed [provisioning/sample-data.json](provisioning/sample-data.json); Test and Production reject sample seeding in the release workflow.
+Replace the sample service-family and launch-readiness values through `PROVISIONING_CONFIG_JSON` in each GitHub environment. Development can seed [provisioning/sample-data.json](provisioning/sample-data.json); Test and Production reject sample seeding in the release workflow.
 
 ## Deployment
 

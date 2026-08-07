@@ -16,7 +16,7 @@ Portal authorisation is layered on **SharePoint groups**, not implemented in cod
 |---|---|---|
 | **Member** (all SSD) | Browse the directory, view any community page, join a community | **Read** on all lists; no write |
 | **Community Lead** | Edit their own community, its charter, roles, IPs and metrics | **Contribute** with **item-level scoping** to their community |
-| **Family Owner (SME)** | Contribute to their community's IP alignment; sign off its charter | **Contribute** on `IPCatalog` and `Charters` |
+| **Subject Matter Expert** | Contribute specialist guidance and consolidated feedback; sign off the community charter | **Contribute** on `IPCatalog` and `Charters` |
 | **Community Program Manager** | Full portfolio management, overlap review, retirement register | **Full Control** on all portal lists |
 | **Executive Sponsor** | Read the dashboard and every community record | **Read** across all lists |
 

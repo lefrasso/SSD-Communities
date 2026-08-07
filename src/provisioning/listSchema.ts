@@ -36,7 +36,7 @@ export interface IListDef {
 
 const COMMUNITIES = 'Communities';
 
-const ROLE_CHOICES = ['Community Lead', 'Family Owner (SME)', 'Invited Expert'];
+const ROLE_CHOICES = ['Community Lead', 'Subject Matter Expert'];
 const TARGET_ROLE_CHOICES = [
   'CSA',
   'POD Lead',
@@ -89,12 +89,9 @@ export const COMMUNITY_LISTS: IListDef[] = [
       { internalName: 'Community', type: 'Lookup', lookupList: COMMUNITIES, required: true, indexed: true },
       { internalName: 'Person', type: 'User', required: true, description: 'Resolves against Entra; never free text' },
       { internalName: 'Role', type: 'Choice', required: true, indexed: true, choices: ROLE_CHOICES },
-      { internalName: 'TimeZone', type: 'Choice', indexed: true, choices: [], description: 'Required for Family Owners' },
       { internalName: 'SourceOrg', type: 'Choice', required: true, choices: SOURCE_ORG_CHOICES },
       { internalName: 'Active', type: 'Boolean' }
-    ],
-    validationFormula: '=IF([Role]="Family Owner (SME)",NOT(ISBLANK([TimeZone])),TRUE)',
-    validationMessage: 'Time zone is required for Family Owners.'
+    ]
   },
   {
     internalName: 'Charters',
@@ -111,8 +108,8 @@ export const COMMUNITY_LISTS: IListDef[] = [
       { internalName: 'SignOffLeadDate', type: 'DateTime' },
       { internalName: 'SignOffPM', type: 'User', description: 'PM signature records the overlap review' },
       { internalName: 'SignOffPMDate', type: 'DateTime' },
-      { internalName: 'SignOffFamilyOwner', type: 'User' },
-      { internalName: 'SignOffFamilyOwnerDate', type: 'DateTime' },
+      { internalName: 'SignOffSME', type: 'User' },
+      { internalName: 'SignOffSMEDate', type: 'DateTime' },
       { internalName: 'CharterVersion', type: 'Text' }
     ]
   },

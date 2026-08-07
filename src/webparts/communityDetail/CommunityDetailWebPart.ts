@@ -10,11 +10,10 @@ import * as strings from 'PortalStrings';
 import { CommunityDetail } from '../../components/communityDetail/CommunityDetail';
 import { createPortalServices, IPortalServices } from '../../services';
 import { disposePortal, renderPortal } from '../shared/renderPortal';
-import { commaSeparatedValues, resolveCommunityId } from '../shared/webPartUtilities';
+import { resolveCommunityId } from '../shared/webPartUtilities';
 
 export interface ICommunityDetailWebPartProps {
   communityId: number;
-  expectedTimeZones: string;
   membershipEnabled: boolean;
 }
 
@@ -31,7 +30,6 @@ export default class CommunityDetailWebPart extends BaseClientSideWebPart<ICommu
   public render(): void {
     renderPortal(React.createElement(CommunityDetail, {
       communityId: resolveCommunityId(this.properties.communityId),
-      expectedTimeZones: commaSeparatedValues(this.properties.expectedTimeZones),
       data: this.services.data,
       graph: this.services.graph,
       telemetry: this.services.telemetry
@@ -54,7 +52,6 @@ export default class CommunityDetailWebPart extends BaseClientSideWebPart<ICommu
           groupName: strings.BasicGroupName,
           groupFields: [
             PropertyPaneTextField('communityId', { label: strings.CommunityIdFieldLabel }),
-            PropertyPaneTextField('expectedTimeZones', { label: strings.ExpectedTimeZonesFieldLabel }),
             PropertyPaneToggle('membershipEnabled', { label: strings.MembershipEnabledFieldLabel })
           ]
         }]

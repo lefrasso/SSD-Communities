@@ -22,7 +22,7 @@
 - **Unit tests:** `Portal Services` (mock SharePoint + Graph) and component logic.
 - **Accessibility:** automated (e.g. axe) in CI **plus** manual keyboard/screen-reader passes on priority paths (directory, detail, join, charter).
 - **Performance:** verify the directory warm-cache budget against seeded data at realistic volume; confirm no threshold breaches.
-- **UAT:** Family Owner review in the **Test** environment (charter authoring + sign-off, join flow) — see [Build & Deployment](08-build-deploy-environments.md).
+- **UAT:** Subject Matter Expert review in the **Test** environment (charter authoring + sign-off, join flow) — see [Build & Deployment](08-build-deploy-environments.md).
 
 ## Definition of Done (per component)
 

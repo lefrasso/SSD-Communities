@@ -16,8 +16,7 @@ import {
   IGraphService,
   IPortalDataService,
   isPortalError,
-  ITelemetryService,
-  timeZoneCoverageGaps
+  ITelemetryService
 } from '../../services';
 import styles from '../../styles/portal.module.scss';
 import { EmptyState, ErrorState, LoadingState } from '../shared/PortalStates';
@@ -26,7 +25,6 @@ import { useAsyncData } from '../shared/useAsyncData';
 
 export interface ICommunityDetailProps {
   communityId: number;
-  expectedTimeZones: string[];
   data: IPortalDataService;
   graph: IGraphService;
   telemetry: ITelemetryService;
@@ -39,8 +37,7 @@ interface IDetailState {
 
 const ROLE_ORDER: Record<ICommunityRole['Role'], number> = {
   'Community Lead': 0,
-  'Family Owner (SME)': 1,
-  'Invited Expert': 2
+  'Subject Matter Expert': 1
 };
 
 export function sortCommunityRoles(roles: ICommunityRole[]): ICommunityRole[] {
@@ -49,11 +46,18 @@ export function sortCommunityRoles(roles: ICommunityRole[]): ICommunityRole[] {
     if (roleDifference !== 0) {
       return roleDifference;
     }
-    const zoneDifference = (left.TimeZone || '').localeCompare(right.TimeZone || '');
-    return zoneDifference !== 0
-      ? zoneDifference
-      : left.Person.displayName.localeCompare(right.Person.displayName);
+    return left.Person.displayName.localeCompare(right.Person.displayName);
   });
+}
+
+function noIpMessage(community: ICommunity): string {
+  if (community.Title === 'Cross-Training') {
+    return strings.CrossTrainingNoIpLabel;
+  }
+  if (community.Title === 'AI') {
+    return strings.AiNoIpLabel;
+  }
+  return strings.NoIpLabel;
 }
 
 export function CommunityDetail(props: ICommunityDetailProps): React.ReactElement {
@@ -100,7 +104,6 @@ export function CommunityDetail(props: ICommunityDetailProps): React.ReactElemen
   const detail = loaded.data.detail;
   const community = detail.community;
   const roles = sortCommunityRoles(detail.roles.filter((role) => role.Active));
-  const coverageGaps = timeZoneCoverageGaps(roles, props.expectedTimeZones);
   const groupConfigured = !!community.VivaEngageGroupId;
 
   const joinNow = async (): Promise<void> => {
@@ -176,35 +179,25 @@ export function CommunityDetail(props: ICommunityDetailProps): React.ReactElemen
 
       <section className={styles.section} aria-labelledby="roles-heading">
         <h3 id="roles-heading" className={styles.sectionTitle}>{strings.RolesTitle}</h3>
-        <div className={styles.twoColumn}>
-          <div className={styles.surface}>
-            {roles.length === 0 ? <p className={styles.muted}>{strings.NoRolesLabel}</p> : (
-              <ul className={styles.roleList}>
-                {roles.map((role) => (
-                  <li className={styles.roleItem} key={role.Id}>
-                    <strong>{role.Person.displayName}</strong>
-                    <span>{role.Role}</span>
-                    <span className={styles.muted}>{role.TimeZone || role.SourceOrg}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div className={`${styles.coverage} ${coverageGaps.length > 0 ? styles.coverageWarning : ''}`}>
-            <strong>{strings.CoverageTitle}</strong>
-            <p className={styles.muted}>
-              {coverageGaps.length === 0
-                ? strings.CoverageCompleteLabel
-                : `${strings.CoverageGapLabel}: ${coverageGaps.join(', ')}`}
-            </p>
-          </div>
+        <div className={styles.surface}>
+          {roles.length === 0 ? <p className={styles.muted}>{strings.NoRolesLabel}</p> : (
+            <ul className={styles.roleList}>
+              {roles.map((role) => (
+                <li className={styles.roleItem} key={role.Id}>
+                  <strong>{role.Person.displayName}</strong>
+                  <span>{role.Role}</span>
+                  <span className={styles.muted}>{role.SourceOrg}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
       <section className={styles.section} aria-labelledby="ip-heading">
         <h3 id="ip-heading" className={styles.sectionTitle}>{strings.IpCatalogTitle}</h3>
         <div className={styles.surface}>
-          {detail.ipCatalog.length === 0 ? <p className={styles.muted}>{strings.NoIpLabel}</p> : (
+          {detail.ipCatalog.length === 0 ? <p className={styles.muted}>{noIpMessage(community)}</p> : (
             <ul className={styles.plainList}>
               {detail.ipCatalog.map((item) => (
                 <li key={item.Id}>

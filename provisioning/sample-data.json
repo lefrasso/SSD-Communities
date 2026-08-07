@@ -4,8 +4,8 @@
       "key": "azure",
       "title": "Azure",
       "serviceFamily": "Azure",
-      "scopeInScope": "Cloud infrastructure, migration, landing zones, resilience, platform engineering and the AI platform.",
-      "scopeOutOfScope": "Application innovation, Modern Work, Business Applications and security topics owned by neighbouring communities.",
+      "scopeInScope": "Azure landing zones, infrastructure modernisation, migration execution, resilience, platform engineering, cloud operations and the Azure platform capabilities that enable AI workloads. Members share delivery patterns, clarify aligned IP, resolve recurring blockers and convert field experience into reusable practice.",
+      "scopeOutOfScope": "Application innovation, Modern Work, Business Applications and security topics without a direct Azure platform outcome. Those needs are routed to the relevant neighbouring community while cross-domain dependencies are coordinated jointly.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member"],
       "status": "Active",
       "isCrossCommunity": false
@@ -14,8 +14,8 @@
       "key": "security",
       "title": "Security",
       "serviceFamily": "Security",
-      "scopeInScope": "Threat protection, identity, data security, security posture and domain-specific resiliency practices.",
-      "scopeOutOfScope": "General infrastructure, application engineering and adoption topics without a security-specific outcome.",
+      "scopeInScope": "Identity and access, threat protection, data security, security posture, security operations and security-specific resilience practices. Members exchange delivery lessons, interpret offering guidance, identify common risks and surface improvements needed in methods and IP.",
+      "scopeOutOfScope": "General infrastructure, application engineering or adoption topics without a defined security outcome. Cross-solution questions remain coordinated with the relevant domain community rather than duplicated here.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
@@ -24,8 +24,8 @@
       "key": "modern-apps",
       "title": "Modern-Apps",
       "serviceFamily": "Modern-Apps",
-      "scopeInScope": "Application innovation, cloud-native architecture, modernisation, developer productivity, GitHub and DevOps practices.",
-      "scopeOutOfScope": "Platform operations, end-user productivity and Business Applications topics outside application engineering.",
+      "scopeInScope": "Application innovation, cloud-native architecture, application modernisation, developer productivity, GitHub, DevOps and software delivery practices. Discussion is anchored in executable patterns, engagement experience and improvements that can be reused across teams.",
+      "scopeOutOfScope": "Platform operations, end-user productivity and Business Applications topics that do not depend on application engineering. Dependencies are handled with Azure, M365 or D365 rather than creating parallel guidance.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member"],
       "status": "Active",
       "isCrossCommunity": false
@@ -34,8 +34,8 @@
       "key": "m365",
       "title": "M365",
       "serviceFamily": "M365",
-      "scopeInScope": "Modern Work, Microsoft 365 Copilot, agents, adoption and secure productivity experiences.",
-      "scopeOutOfScope": "Core Azure platform, custom application engineering and Business Applications implementation.",
+      "scopeInScope": "Microsoft 365 services, Microsoft 365 Copilot, agents, adoption, governance and secure productivity experiences. Members address delivery readiness, implementation patterns, customer adoption barriers and lessons that improve repeatability.",
+      "scopeOutOfScope": "Core Azure platform engineering, custom cloud-native application development and Business Applications implementation. Topics move to those communities when the primary outcome sits outside Modern Work.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
@@ -44,8 +44,8 @@
       "key": "d365",
       "title": "D365",
       "serviceFamily": "D365",
-      "scopeInScope": "Dynamics 365, Business Applications, Power Platform and their delivery and readiness practices.",
-      "scopeOutOfScope": "Custom cloud-native development and Modern Work topics without a Business Applications outcome.",
+      "scopeInScope": "Dynamics 365, Business Applications, Power Platform, governance, implementation quality and the readiness and adoption practices that support durable outcomes. Members compare delivery approaches and turn recurring lessons into reusable guidance.",
+      "scopeOutOfScope": "Custom cloud-native engineering and Modern Work topics without a Business Applications outcome. Integration dependencies are coordinated with Modern-Apps, Azure or M365 as appropriate.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
@@ -54,8 +54,8 @@
       "key": "csam-back-office",
       "title": "CSAM Back Office",
       "serviceFamily": "CSAM Back Office",
-      "scopeInScope": "Delivery operations, CSAM enablement, operating practices and the supporting back-office capability.",
-      "scopeOutOfScope": "Domain-specific technical depth owned by Azure, Security, Modern-Apps, M365 and D365.",
+      "scopeInScope": "Delivery operations, CSAM enablement, planning practices, internal process guidance and the supporting back-office capabilities used across engagements. Members identify friction, share effective practices and improve how operational information reaches delivery teams.",
+      "scopeOutOfScope": "Domain-specific technical depth owned by Azure, Security, Modern-Apps, M365 and D365. Technical questions are routed to those communities while this group addresses the operating process around them.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Manager"],
       "status": "Active",
       "isCrossCommunity": false
@@ -64,8 +64,8 @@
       "key": "cross-training",
       "title": "Cross-Training",
       "serviceFamily": "Cross-community",
-      "scopeInScope": "Processes, Delivery Best Practices, Soft Skills and horizontal capability shared across all six delivery domains.",
-      "scopeOutOfScope": "Domain-specific technical strategy or duplicated variants owned by a vertical community.",
+      "scopeInScope": "Processes, Delivery Best Practices, Soft Skills, the Common Health core and the Common Crisis Readiness core. These are cross-domain Delivery Excellence topics supported through peer exchange, practical examples and lessons learned.",
+      "scopeOutOfScope": "Ownership of delivery offerings or IP, domain-specific technical strategy and duplicated technical variants that belong with a domain community.",
       "targetRoles": ["CSA", "POD Lead", "Partner CSA (pCSA)", "Partner Lead", "Nebula member", "Manager"],
       "status": "Active",
       "isCrossCommunity": true
@@ -74,8 +74,8 @@
       "key": "ai",
       "title": "AI",
       "serviceFamily": "Cross-community",
-      "scopeInScope": "Internal AI readiness, practical AI fluency, responsible use, role-based enablement, peer learning and adoption of AI-assisted ways of working.",
-      "scopeOutOfScope": "Partner CSA readiness, partner enablement, customer-facing AI delivery, domain-specific AI platform strategy, and ownership of delivery offerings or IP.",
+      "scopeInScope": "Internal AI readiness, practical AI fluency, responsible use, role-based enablement, peer learning and adoption of AI-assisted ways of working. Discussion focuses on safe experimentation, repeatable productivity patterns and the organisational habits needed for sustainable adoption.",
+      "scopeOutOfScope": "Partner CSA readiness, partner enablement, customer-facing AI delivery, domain-specific AI platform strategy and ownership of delivery offerings or IP. Technical offering questions remain with the appropriate domain community.",
       "targetRoles": ["CSA", "POD Lead", "Partner Lead", "Nebula member", "Manager"],
       "status": "Active",
       "isCrossCommunity": true
@@ -100,10 +100,7 @@
     { "title": "Health", "communityKey": "d365", "description": "D365 domain variant; common core aligned through Cross-Training." },
     { "title": "Crisis Readiness Sim for D365", "communityKey": "d365", "description": "D365-specific crisis readiness simulation." },
     { "title": "SPOU", "communityKey": "csam-back-office", "description": "Delivery IP aligned to CSAM Back Office." },
-    { "title": "SfP", "communityKey": "csam-back-office", "description": "Delivery IP aligned to CSAM Back Office." },
-    { "title": "Processes", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." },
-    { "title": "Delivery Best Practices", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." },
-    { "title": "Soft Skills", "communityKey": "cross-training", "description": "Horizontal capability shared across all six domains." }
+    { "title": "SfP", "communityKey": "csam-back-office", "description": "Delivery IP aligned to CSAM Back Office." }
   ],
   "healthMetrics": [
     {

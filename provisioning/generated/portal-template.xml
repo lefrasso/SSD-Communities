@@ -22,8 +22,7 @@
           <pnp:Fields>
             <Field Type="Lookup" Name="Community" StaticName="Community" DisplayName="Community" Required="TRUE" Indexed="TRUE" List="{listid:Communities}" ShowField="Title"></Field>
             <Field Type="User" Name="Person" StaticName="Person" DisplayName="Person" Required="TRUE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"><Description>Resolves against Entra; never free text</Description></Field>
-            <Field Type="Choice" Name="Role" StaticName="Role" DisplayName="Role" Required="TRUE" Indexed="TRUE"><CHOICES><CHOICE>Community Lead</CHOICE><CHOICE>Family Owner (SME)</CHOICE><CHOICE>Invited Expert</CHOICE></CHOICES></Field>
-            <Field Type="Choice" Name="TimeZone" StaticName="TimeZone" DisplayName="Time Zone" Required="FALSE" Indexed="TRUE"><Description>Required for Family Owners</Description><CHOICES><CHOICE>ATZ</CHOICE><CHOICE>EMEA</CHOICE><CHOICE>ASIA</CHOICE></CHOICES></Field>
+            <Field Type="Choice" Name="Role" StaticName="Role" DisplayName="Role" Required="TRUE" Indexed="TRUE"><CHOICES><CHOICE>Community Lead</CHOICE><CHOICE>Subject Matter Expert</CHOICE></CHOICES></Field>
             <Field Type="Choice" Name="SourceOrg" StaticName="SourceOrg" DisplayName="Source Org" Required="TRUE" Indexed="FALSE"><CHOICES><CHOICE>IP Dev Team</CHOICE><CHOICE>CSAM Strategy Org</CHOICE><CHOICE>Adoption</CHOICE><CHOICE>Delivery</CHOICE></CHOICES></Field>
             <Field Type="Boolean" Name="Active" StaticName="Active" DisplayName="Active" Required="FALSE" Indexed="FALSE"></Field>
           </pnp:Fields>
@@ -34,14 +33,14 @@
             <Field Type="Note" Name="InteractionModel" StaticName="InteractionModel" DisplayName="Interaction Model" Required="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE"></Field>
             <Field Type="Text" Name="Cadence" StaticName="Cadence" DisplayName="Cadence" Required="FALSE" Indexed="FALSE"></Field>
             <Field Type="Note" Name="ReadinessPlan" StaticName="ReadinessPlan" DisplayName="Readiness Plan" Required="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE"></Field>
-            <Field Type="MultiChoice" Name="LaunchReadiness" StaticName="LaunchReadiness" DisplayName="Launch Readiness" Required="FALSE" Indexed="FALSE"><Description>The six readiness conditions</Description><CHOICES><CHOICE>Theme and scope are approved, with overlap reviewed</CHOICE><CHOICE>Community Lead and time-zone Family Owners are named</CHOICE><CHOICE>Viva Engage and chat channels ready</CHOICE><CHOICE>Founding members and starter content are seeded</CHOICE><CHOICE>Cadence, interaction model and readiness plan are agreed</CHOICE><CHOICE>Six health measures have a launch baseline</CHOICE></CHOICES></Field>
+            <Field Type="MultiChoice" Name="LaunchReadiness" StaticName="LaunchReadiness" DisplayName="Launch Readiness" Required="FALSE" Indexed="FALSE"><Description>The six readiness conditions</Description><CHOICES><CHOICE>Theme and scope are approved, with overlap reviewed</CHOICE><CHOICE>Community Lead and one to five Subject Matter Experts are nominated</CHOICE><CHOICE>Viva Engage and chat channels ready</CHOICE><CHOICE>Founding members and starter content are seeded</CHOICE><CHOICE>Cadence, interaction model and readiness plan are agreed</CHOICE><CHOICE>Six health measures have a launch baseline</CHOICE></CHOICES></Field>
             <Field Type="Choice" Name="Status" StaticName="Status" DisplayName="Status" Required="TRUE" Indexed="TRUE"><CHOICES><CHOICE>Draft</CHOICE><CHOICE>In review</CHOICE><CHOICE>Signed off</CHOICE></CHOICES></Field>
             <Field Type="User" Name="SignOffLead" StaticName="SignOffLead" DisplayName="Sign Off Lead" Required="FALSE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"></Field>
             <Field Type="DateTime" Name="SignOffLeadDate" StaticName="SignOffLeadDate" DisplayName="Sign Off Lead Date" Required="FALSE" Indexed="FALSE" Format="DateOnly"></Field>
             <Field Type="User" Name="SignOffPM" StaticName="SignOffPM" DisplayName="Sign Off PM" Required="FALSE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"><Description>PM signature records the overlap review</Description></Field>
             <Field Type="DateTime" Name="SignOffPMDate" StaticName="SignOffPMDate" DisplayName="Sign Off PMDate" Required="FALSE" Indexed="FALSE" Format="DateOnly"></Field>
-            <Field Type="User" Name="SignOffFamilyOwner" StaticName="SignOffFamilyOwner" DisplayName="Sign Off Family Owner" Required="FALSE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"></Field>
-            <Field Type="DateTime" Name="SignOffFamilyOwnerDate" StaticName="SignOffFamilyOwnerDate" DisplayName="Sign Off Family Owner Date" Required="FALSE" Indexed="FALSE" Format="DateOnly"></Field>
+            <Field Type="User" Name="SignOffSME" StaticName="SignOffSME" DisplayName="Sign Off SME" Required="FALSE" Indexed="FALSE" UserSelectionMode="PeopleOnly" UserSelectionScope="0"></Field>
+            <Field Type="DateTime" Name="SignOffSMEDate" StaticName="SignOffSMEDate" DisplayName="Sign Off SME Date" Required="FALSE" Indexed="FALSE" Format="DateOnly"></Field>
             <Field Type="Text" Name="CharterVersion" StaticName="CharterVersion" DisplayName="Charter Version" Required="FALSE" Indexed="FALSE"></Field>
           </pnp:Fields>
         </pnp:ListInstance>

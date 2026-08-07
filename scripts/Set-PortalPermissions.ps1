@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Stop'
 $groupNames = @{
     Members = 'SSD Community Members'
     Leads = 'SSD Community Leads'
-    FamilyOwners = 'SSD Family Owners'
+    SubjectMatterExperts = 'SSD Subject Matter Experts'
     ProgramManagers = 'SSD Community Program Managers'
     ExecutiveSponsors = 'SSD Executive Sponsors'
 }
@@ -35,7 +35,7 @@ foreach ($listTitle in $listTitles) {
     Set-PnPList -Identity $listTitle -BreakRoleInheritance -CopyRoleAssignments -Connection $Connection
     Set-PnPListPermission -Identity $listTitle -Group $groupNames.Members -AddRole 'Read' -Connection $Connection
     Set-PnPListPermission -Identity $listTitle -Group $groupNames.Leads -AddRole 'Read' -Connection $Connection
-    Set-PnPListPermission -Identity $listTitle -Group $groupNames.FamilyOwners -AddRole 'Read' -Connection $Connection
+    Set-PnPListPermission -Identity $listTitle -Group $groupNames.SubjectMatterExperts -AddRole 'Read' -Connection $Connection
     Set-PnPListPermission -Identity $listTitle -Group $groupNames.ProgramManagers -AddRole 'Full Control' -Connection $Connection
     Set-PnPListPermission -Identity $listTitle -Group $groupNames.ExecutiveSponsors -AddRole 'Read' -Connection $Connection
 }
@@ -56,7 +56,7 @@ foreach ($community in $communities) {
     $communityId = $community.Id
     $communityRoles = $activeRoles | Where-Object { $_['Community'].LookupId -eq $communityId }
     $leads = $communityRoles | Where-Object { $_['Role'] -eq 'Community Lead' }
-    $owners = $communityRoles | Where-Object { $_['Role'] -eq 'Family Owner (SME)' }
+    $subjectMatterExperts = $communityRoles | Where-Object { $_['Role'] -eq 'Subject Matter Expert' }
 
     foreach ($lead in $leads) {
         $loginName = $lead['Person'].Email
@@ -74,8 +74,8 @@ foreach ($community in $communities) {
         }
     }
 
-    foreach ($owner in $owners) {
-        $loginName = $owner['Person'].Email
+    foreach ($subjectMatterExpert in $subjectMatterExperts) {
+        $loginName = $subjectMatterExpert['Person'].Email
         if ([string]::IsNullOrWhiteSpace($loginName)) { continue }
         foreach ($mapping in @(
             @{ List = 'Charters'; Field = 'Community' },

@@ -7,13 +7,12 @@ import { COMMUNITY_LISTS, IFieldDef, IListDef } from './listSchema';
 
 export interface IPortalProvisioningChoices {
   serviceFamilies: string[];
-  timeZones: string[];
   launchReadiness: string[];
 }
 
 export const DEFAULT_LAUNCH_READINESS: string[] = [
   'Theme and scope are approved, with overlap reviewed',
-  'Community Lead and time-zone Family Owners are named',
+  'Community Lead and one to five Subject Matter Experts are nominated',
   'Viva Engage and chat channels are ready',
   'Founding members and starter content are seeded',
   'Cadence, interaction model and readiness plan are agreed',
@@ -38,7 +37,10 @@ function escapeXml(value: string): string {
 }
 
 function displayName(internalName: string): string {
-  return internalName.replace(/([a-z])([A-Z])/g, '$1 $2');
+  return internalName
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/SME(?=[A-Z]|$)/g, 'SME ')
+    .trim();
 }
 
 function fieldType(field: IFieldDef): string {
@@ -171,9 +173,6 @@ export class PortalProvisioner {
     if (field.internalName === 'ServiceFamily') {
       return choices.serviceFamilies;
     }
-    if (field.internalName === 'TimeZone') {
-      return choices.timeZones;
-    }
     if (field.internalName === 'LaunchReadiness') {
       return choices.launchReadiness;
     }
@@ -197,9 +196,6 @@ export class PortalProvisioner {
   private validateChoices(choices: IPortalProvisioningChoices): void {
     if (choices.serviceFamilies.length === 0) {
       throw new PortalError('NotConfigured', 'At least one service family must be configured.');
-    }
-    if (choices.timeZones.length === 0) {
-      throw new PortalError('NotConfigured', 'At least one Family Owner time zone must be configured.');
     }
     if (choices.launchReadiness.length !== 6) {
       throw new PortalError('NotConfigured', 'Exactly six launch-readiness choices must be configured.');

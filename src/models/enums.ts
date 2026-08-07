@@ -1,7 +1,7 @@
 // Choice-field value sets from the Data Model spec (docs/specs/02-data-model.md).
 export type CommunityStatus = 'Proposed' | 'Chartered' | 'Active' | 'Merged' | 'Retired';
 
-export type CommunityRoleType = 'Community Lead' | 'Family Owner (SME)' | 'Invited Expert';
+export type CommunityRoleType = 'Community Lead' | 'Subject Matter Expert';
 
 export type SourceOrg = 'IP Dev Team' | 'CSAM Strategy Org' | 'Adoption' | 'Delivery';
 
@@ -21,6 +21,5 @@ export type HealthUnit = 'Percent' | 'count' | 'hours' | 'score';
 
 export type RetirementDisposition = 'Migrate' | 'Merge' | 'Close';
 
-// ServiceFamily and TimeZone are tenant-defined choices; kept as string.
+// ServiceFamily is a tenant-defined choice; kept as string.
 export type ServiceFamily = string;
-export type TimeZoneChoice = string;

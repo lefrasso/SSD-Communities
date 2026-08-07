@@ -76,15 +76,15 @@ All six lists are provisioned from the package (schema versioned with code). Eve
 | List | Cardinality | Key columns (from spec) | Lookups | Index (threshold safety) |
 |---|---|---|---|---|
 | **Communities** (spine) | 1 / community | Title, ServiceFamily (choice), ScopeInScope, ScopeOutOfScope, VivaEngageGroupId, VivaEngageUrl, ChatGroupUrl, TargetRoles (multi-choice), IsCrossCommunity (Y/N), Status (Proposed→Retired), LaunchDate | — | ServiceFamily, Status, Title |
-| **CommunityRoles** | many / community | Community, Person (Person), Role (Lead/Family Owner/Invited Expert), TimeZone, SourceOrg, Active (Y/N) | → Communities | Community, Role, TimeZone |
-| **Charters** | 1 / community | Community, InteractionModel, Cadence, ReadinessPlan, LaunchReadiness (multi-choice ×6), Status (Draft/In review/Signed off), SignOffLead/PM/FamilyOwner (Person+Date), CharterVersion | → Communities | Community, Status |
+| **CommunityRoles** | many / community | Community, Person (Person), Role (Community Lead/Subject Matter Expert), SourceOrg, Active (Y/N) | → Communities | Community, Role |
+| **Charters** | 1 / community | Community, InteractionModel, Cadence, ReadinessPlan, LaunchReadiness (multi-choice ×6), Status (Draft/In review/Signed off), SignOffLead/PM/SME (Person+Date), CharterVersion | → Communities | Community, Status |
 | **IPCatalog** | many / community | IP fields + owning community (build-once/share-everywhere visibility) | → Communities | Community |
 | **HealthMetrics** | community × measure × period | Community, Measure (6 measures), Period (Baseline/Q2/Q3/Year-end FY27), Value, Unit, IsBaseline (Y/N), Commentary | → Communities | Community, Period, Measure |
 | **ForumRetirement** | 1 / legacy forum | Forum ref, Disposition (Migrate/Merge/Close), TargetCommunity, CompletionDate | → Communities | Disposition |
 
 **Build tasks**
 - [x] Author list definitions + generated site provisioning template (fields, choices, lookups, **indexed columns on every lookup/filter field**).
-- [x] Encode **validation rules**: unique Charter lookup; **charter `Status = Signed off` gates directory publication**; `TimeZone` required for Family Owners.
+- [x] Encode **validation rules**: unique Charter lookup; **charter `Status = Signed off` gates directory publication**; one Community Lead and one-to-five nominated SMEs per community.
 - [x] Add idempotent representative sample data seeding for Dev.
 - [x] Add **TypeScript models** mirroring each list.
 
@@ -112,7 +112,7 @@ Everything the six web parts depend on. Written once, tested once.
 | 1 | **Community Directory** | Communities | — | photos (optional) | Card grid; filter by family/topic/role; discovery surface; **warm-cache < 2s** |
 | 2 | **Community Detail** | Communities, CommunityRoles, IPCatalog | group membership (join) | User.Read.All, GroupMember.ReadWrite.All | Scope, roles **by time zone**, owned IPs, channel links, **join action**; single-community confirm on 2nd join |
 | 3 | **My Community** | CommunityRoles, Communities | — | membership state | User's membership + quick links; reinforces single-community focus |
-| 4 | **Charter Editor** | Charters, Communities | Charters | People.Read | Nine-section form, six-item readiness checklist, **three-way sign-off** (Lead/PM/Family Owner); Draft→In review→Signed off; PM signature records overlap review |
+| 4 | **Charter Editor** | Charters, Communities | Charters | People.Read | Nine-section form, six-item readiness checklist, **three-way sign-off** (Lead/PM/SME); Draft→In review→Signed off; PM signature records overlap review |
 | 5 | **Health Dashboard** | HealthMetrics, Communities | — | — | Portfolio view of **six measures vs baseline**, by community & period; Program Manager + Exec Sponsor |
 | 6 | **Retirement Register** | ForumRetirement | ForumRetirement | — | Forum inventory, disposition tracking, **progress vs reduction target** |
 
@@ -129,7 +129,7 @@ Everything the six web parts depend on. Written once, tested once.
 - **Increment 2 — Join & identity:** Graph membership state + **join flow**, My Community, single-community confirmation. (Falls back to link-only if Graph approval is pending.)
 - **Increment 3 — Governance:** Charter Editor + three-way sign-off workflow; **publication gate** wired to charter status; list-level security scoping (§9).
 - **Increment 4 — Insight & consolidation:** Health Dashboard (six measures vs baseline) + Retirement Register (reduction-target progress) + telemetry feeding participation.
-- **Increment 5 — Hardening:** accessibility (WCAG 2.1 AA), performance/threshold pass, responsive/mobile, localization audit; **UAT with Family Owners in Test**.
+- **Increment 5 — Hardening:** accessibility (WCAG 2.1 AA), performance/threshold pass, responsive/mobile, localization audit; **UAT with nominated SMEs in Test**.
 - **Increment 6 — Production:** Graph permission grant confirmed, tenant-catalogue release scoped to the portal site, provisioning applied, handover to the v-team.
 
 ---
@@ -160,7 +160,7 @@ Authorisation layered on **SharePoint groups**; every restriction enforced by **
 |---|---|---|
 | Member (all SSD) | Browse directory, view any community, join | **Read** on all lists |
 | Community Lead | Edit own community, charter, roles, IPs, metrics | **Contribute**, item-level scoped to their community |
-| Family Owner (SME) | Contribute IP alignment; sign off charter | **Contribute** on IPCatalog + Charters |
+| Subject Matter Expert | Contribute specialist guidance and consolidated feedback; sign off charter | **Contribute** on IPCatalog + Charters |
 | Community Program Manager | Full portfolio, overlap review, retirement | **Full Control** on portal lists |
 | Executive Sponsor | Read dashboard + every record | **Read** across all lists |
 
@@ -200,7 +200,7 @@ Reconciling the FY27 brand ([`design-system/`](../design-system/)) with the spec
 - [x] Add **unit tests** for `Portal Services` (mock SharePoint/Graph) and component logic; strict core validation passes. Full Jest/lint execution awaits dependency restore.
 - [x] Add automated **axe** coverage in CI; manual keyboard/screen-reader pass on priority paths remains an environment/UAT action.
 - [ ] **Performance**: directory warm-cache budget verified against seeded data at realistic volume; threshold queries validated.
-- [ ] **UAT** with Family Owners in the Test environment (charter authoring + sign-off, join flow).
+- [ ] **UAT** with nominated Subject Matter Experts in the Test environment (charter authoring + sign-off, join flow).
 - [ ] **Definition of Done** per component: reads/writes correct, permissions enforced at list level, NFRs met, telemetry emitting, localized strings, a11y pass.
 
 ---
@@ -210,7 +210,7 @@ Reconciling the FY27 brand ([`design-system/`](../design-system/)) with the spec
 | Environment | Purpose | Deployment target |
 |---|---|---|
 | Development | Feature work, local debug | Dev tenant **or** isolated site-collection app catalogue |
-| Test | Integration + Family Owner UAT | Site-collection app catalogue in prod tenant, scoped to test site |
+| Test | Integration + Subject Matter Expert UAT | Site-collection app catalogue in prod tenant, scoped to test site |
 | Production | Live portal | **Tenant app catalogue**, scoped to the portal site |
 
 - **Build pipeline:** lint → unit tests → production bundle → package.
@@ -241,4 +241,4 @@ Reconciling the FY27 brand ([`design-system/`](../design-system/)) with the spec
 3. **Provision the portal communication site** (v-team owners) + the three app catalogues.
 4. Configure protected GitHub environment variables/secrets and run the Development release (with sample data only in Dev).
 5. Verify direct REST authorization with each role account; rerun permission synchronization after role/item changes.
-6. Measure warm-cache performance, complete manual accessibility checks, and run Family Owner UAT in Test.
+6. Measure warm-cache performance, complete manual accessibility checks, and run Subject Matter Expert UAT in Test.

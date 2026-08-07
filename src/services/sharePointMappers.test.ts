@@ -8,12 +8,12 @@ describe('SharePoint mappers', () => {
       Title: 'Azure',
       ServiceFamily: 'Cloud & AI',
       Status: 'Active',
-      TargetRoles: { results: ['Invited Expert'] },
+      TargetRoles: { results: ['Manager'] },
       VivaEngageUrl: { Url: 'https://engage.example', Description: 'Viva Engage' },
       Author: { Id: 2, Title: 'Ada', EMail: 'ada@example.com' }
     })).toEqual(expect.objectContaining({
       Id: 7,
-      TargetRoles: ['Invited Expert'],
+      TargetRoles: ['Manager'],
       VivaEngageUrl: { Url: 'https://engage.example', Description: 'Viva Engage' },
       Author: expect.objectContaining({ displayName: 'Ada' })
     }));
@@ -24,8 +24,7 @@ describe('SharePoint mappers', () => {
       Id: 8,
       Community: { Id: 7, Title: 'Azure' },
       Person: { Id: 4, Title: 'Grace', Name: 'i:0#.f|membership|grace@example.com' },
-      Role: 'Family Owner (SME)',
-      TimeZone: 'EMEA',
+      Role: 'Subject Matter Expert',
       SourceOrg: 'Delivery',
       Active: true
     })).toEqual(expect.objectContaining({

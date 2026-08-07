@@ -69,7 +69,7 @@ function applyPayload(item: ItemRecord, payload: Record<string, unknown>): void 
     PersonId: 'Person',
     SignOffLeadId: 'SignOffLead',
     SignOffPMId: 'SignOffPM',
-    SignOffFamilyOwnerId: 'SignOffFamilyOwner'
+    SignOffSMEId: 'SignOffSME'
   };
   Object.keys(payload).forEach((key) => {
     const value = payload[key];
@@ -231,17 +231,18 @@ describe('PortalDataService', () => {
       .rejects.toEqual(expect.objectContaining({ kind: 'Conflict' }));
   });
 
-  it('requires a time zone for Family Owners', async () => {
+  it('saves a nomination-based Subject Matter Expert assignment', async () => {
+    const listStores = stores({ 'Community Roles': [] });
     const role: ICommunityRole = {
       Id: 0,
       CommunityId: 1,
-      Person: { id: 2, displayName: 'Owner' },
-      Role: 'Family Owner (SME)',
+      Person: { id: 2, displayName: 'Expert' },
+      Role: 'Subject Matter Expert',
       SourceOrg: 'Delivery',
       Active: true
     };
-    await expect(service(stores()).upsertRole(role))
-      .rejects.toEqual(expect.objectContaining({ kind: 'Conflict' }));
+    const saved = await service(listStores).upsertRole(role);
+    expect(saved.Role).toBe('Subject Matter Expert');
   });
 
   it('rejects a second baseline for the same community and measure', async () => {

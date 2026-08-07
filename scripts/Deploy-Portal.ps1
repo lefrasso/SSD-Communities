@@ -95,12 +95,6 @@ Set-PnPField -List 'Charters' -Identity 'Community' -Values @{
     EnforceUniqueValues = $true
 } -UpdateExistingLists -Connection $siteConnection
 
-$rolesList = Get-PnPList -Identity 'Community Roles' -Connection $siteConnection
-$rolesList.ValidationFormula = '=IF([Role]="Family Owner (SME)",NOT(ISBLANK([TimeZone])),TRUE)'
-$rolesList.ValidationMessage = 'Time zone is required for Family Owners.'
-$rolesList.Update()
-Invoke-PnPQuery -Connection $siteConnection
-
 if ($SeedSampleData) {
     & (Join-Path $PSScriptRoot 'Seed-PortalData.ps1') -Connection $siteConnection
 }

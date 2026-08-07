@@ -37,9 +37,8 @@ declare interface IPortalStrings {
   JoinUnavailableLabel: string;
   NoRolesLabel: string;
   NoIpLabel: string;
-  CoverageTitle: string;
-  CoverageCompleteLabel: string;
-  CoverageGapLabel: string;
+  CrossTrainingNoIpLabel: string;
+  AiNoIpLabel: string;
   SecondJoinTitle: string;
   SecondJoinMessage: string;
   ConfirmJoinLabel: string;
@@ -63,7 +62,7 @@ declare interface IPortalStrings {
   AuditLabel: string;
   LeadSignOffLabel: string;
   ProgramManagerSignOffLabel: string;
-  FamilyOwnerSignOffLabel: string;
+  SMESignOffLabel: string;
   NotSignedLabel: string;
   SaveDraftLabel: string;
   SubmitReviewLabel: string;
@@ -99,7 +98,6 @@ declare interface IPortalStrings {
   DetailPageUrlFieldLabel: string;
   DirectoryPageUrlFieldLabel: string;
   MembershipEnabledFieldLabel: string;
-  ExpectedTimeZonesFieldLabel: string;
   ReadinessItemsFieldLabel: string;
 }
 

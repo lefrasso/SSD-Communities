@@ -38,7 +38,6 @@ import {
 import {
   canTransitionCharter,
   filterCommunities,
-  requiresTimeZone,
   validateCharter
 } from './portalLogic';
 import { ITelemetryService, TelemetryService } from './TelemetryService';
@@ -62,7 +61,7 @@ const COMMUNITY_SELECT = [
 ];
 const ROLE_SELECT = [
   'Id', 'Community/Id', 'Person/Id', 'Person/Title', 'Person/EMail', 'Person/Name',
-  'Role', 'TimeZone', 'SourceOrg', 'Active', 'Created', 'Modified',
+  'Role', 'SourceOrg', 'Active', 'Created', 'Modified',
   'Author/Id', 'Author/Title', 'Author/EMail',
   'Editor/Id', 'Editor/Title', 'Editor/EMail'
 ];
@@ -70,8 +69,8 @@ const CHARTER_SELECT = [
   'Id', 'Community/Id', 'InteractionModel', 'Cadence', 'ReadinessPlan',
   'LaunchReadiness', 'Status', 'SignOffLead/Id', 'SignOffLead/Title', 'SignOffLead/EMail',
   'SignOffLeadDate', 'SignOffPM/Id', 'SignOffPM/Title', 'SignOffPM/EMail',
-  'SignOffPMDate', 'SignOffFamilyOwner/Id', 'SignOffFamilyOwner/Title',
-  'SignOffFamilyOwner/EMail', 'SignOffFamilyOwnerDate', 'CharterVersion',
+  'SignOffPMDate', 'SignOffSME/Id', 'SignOffSME/Title',
+  'SignOffSME/EMail', 'SignOffSMEDate', 'CharterVersion',
   'Created', 'Modified', 'Author/Id', 'Author/Title', 'Author/EMail',
   'Editor/Id', 'Editor/Title', 'Editor/EMail'
 ];
@@ -249,7 +248,7 @@ export class PortalDataService implements IPortalDataService {
         const query = this.sp.web.lists.getByTitle(LISTS.charters).items
           .select(...CHARTER_SELECT)
           .expand(
-            'Community', 'SignOffLead', 'SignOffPM', 'SignOffFamilyOwner',
+            'Community', 'SignOffLead', 'SignOffPM', 'SignOffSME',
             'Author', 'Editor'
           )
           .filter(`CommunityId eq ${communityId}`)
@@ -357,14 +356,10 @@ export class PortalDataService implements IPortalDataService {
 
   public upsertRole(role: ICommunityRole): Promise<ICommunityRole> {
     return this.execute(SERVICE_STRINGS.roleSave, async () => {
-      if (requiresTimeZone(role) && !role.TimeZone) {
-        throw new PortalError('Conflict', SERVICE_STRINGS.ownerTimeZone);
-      }
       const payload: Record<string, unknown> = {
         CommunityId: role.CommunityId,
         PersonId: personId(role.Person),
         Role: role.Role,
-        TimeZone: role.TimeZone,
         SourceOrg: role.SourceOrg,
         Active: role.Active
       };
@@ -475,8 +470,8 @@ export class PortalDataService implements IPortalDataService {
       SignOffLeadDate: charter.SignOffLeadDate || null,
       SignOffPMId: personId(charter.SignOffPM),
       SignOffPMDate: charter.SignOffPMDate || null,
-      SignOffFamilyOwnerId: personId(charter.SignOffFamilyOwner),
-      SignOffFamilyOwnerDate: charter.SignOffFamilyOwnerDate || null,
+      SignOffSMEId: personId(charter.SignOffSME),
+      SignOffSMEDate: charter.SignOffSMEDate || null,
       CharterVersion: charter.CharterVersion
     };
   }
