@@ -47,9 +47,6 @@ const state = {
   view: 'overview',
   selectedCommunity: 'azure',
   joined: new Set(['azure']),
-  search: '',
-  family: '',
-  role: '',
   period: 'Q2 FY27'
 };
 
@@ -379,42 +376,12 @@ function renderRoadmap() {
 }
 
 function renderDirectory() {
-  const families = [...new Set(data.communities.map((item) => item.serviceFamily))];
-  const roles = [...new Set(data.communities.flatMap((item) => item.targetRoles))];
-  const search = state.search.trim().toLowerCase();
-  const visible = data.communities.filter((community) => {
-    const haystack = `${community.title} ${community.serviceFamily} ${community.scopeInScope}`.toLowerCase();
-    return (!search || haystack.includes(search)) &&
-      (!state.family || community.serviceFamily === state.family) &&
-      (!state.role || community.targetRoles.includes(state.role));
-  });
-
   app.innerHTML = pageHeader('Technical community directory', 'Find the one community where your interests and delivery work can create the greatest value.', `<span class="badge">${playbook.communities.length} governed communities</span>`) + `
     <div class="context-strip">
       <div><strong>Choose for genuine interest</strong><span>${escapeHtml(playbook.singleCommunityPrinciple)}</span></div>
       <button class="text-action" type="button" data-view="portfolio">Understand the eight-community model →</button>
     </div>
-    <div class="controls" role="search">
-      <div class="field">
-        <label for="search">Search</label>
-        <input id="search" type="search" value="${escapeHtml(state.search)}" placeholder="Community or scope">
-      </div>
-      <div class="field">
-        <label for="family">Service family</label>
-        <select id="family">
-          <option value="">All service families</option>
-          ${families.map((value) => `<option ${state.family === value ? 'selected' : ''}>${escapeHtml(value)}</option>`).join('')}
-        </select>
-      </div>
-      <div class="field">
-        <label for="role">Target role</label>
-        <select id="role">
-          <option value="">All target roles</option>
-          ${roles.map((value) => `<option ${state.role === value ? 'selected' : ''}>${escapeHtml(value)}</option>`).join('')}
-        </select>
-      </div>
-    </div>
-    ${visible.length ? `<div class="cards">${visible.map((community) => `
+    <div class="cards">${data.communities.map((community) => `
       <article class="card">
         <div class="card-body">
           <span class="muted">${escapeHtml(community.category)} · ${escapeHtml(community.serviceFamily)}</span>
@@ -426,21 +393,7 @@ function renderDirectory() {
             <button class="button-secondary" type="button" data-open-community="${community.key}">View community</button>
           </div>
         </div>
-      </article>`).join('')}</div>` : '<div class="surface empty">No communities match the current filters.</div>'}`;
-
-  document.getElementById('search').addEventListener('input', (event) => {
-    state.search = event.target.value;
-    renderDirectory();
-    document.getElementById('search').focus();
-  });
-  document.getElementById('family').addEventListener('change', (event) => {
-    state.family = event.target.value;
-    renderDirectory();
-  });
-  document.getElementById('role').addEventListener('change', (event) => {
-    state.role = event.target.value;
-    renderDirectory();
-  });
+      </article>`).join('')}</div>`;
 }
 
 function renderDetail() {
