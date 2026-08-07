@@ -17,10 +17,8 @@ function sampleMetrics(index) {
 const data = {
   communities: playbook.communities,
   roles: playbook.communities.flatMap((community) => [
-    { communityKey: community.key, name: 'Community Lead', role: 'Accountable lead', zone: 'Nomination required' },
-    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'ATZ alignment' },
-    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'EMEA alignment' },
-    { communityKey: community.key, name: 'Family Owner', role: 'Subject Matter Expert', zone: 'ASIA alignment' }
+    { communityKey: community.key, name: 'Community Lead', role: '1 accountable position', status: 'Nomination required' },
+    { communityKey: community.key, name: 'Subject Matter Expert', role: '1–5 positions, based on community needs', status: 'Nomination required' }
   ]),
   ipCatalog: playbook.communities.flatMap((community) => community.alignedIps.map((title) => ({
     title,
@@ -29,16 +27,7 @@ const data = {
       ? 'Common capability or reusable core curated across all domain communities.'
       : 'Delivery IP aligned to this community and reviewed at each quarterly checkpoint.'
   }))),
-  metrics: Object.fromEntries(playbook.communities.map((community, index) => [community.key, sampleMetrics(index)])),
-  retirements: [
-    { title: 'Legacy Azure delivery DL', disposition: 'Migrate', target: 'azure', completed: false },
-    { title: 'Security practitioner chat', disposition: 'Merge', target: 'security', completed: true },
-    { title: 'Application modernisation forum', disposition: 'Migrate', target: 'modern-apps', completed: false },
-    { title: 'Copilot adoption broadcast list', disposition: 'Merge', target: 'm365', completed: true },
-    { title: 'Power Platform office hours channel', disposition: 'Migrate', target: 'd365', completed: false },
-    { title: 'Cross-solution readiness forum', disposition: 'Merge', target: 'cross-training', completed: true },
-    { title: 'Internal AI learning group', disposition: 'Migrate', target: 'ai', completed: false }
-  ]
+  metrics: Object.fromEntries(playbook.communities.map((community, index) => [community.key, sampleMetrics(index)]))
 };
 
 const charter = {
@@ -49,9 +38,9 @@ const charter = {
   version: '1.0',
   readiness: new Set([
     'Theme and scope are approved, with overlap reviewed',
-    'Community Lead and time-zone Family Owners are named'
+    'Community Lead and one to five Subject Matter Experts are nominated'
   ]),
-  signatures: { Lead: false, 'Program Manager': false, 'Family Owner': false }
+  signatures: { 'Community Lead': false, 'Program Manager': false, 'Subject Matter Expert': false }
 };
 
 const state = {
@@ -61,8 +50,7 @@ const state = {
   search: '',
   family: '',
   role: '',
-  period: 'Q2 FY27',
-  disposition: ''
+  period: 'Q2 FY27'
 };
 
 const app = document.getElementById('app');
@@ -145,7 +133,7 @@ function renderOverview() {
 
     <section class="section">
       <div class="section-heading">
-        <div><div class="section-kicker">Three objectives</div><h2>What success must achieve</h2></div>
+        <div><div class="section-kicker">Four objectives</div><h2>What success must achieve</h2></div>
         <p>Every activity and measure should trace back to one of these outcomes.</p>
       </div>
       <div class="objective-grid">
@@ -249,7 +237,7 @@ function renderPortfolio() {
         <tbody>${playbook.communities.map((community) => `<tr>
           <td><strong>${escapeHtml(community.title)}</strong><div class="muted">${escapeHtml(community.category)}</div></td>
           <td>${community.alignedIps.length ? `<div class="tag-row">${community.alignedIps.map((ip) => `<span>${escapeHtml(ip)}</span>`).join('')}</div>` : '<span class="no-offerings">No offerings aligned</span>'}</td>
-          <td>${community.internalOnly ? 'Internal AI readiness; no offering ownership' : community.crossCommunity ? 'Common core and horizontal practice' : 'Domain-specific ownership and variant'}</td>
+          <td>${community.internalOnly ? 'Internal AI readiness; no offering ownership' : community.key === 'cross-training' ? 'Delivery Excellence; no offering ownership' : 'Domain-specific ownership and variant'}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </section>`;
@@ -354,8 +342,8 @@ function renderActivation() {
 
 function renderRoadmap() {
   app.innerHTML = pageHeader(
-    'Roadmap, risks and reference',
-    'The FY27 delivery sequence, evidence checkpoints, principal risks and shared vocabulary for the programme.'
+    'Roadmap and risk management',
+    'The FY27 delivery sequence, evidence checkpoints and principal risks for the programme.'
   ) + `
     <section class="section">
       <div class="section-heading">
@@ -386,15 +374,6 @@ function renderRoadmap() {
           <span>R${index + 1}</span>
           <div><h3>${escapeHtml(item.risk)}</h3><p>${escapeHtml(item.consequence)}</p><strong>Mitigation</strong><p>${escapeHtml(item.mitigation)}</p></div>
         </article>`).join('')}
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <div><div class="section-kicker">Shared vocabulary</div><h2>Playbook definitions</h2></div>
-      </div>
-      <div class="glossary">
-        ${playbook.glossary.map((item) => `<details><summary>${escapeHtml(item.term)}</summary><p>${escapeHtml(item.definition)}</p></details>`).join('')}
       </div>
     </section>`;
 }
@@ -479,6 +458,17 @@ function renderDetail() {
       <div><span class="section-kicker">Target audience</span><div class="tag-row">${community.targetRoles.map((role) => `<span>${escapeHtml(role)}</span>`).join('')}</div></div>
       <div><span class="section-kicker">Membership principle</span><p>${escapeHtml(playbook.singleCommunityPrinciple)}</p></div>
     </div>
+    <section class="section detail-purpose">
+      <div>
+        <div class="section-kicker">Purpose and value</div>
+        <h2>Why this community exists</h2>
+        <p class="lead-copy">${escapeHtml(community.purpose)}</p>
+      </div>
+      <aside class="surface outcome-panel">
+        <h3>Expected outcomes</h3>
+        ${renderBulletList(community.outcomes)}
+      </aside>
+    </section>
     <section class="section">
       <h2>Scope</h2>
       <div class="two-column">
@@ -488,16 +478,17 @@ function renderDetail() {
     </section>
     <section class="section">
       <h2>Community roles</h2>
+      <p class="section-intro">Each community has one accountable Community Lead and between one and five Subject Matter Experts. All appointments are based on nomination and community need.</p>
       <div class="surface">
         ${roles.length ? `<ul class="role-list">${roles.map((role) => `
-          <li><strong>${escapeHtml(role.name)}</strong><span>${escapeHtml(role.role)}</span><span class="muted">${escapeHtml(role.zone)}</span></li>`).join('')}</ul>` : '<p class="muted">No role holders are recorded.</p>'}
+          <li><strong>${escapeHtml(role.name)}</strong><span>${escapeHtml(role.role)}</span><span class="muted">${escapeHtml(role.status)}</span></li>`).join('')}</ul>` : '<p class="muted">No role holders are recorded.</p>'}
       </div>
     </section>
     <section class="section">
       <h2>Owned IP</h2>
-      <p class="section-intro">${community.internalOnly ? 'AI is an internal readiness community. It does not own or align to delivery offerings or IP.' : 'The community curates its focused delivery IP and reviews alignment at each quarterly checkpoint.'}</p>
+      <p class="section-intro">${ips.length ? 'The community connects practitioners to its aligned delivery offerings and provides focused feedback to the relevant IP Leads.' : 'This community does not own or align to delivery offerings or IP.'}</p>
       <div class="surface">
-        ${ips.length ? `<ul class="plain-list">${ips.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><div class="muted">${escapeHtml(item.description)}</div></li>`).join('')}</ul>` : `<p class="muted">${community.internalOnly ? 'No offerings aligned. The community exists to build internal AI readiness and responsible adoption.' : 'No owned IP is recorded.'}</p>`}
+        ${ips.length ? `<ul class="plain-list">${ips.map((item) => `<li><strong>${escapeHtml(item.title)}</strong><div class="muted">${escapeHtml(item.description)}</div></li>`).join('')}</ul>` : `<p class="muted">${escapeHtml(community.noOfferingsMessage || 'No offerings aligned.')}</p>`}
       </div>
     </section>
     <section class="section">
@@ -541,7 +532,7 @@ function renderCharter() {
   const readOnly = charter.status === 'Signed off';
   app.innerHTML = pageHeader(
     'Community charter',
-    `${community.title} working model, launch readiness, and three-way sign-off.`,
+    `${community.title} working model, launch readiness and three-way sign-off by the Program Manager, Community Lead and one nominated SME.`,
     `<span class="badge ${readOnly ? 'green' : ''}">${charter.status}</span>`
   ) + `
     <div class="context-strip">
@@ -632,42 +623,6 @@ function renderHealth() {
   });
 }
 
-function renderRetirement() {
-  const visible = data.retirements.filter((item) => !state.disposition || item.disposition === state.disposition);
-  const completed = data.retirements.filter((item) => item.completed).length;
-  const ratio = completed / data.retirements.length;
-  app.innerHTML = pageHeader('Forum retirement register', 'Reduce overload by deliberately consolidating the forums the eight governed communities replace.') + `
-    <div class="overload-statement">
-      <div><div class="section-kicker">Why this register exists</div><h2>Consolidation is a deliverable</h2><p>${escapeHtml(playbook.overload.statement)}</p></div>
-      <strong>${escapeHtml(playbook.overload.target)}</strong>
-    </div>
-    <div class="disposition-grid">
-      ${playbook.overload.dispositions.map((item) => `<article><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></article>`).join('')}
-    </div>
-    <div class="progress-band">
-      <div><div class="progress-value">${completed} / ${data.retirements.length}</div><span class="muted">Forums completed</span></div>
-      <div><div class="progress-track"><span style="width:${ratio * 100}%"></span></div><div class="muted" style="margin-top:6px">${Math.round(ratio * 100)}%</div></div>
-    </div>
-    <div class="register-toolbar">
-      <div class="field" style="min-width:220px"><label for="disposition">Disposition</label><select id="disposition"><option value="">All dispositions</option>${['Migrate', 'Merge', 'Close'].map((value) => `<option ${state.disposition === value ? 'selected' : ''}>${value}</option>`).join('')}</select></div>
-      <button class="button" type="button" data-action="add-forum">Add forum</button>
-    </div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Forum</th><th>Disposition</th><th>Target community</th><th>State</th><th></th></tr></thead>
-      <tbody>${visible.map((item) => `<tr>
-        <td>${escapeHtml(item.title)}</td>
-        <td>${escapeHtml(item.disposition)}</td>
-        <td>${escapeHtml(communityByKey(item.target).title)}</td>
-        <td><span class="badge ${item.completed ? 'green' : 'warning'}">${item.completed ? 'Completed' : 'Pending'}</span></td>
-        <td><button class="button-secondary" type="button" data-toggle-retirement="${escapeHtml(item.title)}">${item.completed ? 'Reopen' : 'Complete'}</button></td>
-      </tr>`).join('')}</tbody>
-    </table></div>`;
-  document.getElementById('disposition').addEventListener('change', (event) => {
-    state.disposition = event.target.value;
-    renderRetirement();
-  });
-}
-
 const renderers = {
   overview: renderOverview,
   portfolio: renderPortfolio,
@@ -678,8 +633,7 @@ const renderers = {
   detail: renderDetail,
   mine: renderMine,
   charter: renderCharter,
-  health: renderHealth,
-  retirement: renderRetirement
+  health: renderHealth
 };
 
 function render() {
@@ -734,10 +688,6 @@ document.addEventListener('click', (event) => {
       Object.keys(charter.signatures).forEach((role) => { charter.signatures[role] = false; });
       notify('Charter returned to Draft.');
       renderCharter();
-    } else if (action === 'add-forum') {
-      data.retirements.push({ title: `Legacy forum ${data.retirements.length + 1}`, disposition: 'Migrate', target: state.selectedCommunity, completed: false });
-      notify('Forum added to the register.');
-      renderRetirement();
     }
     return;
   }
@@ -750,13 +700,6 @@ document.addEventListener('click', (event) => {
     return;
   }
 
-  const retirementButton = event.target.closest('[data-toggle-retirement]');
-  if (retirementButton) {
-    const item = data.retirements.find((candidate) => candidate.title === retirementButton.dataset.toggleRetirement);
-    item.completed = !item.completed;
-    notify(item.completed ? 'Forum marked complete.' : 'Forum reopened.');
-    renderRetirement();
-  }
 });
 
 document.addEventListener('submit', (event) => {
