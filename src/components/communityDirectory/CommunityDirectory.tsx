@@ -2,8 +2,7 @@ import * as React from 'react';
 import {
   DefaultButton,
   Dropdown,
-  IDropdownOption,
-  SearchBox
+  IDropdownOption
 } from '@fluentui/react';
 import * as strings from 'PortalStrings';
 import { CommunityStatus, ICommunity } from '../../models';
@@ -25,12 +24,6 @@ export interface ICommunityDirectoryProps {
 
 const STATUS_OPTIONS: CommunityStatus[] = ['Proposed', 'Chartered', 'Active', 'Merged', 'Retired'];
 
-function uniqueOptions(values: string[]): IDropdownOption[] {
-  return Array.from(new Set(values.filter(Boolean)))
-    .sort((left, right) => left.localeCompare(right))
-    .map((value) => ({ key: value, text: value }));
-}
-
 export function buildCommunityDetailUrl(baseUrl: string, communityId: number): string {
   const target = baseUrl.trim() || window.location.pathname;
   return `${target}${target.indexOf('?') >= 0 ? '&' : '?'}communityId=${communityId}`;
@@ -38,9 +31,6 @@ export function buildCommunityDetailUrl(baseUrl: string, communityId: number): s
 
 export function CommunityDirectory(props: ICommunityDirectoryProps): React.ReactElement {
   const communities = useAsyncData(() => props.data.getCommunities(), [props.data]);
-  const [searchText, setSearchText] = React.useState('');
-  const [serviceFamily, setServiceFamily] = React.useState<string>();
-  const [targetRole, setTargetRole] = React.useState<string>();
   const [status, setStatus] = React.useState<CommunityStatus>();
 
   React.useEffect(() => {
@@ -55,21 +45,7 @@ export function CommunityDirectory(props: ICommunityDirectoryProps): React.React
   }
 
   const allCommunities = communities.data || [];
-  const visible = filterCommunities(allCommunities, {
-    searchText,
-    serviceFamily,
-    role: targetRole,
-    status
-  });
-  const familyOptions: IDropdownOption[] = [
-    { key: '', text: strings.AllFamiliesLabel },
-    ...uniqueOptions(allCommunities.map((community) => community.ServiceFamily))
-  ];
-  const roleOptions: IDropdownOption[] = [
-    { key: '', text: strings.AllRolesLabel },
-    ...uniqueOptions(allCommunities.reduce<string[]>((values, community) =>
-      values.concat(community.TargetRoles || []), []))
-  ];
+  const visible = filterCommunities(allCommunities, { status });
   const statusOptions: IDropdownOption[] = [
     { key: '', text: strings.AllStatusesLabel },
     ...STATUS_OPTIONS.map((value) => ({ key: value, text: value }))
@@ -79,23 +55,6 @@ export function CommunityDirectory(props: ICommunityDirectoryProps): React.React
     <main className={styles.portal}>
       <PortalHeader title={strings.DirectoryTitle} subtitle={strings.DirectorySubtitle} />
       <div className={styles.toolbar} role="search" aria-label={strings.DirectoryTitle}>
-        <SearchBox
-          placeholder={strings.SearchPlaceholder}
-          value={searchText}
-          onChange={(_, value) => setSearchText(value || '')}
-        />
-        <Dropdown
-          label={strings.FamilyFilterLabel}
-          selectedKey={serviceFamily || ''}
-          options={familyOptions}
-          onChange={(_, option) => setServiceFamily(String(option?.key || '') || undefined)}
-        />
-        <Dropdown
-          label={strings.RoleFilterLabel}
-          selectedKey={targetRole || ''}
-          options={roleOptions}
-          onChange={(_, option) => setTargetRole(String(option?.key || '') || undefined)}
-        />
         <Dropdown
           label={strings.StatusFilterLabel}
           selectedKey={status || ''}

@@ -13,12 +13,7 @@ declare interface IPortalStrings {
   EditLabel: string;
   DirectoryTitle: string;
   DirectorySubtitle: string;
-  SearchPlaceholder: string;
-  FamilyFilterLabel: string;
-  RoleFilterLabel: string;
   StatusFilterLabel: string;
-  AllFamiliesLabel: string;
-  AllRolesLabel: string;
   AllStatusesLabel: string;
   ViewCommunityLabel: string;
   CrossCommunityLabel: string;
